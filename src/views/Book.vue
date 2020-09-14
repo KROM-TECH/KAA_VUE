@@ -7,7 +7,11 @@
             <h1>
               <span class="text-primary">Kromtech Academic Archive</span>
             </h1>
-            <p class="lead text-gray-700">We currently have {{ NumBook }} in the Archive but you can view only 15. <a href="http://jombo.com">Learn More</a></p>
+            <p class="lead text-gray-700">We currently have {{ NumBook }} in the Archive but you can view only 15. <a id="tooltip-target-1">Learn More</a>
+            <b-tooltip target="tooltip-target-1" triggers="click"> I am tooltip <b>component</b> content! </b-tooltip>
+            </p>
+            <!-- Learn More Modal ==========================================-->
+            
           </b-col>
         </b-row>
 
@@ -47,7 +51,19 @@
                 <b-th colspan="1">Semester</b-th>
                 <b-th colspan="1">Uploader</b-th>
               </b-tr>
+              <b-tr :hidden="hidden">
+                <b-td><b-spinner type="grow" label="Loading..."></b-spinner></b-td>
+                <b-td><b-spinner type="grow" label="Loading..."></b-spinner></b-td>
+                <b-td><b-spinner type="grow" label="Loading..."></b-spinner></b-td>
+                <b-td><b-spinner type="grow" label="Loading..."></b-spinner></b-td>
+                <b-td><b-spinner type="grow" label="Loading..."></b-spinner></b-td>
+                <b-td><b-spinner type="grow" label="Loading..."></b-spinner></b-td>
+                <b-td><b-spinner type="grow" label="Loading..."></b-spinner></b-td>
+                <b-td><b-spinner type="grow" label="Loading..."></b-spinner></b-td>
+                <b-td><b-spinner type="grow" label="Loading..."></b-spinner></b-td>
+              </b-tr>
             </b-thead>
+
             <b-tbody class="tbodyData"> </b-tbody>
           </b-table-simple>
         </div>
@@ -68,7 +84,9 @@
         NumBook: '',
         selected: 'Search by',
         placeholder: '',
-        searchInput: ''
+        searchInput: '',
+        hidden: false,
+        modalShow: false
       };
     },
 
@@ -85,6 +103,7 @@
             .child('books/' + `${document.book}`)
             .getDownloadURL()
             .then((url) => {
+              this.hidden = true;
               let tableRow = ``;
               tableRow += `<tr class="rolling" >`;
               tableRow += `<td class="book"><a href=${url}; download=${document.bookName} target='_blank'><i class="fa fa-arrow-down"  style="color:green"></i> </a></td>`;
@@ -116,6 +135,7 @@
       },
       searchButton() {
         document.querySelector('.tbodyData').innerHTML = '';
+        this.hidden = false;
         const booksRef = firebase.firestore().collection('books');
         const searchValue = this.searchInput;
 
@@ -177,4 +197,14 @@
   };
 </script>
 
-<style scoped></style>
+<style scoped>
+  .spinner {
+    margin: 10px auto 0;
+    width: 70px;
+    text-align: center;
+  }
+  a {
+    color: #335eea !important;
+    cursor: pointer;
+  }
+</style>
