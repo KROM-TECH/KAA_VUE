@@ -13,7 +13,7 @@
 
         <b-row align-h="center" class="my-3 px-2">
           <b-input-group>
-            <b-form-input :placeholder="placeholder"></b-form-input>
+            <b-form-input :placeholder="placeholder" :disabled="selected == 'Search by'"></b-form-input>
 
             <template v-slot:append>
               <b-dropdown text="Search By" class="btn-primary-soft" variant="outline-success">
@@ -37,6 +37,7 @@
           <b-table-simple class="table table-striped">
             <b-thead class="thead-inverse">
               <b-tr>
+                <b-th colspan="1">Dw</b-th>
                 <b-th colspan="1">Book Name</b-th>
                 <b-th colspan="1">Book Author</b-th>
                 <b-th colspan="1">University</b-th>
@@ -63,7 +64,7 @@
   export default {
     data() {
       return {
-        NumBook: '18',
+        NumBook: '',
         selected: 'Search by',
         placeholder: ''
       };
@@ -79,18 +80,19 @@
           .firestore()
           .collection('books')
           .get()
-          .then(function(querySnapshot) {
+          .then((querySnapshot) => {
+            this.NumBook = querySnapshot.size;
             const storageReference = firebase.storage().ref();
-            console.log(querySnapshot.docs.data);
-            querySnapshot.forEach(function(doc) {
+            querySnapshot.forEach((doc)=> {
               const document = doc.data();
               storageReference
                 .child('books/' + `${document.book}`)
                 .getDownloadURL()
                 .then((url) => {
                   let tableRow = ``;
-                  tableRow += `<a href=${url}; download=${document.bookName}>`;
-                  tableRow += `<tr>`;
+
+                  tableRow += `<tr class="rolling" >`;
+                 tableRow += `<td class="book"><a href=${url}; download=${document.bookName}><i class="fa fa-arrow-down"  style="color:green"></i> </a></td>`;
                   tableRow += `<td class="bookName"> ${document.bookName}</td>`;
                   tableRow += `<td class="bookAuthor"> ${document.bookAuthor}</td>`;
                   tableRow += `<td class="university"> ${document.university}</td>`;
@@ -100,19 +102,19 @@
                   tableRow += `<td class="semester"> ${document.semester} </td>`;
                   tableRow += `<td class="uploader"> ${document.uploader}</td>`;
                   tableRow += `</tr>`;
-                  tableRow += `</a>`;
+
                   table.innerHTML += tableRow;
                 })
-                .catch((error) => {
+                             .catch((error) => {
                   console.log(error);
                 });
-            });
+            })
           });
       }
     },
 
-    created(){
-      this.loadTable()
+    mounted() {
+      this.loadTable();
     }
   };
 </script>
