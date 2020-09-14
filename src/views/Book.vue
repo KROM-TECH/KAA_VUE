@@ -1,86 +1,120 @@
 <template>
   <div>
-      <section class="pt-4 pt-md-11">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-12 col-md-10 col-lg-8 text-center">
+    <section class="pt-4 pt-md-11">
+      <b-container>
+        <b-row align-h="center" class="font text-center">
+          <b-col>
+            <h1>
+              <span class="text-primary">Kromtech Academic Archive</span>
+            </h1>
+            <p class="lead text-gray-700">We currently have {{ NumBook }} in the Archive but you can view only 15. <a href="http://jombo.com">Learn More</a></p>
+          </b-col>
+        </b-row>
 
-          <!-- Heading -->
-          <h1>
-            <span class="text-primary">Kromtech Academic Archive</span>
-          </h1>
+        <b-row align-h="center" class="my-3 px-2">
+          <b-input-group>
+            <b-form-input :placeholder="placeholder"></b-form-input>
 
-          <!-- Text -->
-          <p class="lead text-gray-700">
-            Below are the list of all our books in the archive
-          </p>
+            <template v-slot:append>
+              <b-dropdown text="Search By" class="btn-primary-soft" variant="outline-success">
+                <template v-slot:button-content>
+                  {{ selected }}
+                </template>
+                <b-dropdown-item @click="dropdown('Uploader')">Uploader</b-dropdown-item>
+                <b-dropdown-item @click="dropdown('University')">University</b-dropdown-item>
+                <b-dropdown-item @click="dropdown('Book Name')">Book Name</b-dropdown-item>
+                <b-dropdown-item @click="dropdown('Book Author')">Book Author</b-dropdown-item>
+                <b-dropdown-item @click="dropdown('Faculty')">Faculty</b-dropdown-item>
+                <b-dropdown-item @click="dropdown('Department')">Department</b-dropdown-item>
+              </b-dropdown>
+              <b-button class="btn-primary-soft" variant="outline-primary">Search</b-button>
+            </template>
+          </b-input-group>
+        </b-row>
+
+        <div style="overflow-x: auto;">
+          <!-- <b-table striped hover :items="items" :fields="fields" ></b-table> -->
+          <b-table-simple class="table table-striped">
+            <b-thead class="thead-inverse">
+              <b-tr>
+                <b-th colspan="1">Book Name</b-th>
+                <b-th colspan="1">Book Author</b-th>
+                <b-th colspan="1">University</b-th>
+                <b-th colspan="1">Faculty</b-th>
+                <b-th colspan="1">Department</b-th>
+                <b-th colspan="1">Level</b-th>
+                <b-th colspan="1">Semester</b-th>
+                <b-th colspan="1">Uploader</b-th>
+              </b-tr>
+            </b-thead>
+            <b-tbody class="tbodyData"> </b-tbody>
+          </b-table-simple>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="container">
-    <div class="row scrollx text-center mb-5" style="overflow-x: scroll; display: flex; align-items: center;" id="style-7">
-
-      <!-- input to seach for an employee -->
-      <input class="btn primary " placeholder="Enter Search Keywords " style="margin-bottom: 5rem;" id="searchArchive">
-
-      <!-- Filters drop down -->
-      <div class="dropdown " style="width: 100%;">
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-          style="z-index: 10 !important; margin-bottom: 4rem;" aria-haspopup="true" aria-expanded="false"
-          id="searchFilter">
-          Search by
-        </button>
-        <div class="dropdown-menu" id="dropDown">
-          <a class="dropdown-item" id="searchUploader">Uploader</a>
-          <a class="dropdown-item" id="searchUniversity">University</a>
-          <a class="dropdown-item" id="searcBookName">Book Name</a>
-          <a class="dropdown-item" id="searchBookAuthor">Book Author</a>
-          <a class="dropdown-item" id="searchFaculty">Faculty</a>
-          <a class="dropdown-item" id="searchDepartment">Department</a>
-        </div>
-      </div>
-
-
-    </div>
-
-    <div class="container mt-2" style="overflow-x: scroll;  font-size: 0.9rem;" id="style-7">
-
-       <table class="table table-striped">
-        <thead class="thead-inverse">
-          <tr>
-            <th scope="col">Dw</th>
-            <th scope="col">Book Name</th>
-            <th scope="col">Book Author</th>
-            <th scope="col">University</th>
-            <th scope="col">Faculty</th>
-            <th scope="col">Department</th>
-            <th scope="col">Level</th>
-            <th scope="col">Semester</th>
-            <th scope="col">Uploader</th>
-          </tr>
-        </thead>
-        <tbody class="tbodyData">      
-        </tbody>    
-      </table>
-                    <div class="spinner">
-                      <div class="bounce1"></div>
-                      <div class="bounce2"></div>
-                      <div class="bounce3"></div>
-                    </div>
-    </div>
-
-   </div>
-   </div>
+      </b-container>
+    </section>
+  </div>
 </template>
 
 <script>
-export default {
+  import firebase from 'firebase/app';
+  import 'firebase/auth';
+  import 'firebase/firestore';
+  import 'firebase/storage';
+  export default {
+    data() {
+      return {
+        NumBook: '18',
+        selected: 'Search by',
+        placeholder: ''
+      };
+    },
 
-}
+    methods: {
+      dropdown(x) {
+        this.selected = x;
+      },
+      loadTable() {
+        const table = document.querySelector('.tbodyData');
+        firebase
+          .firestore()
+          .collection('books')
+          .get()
+          .then(function(querySnapshot) {
+            const storageReference = firebase.storage().ref();
+            console.log(querySnapshot.docs.data);
+            querySnapshot.forEach(function(doc) {
+              const document = doc.data();
+              storageReference
+                .child('books/' + `${document.book}`)
+                .getDownloadURL()
+                .then((url) => {
+                  let tableRow = ``;
+                  tableRow += `<a href=${url}; download=${document.bookName}>`;
+                  tableRow += `<tr>`;
+                  tableRow += `<td class="bookName"> ${document.bookName}</td>`;
+                  tableRow += `<td class="bookAuthor"> ${document.bookAuthor}</td>`;
+                  tableRow += `<td class="university"> ${document.university}</td>`;
+                  tableRow += `<td class="faculty"> ${document.faculty} </td>`;
+                  tableRow += `<td class="department"> ${document.department} </td>`;
+                  tableRow += `<td class="level"> ${document.level} </td>`;
+                  tableRow += `<td class="semester"> ${document.semester} </td>`;
+                  tableRow += `<td class="uploader"> ${document.uploader}</td>`;
+                  tableRow += `</tr>`;
+                  tableRow += `</a>`;
+                  table.innerHTML += tableRow;
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
+            });
+          });
+      }
+    },
+
+    created(){
+      this.loadTable()
+    }
+  };
 </script>
 
-<style>
-
-</style>
+<style scoped></style>
