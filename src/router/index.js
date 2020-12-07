@@ -1,7 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
-import Book from "../views/Book.vue";
+import Home from "@/views/Home.vue";
+const Book= () => import("@/views/Book.vue");
+const Video= () => import("@/views/Video.vue");
 
 
 Vue.use(VueRouter);
@@ -16,6 +17,11 @@ const routes = [
     path: "/book",
     name: "Book",
     component: Book
+  },
+  {
+    path: "/video",
+    name: "Video",
+    component: Video
   },
  
 ];

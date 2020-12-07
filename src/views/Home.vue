@@ -61,6 +61,14 @@ export default {
 </script>
 
 <style scoped>
+.fa {
+  color: #00276f !important;
+  font-size: 1.5rem;
+}
+.px-12 {
+  padding: 0px 2rem;
+}
+
 .display-7 {
   font-size: 2.35rem;
   font-weight: 550;
@@ -76,9 +84,7 @@ export default {
   word-spacing: 3px;
   line-height: 1.9rem;
 }
-.px-12 {
-  padding: 0px 2rem;
-}
+
 .btn {
   height: 45px;
   width: 8rem;
@@ -89,6 +95,12 @@ export default {
   outline: none;
   border: none;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+@media (max-width: 1000px) {
+  .btn {
+    width: 7rem;
+    margin: 10px 4px;
+  }
 }
 .btn:hover {
   background-color: #ffffff36;

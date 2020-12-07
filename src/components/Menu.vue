@@ -12,15 +12,15 @@
           <img src="@/assets/menu/chrome_reader_mode.svg" class="res-img" alt="" />
           <p v-if="expand" class="text">Books</p>
         </router-link>
-        <router-link class="box" to="/home" style="margin: 1rem;">
+        <router-link class="box" to="/video" style="margin: 1rem;">
           <img src="@/assets/menu/Subtract.svg" class="res-img" alt="" />
           <p v-if="expand" class="text">Videos</p>
         </router-link>
-        <router-link class="box" to="/home" style="margin: 1rem;">
+        <router-link class="box" to="/article" style="margin: 1rem;">
           <img src="@/assets/menu/Vector.svg" class="res-img" alt="" />
           <p v-if="expand" class="text">Articles</p>
         </router-link>
-        <router-link class="box" to="/home" style="margin: 1rem;">
+        <router-link class="box" to="/tag" style="margin: 1rem;">
           <img src="@/assets/menu/tag.svg" class="res-img" alt="" />
           <p v-if="expand" class="text">Tags</p>
         </router-link>
@@ -32,7 +32,28 @@
       </div>
     </div>
 
-    <div class="nav"></div>
+    <div class="nav">
+      <router-link to="/" class="box">
+        <img src="@/assets/menu/Group.svg" class="res-img" alt="" />
+      </router-link>
+
+      <router-link class="box" to="/book">
+        <img src="@/assets/menu/chrome_reader_mode.svg" class="res-img" alt="" />
+      </router-link>
+      <router-link class="box" to="/video">
+        <img src="@/assets/menu/Subtract.svg" class="res-img" alt="" />
+      </router-link>
+      <router-link class="box" to="/article">
+        <img src="@/assets/menu/Vector.svg" class="res-img" alt="" />
+      </router-link>
+      <router-link class="box" to="/tag">
+        <img src="@/assets/menu/tag.svg" class="res-img" alt="" />
+      </router-link>
+
+      <div class="box">
+        <img src="@/assets/menu/backup.svg" class="res-img" alt="" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -93,7 +114,6 @@ a.box.router-link-exact-active.router-link-active {
   margin-left: 12px;
   width: 63px;
 }
-
 .con {
   background-color: #00276f;
   height: 94vh;
@@ -114,8 +134,10 @@ a.box.router-link-exact-active.router-link-active {
     display: none;
   }
 }
-
 .nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
   background-color: #00276f;
   width: 100%;
   height: 48px;
