@@ -1,19 +1,19 @@
 <template>
-  <div class="tw-w-full tw-flex tw-flex-col tw-z-50">
+  <div style="overflow-x:auto; overflow-y: hidden; width:65rem">
     <!-- table loader -->
-    <div class="tw-w-full tw-flex tw-justify-center" v-if="loading">
-      <v-progress-circular :size="40" :width="1" color="purple" indeterminate />
+    <div class="d-flex justify-content-center" v-if="loading">
+      <b-spinner type="grow load" label="Loading..."></b-spinner>
     </div>
 
     <!-- table main section -->
     <div v-else>
       <!-- table heading -->
-      <div class="tw-pl-5 tw-mb-2">
-        <div class="tw-flex w-full">
+      <div class="pl-3 mb-2">
+        <div class="d-flex d-full">
           <div
             v-for="(header, i) in headers"
             :key="i"
-            class="tw-text-sm tw-text-secondary tw-font-semibold"
+            class="header mr-2"
             :style="`width: ${header.width ? header.width : defaultColWidth}%;`"
           >
             <!-- <di></div> -->
@@ -26,25 +26,17 @@
       <div
         v-for="(data, i) in displayTable"
         :key="i"
-        class="card tw-flex tw-flex-col tw-justify-center tw-pl-5 tw-mb-3"
+        class="card d-flex col justify-content-center d-full pl-3 mb-3"
         :style="!tableHeight ? ' height: 55px;' : ''"
       >
-        <div class="tw-flex tw-items-center tw-w-full">
+        <div class="d-flex align-items-center ">
           <!-- checkbox -->
-          <div v-if="checkbox" class="tw--mt-4 tw-flex">
-            <s-checkbox
-              v-model="checked"
-              :value="data"
-              checkboxSize="height:12px; width:12px"
-              labelStyle="font-size:12px; padding-top:8px; color:#525252"
-            />
-          </div>
 
           <!-- main data -->
           <div
             v-for="(value, key) of populateTable(data)"
             :key="key"
-            class="tw-text-accent tw-text-sm tw-font-semibold tw-capitalize"
+            class="mr-2"
             :style="`width: ${getColWidth(key) || defaultColWidth}%;`"
           >
             <slot name="item" :item="{ [key]: key, data }">
@@ -174,6 +166,16 @@ export default {
 </script>
 
 <style scoped>
+.header {
+  color: #00276f !important;
+  font-weight: 600;
+  font-size: 1rem;
+}
+.load {
+  background-color: #00276f !important;
+  height: 3rem !important;
+  width: 3rem !important;
+}
 .user-action:hover {
   background: #ebe5ed;
 }
@@ -189,7 +191,9 @@ export default {
 }
 
 .card {
-  background: #ffffff;
+  /* background: #ffffff; */
+  background: #5976ac;
+
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
   border-radius: 7px;
   /* height: 55px; */

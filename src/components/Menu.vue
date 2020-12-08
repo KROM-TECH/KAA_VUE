@@ -1,37 +1,38 @@
 <template>
   <div @mouseenter="expand = true" @mouseleave="expand = false">
-    <div :class="[expand ? 'awidth' : 'swidth', 'con']">
-      <img src="@/assets/72px.png" alt="" class="img-fluid" />
+    <transition>
+      <div :class="[expand ? 'awidth' : 'swidth', 'con']">
+        <img src="@/assets/72px.png" alt="" class="img-fluid" />
 
-      <div class="links">
-        <router-link class="box" to="/" style="margin: 1rem;">
-          <img src="@/assets/menu/Group.svg" class="res-img" alt="" />
-          <p v-if="expand" class="text">Home</p>
-        </router-link>
-        <router-link class="box" to="/book" style="margin: 1rem;">
-          <img src="@/assets/menu/chrome_reader_mode.svg" class="res-img" alt="" />
-          <p v-if="expand" class="text">Books</p>
-        </router-link>
-        <router-link class="box" to="/video" style="margin: 1rem;">
-          <img src="@/assets/menu/Subtract.svg" class="res-img" alt="" />
-          <p v-if="expand" class="text">Videos</p>
-        </router-link>
-        <router-link class="box" to="/article" style="margin: 1rem;">
-          <img src="@/assets/menu/Vector.svg" class="res-img" alt="" />
-          <p v-if="expand" class="text">Articles</p>
-        </router-link>
-        <router-link class="box" to="/tag" style="margin: 1rem;">
-          <img src="@/assets/menu/tag.svg" class="res-img" alt="" />
-          <p v-if="expand" class="text">Tags</p>
-        </router-link>
+        <div class="links">
+          <router-link class="box" to="/" style="margin: 1rem;">
+            <img src="@/assets/menu/Group.svg" class="res-img" alt="" />
+            <p v-if="expand" class="text">Home</p>
+          </router-link>
+          <router-link class="box" to="/book" style="margin: 1rem;">
+            <img src="@/assets/menu/chrome_reader_mode.svg" class="res-img" alt="" />
+            <p v-if="expand" class="text">Books</p>
+          </router-link>
+          <router-link class="box" to="/video" style="margin: 1rem;">
+            <img src="@/assets/menu/Subtract.svg" class="res-img" alt="" />
+            <p v-if="expand" class="text">Videos</p>
+          </router-link>
+          <router-link class="box" to="/article" style="margin: 1rem;">
+            <img src="@/assets/menu/Vector.svg" class="res-img" alt="" />
+            <p v-if="expand" class="text">Articles</p>
+          </router-link>
+          <router-link class="box" to="/tag" style="margin: 1rem;">
+            <img src="@/assets/menu/tag.svg" class="res-img" alt="" />
+            <p v-if="expand" class="text">Tags</p>
+          </router-link>
+        </div>
+
+        <div class="last box">
+          <img src="@/assets/menu/backup.svg" class="res-img" alt="" />
+          <p v-if="expand" class="text">upload</p>
+        </div>
       </div>
-
-      <div class="last box">
-        <img src="@/assets/menu/backup.svg" class="res-img" alt="" />
-        <p v-if="expand" class="text">upload</p>
-      </div>
-    </div>
-
+    </transition>
     <div class="nav">
       <router-link to="/" class="box">
         <img src="@/assets/menu/Group.svg" class="res-img" alt="" />

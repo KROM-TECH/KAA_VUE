@@ -48,13 +48,49 @@
         </b-row>
 
         <div style="overflow-x: auto;">
+          <div class="d-flex justify-content-center" v-if="!data.length">
+            <b-spinner type="grow load" label="Loading..."></b-spinner>
+          </div>
           <Table
             class="tw-ml-24"
             :loading="loading"
             :headers="headers"
-            :tableData="overtimeRequest"
+            :tableData="data"
             :newDesign="true"
-          />
+            v-else
+          >
+            <template v-slot:item="{ item }">
+              <div v-if="item.url">
+                <a :href="item.data.url" :download="item.data.BN" target="_blank"
+                  ><img src="@/assets/dw.svg" alt="" class="img-fluid" />
+                </a>
+              </div>
+              <div v-else-if="item.BN">
+                {{ item.data.BN | truncate }}
+              </div>
+              <div v-else-if="item.BA">
+                {{ item.data.BA | truncate }}
+              </div>
+              <div v-else-if="item.Uni">
+                {{ item.data.Uni | truncate }}
+              </div>
+              <div v-else-if="item.Fac">
+                {{ item.data.Fac | truncate }}
+              </div>
+              <div v-else-if="item.Dep" style="margin-left:10px">
+                {{ item.data.Dep | truncate }}
+              </div>
+              <div v-else-if="item.Lev" style="margin-left:10px">
+                {{ item.data.Lev | truncate }}
+              </div>
+              <div v-else-if="item.Sem" style="margin-left:12px">
+                {{ item.data.Sem | truncate }}
+              </div>
+              <div v-else-if="item.Upl" style="margin-left:12px">
+                {{ item.data.Upl | truncate }}
+              </div>
+            </template>
+          </Table>
         </div>
       </b-container>
     </section>
@@ -77,21 +113,42 @@ export default {
       selected: "Search by",
       placeholder: "",
       searchInput: "",
-      hidden: false,
+      data: [],
       modalShow: false,
-
-      headers:[
-        
-      ]
+      loading: true,
+      headers: [
+        { text: "Dw", value: "url", width: 4 },
+        { text: "Book Name", value: "BN", width: 12 },
+        { text: "Book Author", value: "BA", width: 12 },
+        { text: "University", value: "Uni", width: 12 },
+        { text: "Faculty", value: "Fac", width: 12 },
+        { text: "Department", value: "Dep", width: 12 },
+        { text: "Level", value: "Lev", width: 12 },
+        { text: "Semester", value: "Sem", width: 12 },
+        { text: "Uploader", value: "Upl", width: 12 },
+      ],
     };
+  },
+  filters: {
+    truncate: function(text, length = 24, clamp) {
+      clamp = clamp || "...";
+      var node = document.createElement("div");
+      node.innerHTML = text;
+      var content = node.textContent;
+      return content.length > length ? content.slice(0, length) + clamp : content;
+    },
   },
 
   methods: {
+    // truncate(str, suffix) {
+    //   return str.length < 20
+    //     ? str
+    //     : `${str.substr(0, str.substr(0, 20 - suffix.length).lastIndexOf(" "))}${suffix}`;
+    // },
     dropdown(x) {
       this.selected = x;
     },
     loadTableData(querySnapshot) {
-      const table = document.querySelector(".tbodyData");
       const storageReference = firebase.storage().ref();
       querySnapshot.forEach((doc) => {
         const document = doc.data();
@@ -100,21 +157,20 @@ export default {
           .getDownloadURL()
           .then((url) => {
             console.log(document);
-            this.hidden = true;
-            let tableRow = ``;
-            tableRow += `<tr class="rolling" >`;
-            tableRow += `<td class="book"><a href=${url}; download=${document.bookName} target='_blank'><i class="fa fa-arrow-down"  style="color:green"></i> </a></td>`;
-            tableRow += `<td class="bookName"> ${document.bookName}</td>`;
-            tableRow += `<td class="bookAuthor"> ${document.bookAuthor}</td>`;
-            tableRow += `<td class="university"> ${document.university}</td>`;
-            tableRow += `<td class="faculty"> ${document.faculty} </td>`;
-            tableRow += `<td class="department"> ${document.department} </td>`;
-            tableRow += `<td class="level"> ${document.level} </td>`;
-            tableRow += `<td class="semester"> ${document.semester} </td>`;
-            tableRow += `<td class="uploader"> ${document.uploader}</td>`;
-            tableRow += `</tr>`;
-            table.innerHTML += tableRow;
-          })
+            const content = {
+              url: url,
+              BN: document.bookName,
+              BA: document.bookAuthor,
+              Uni: document.university,
+              Fac: document.faculty,
+              Dep: document.department,
+              Lev: document.level,
+              Sem: document.semester,
+              Upl: document.uploader,
+            };
+            console.log(content);
+            this.data.push(content);
+          }, (this.loading = false))
           .catch((error) => {
             console.log(error);
           });
@@ -131,8 +187,9 @@ export default {
         });
     },
     searchButton() {
-      document.querySelector(".tbodyData").innerHTML = "";
-      this.hidden = false;
+      this.loading = true;
+      this.data = [];
+
       const booksRef = firebase.firestore().collection("books");
       const searchValue = this.searchInput;
 
@@ -185,6 +242,8 @@ export default {
             this.loadTableData(querySnapshot);
           });
       }
+
+      this.loading = false;
     },
   },
 
@@ -195,6 +254,10 @@ export default {
 </script>
 
 <style scoped>
+.img-fluid {
+  height: 20px;
+  width: 20px;
+}
 .form-control {
   width: 60% !important;
   background: #ffffff7a;
@@ -258,5 +321,10 @@ a {
   color: #00276f !important;
   font-weight: 600;
   font-size: 2.5rem;
+}
+.load {
+  background-color: #00276f !important;
+  height: 3rem !important;
+  width: 3rem !important;
 }
 </style>
