@@ -3,6 +3,8 @@ import VueRouter from "vue-router";
 import Home from "@/views/Home.vue";
 const Book= () => import("@/views/Book.vue");
 const Video= () => import("@/views/Video.vue");
+const Article= () => import("@/views/Article.vue");
+const Upload= () => import("@/views/Upload.vue");
 
 
 Vue.use(VueRouter);
@@ -22,6 +24,16 @@ const routes = [
     path: "/video",
     name: "Video",
     component: Video
+  },
+  {
+    path: "/article",
+    name: "Article",
+    component: Article
+  },
+  {
+    path: "/upload",
+    name: "Upload",
+    component: Upload
   },
  
 ];

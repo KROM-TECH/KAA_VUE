@@ -22,15 +22,15 @@
             <p v-if="expand" class="text">Articles</p>
           </router-link>
           <router-link class="box" to="/tag" style="margin: 1rem;">
-            <img src="@/assets/menu/tag.svg" class="res-img" alt="" />
-            <p v-if="expand" class="text">Tags</p>
+            <img src="@/assets/menu/help_center.svg" class="res-img" alt="" />
+            <p v-if="expand" class="text">Help</p>
           </router-link>
         </div>
 
-        <div class="last box">
+        <router-link class="box last" to="/upload" style="margin: 1rem;">
           <img src="@/assets/menu/backup.svg" class="res-img" alt="" />
-          <p v-if="expand" class="text">upload</p>
-        </div>
+          <p v-if="expand" class="text">Upload</p>
+        </router-link>
       </div>
     </transition>
     <div class="nav">
@@ -48,12 +48,11 @@
         <img src="@/assets/menu/Vector.svg" class="res-img" alt="" />
       </router-link>
       <router-link class="box" to="/tag">
-        <img src="@/assets/menu/tag.svg" class="res-img" alt="" />
+        <img src="@/assets/menu/help_center.svg" class="res-img" alt="" />
       </router-link>
-
-      <div class="box">
+      <router-link class="box" to="/upload">
         <img src="@/assets/menu/backup.svg" class="res-img" alt="" />
-      </div>
+      </router-link>
     </div>
   </div>
 </template>
@@ -94,7 +93,7 @@ a.box.router-link-exact-active.router-link-active {
   align-items: center;
 }
 .last {
-  background-color: #7c69ef;
+  /* background-color: #7c69ef; */
   padding: 8px;
   border-radius: 4px;
   cursor: pointer;

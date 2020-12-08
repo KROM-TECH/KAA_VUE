@@ -6,7 +6,7 @@
         <b-row align-h="center" class="font text-center">
           <b-col>
             <h1>
-              <span class="tex-primary">Videos</span>
+              <span class="tex-primary">Article</span>
             </h1>
             <p class="lead text-gray-700">
               We currently have {{ NumBook }} in the Archive but you can view only
@@ -52,7 +52,7 @@
           </div>
 
           <div class="d-flex flex-wrap justify-content-center" v-else>
-            <VideoBox v-for="n in 10" :key="n" :data="n.toString()" />
+            <ArticleBox v-for="n in 10" :key="n" :data="n.toString()" />
           </div>
         </div>
       </b-container>
@@ -66,10 +66,10 @@ import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
 import Menu from "@/components/Menu.vue";
-import VideoBox from "@/components/Videobox.vue";
+import ArticleBox from "@/components/Articlebox.vue";
 
 export default {
-  components: { Menu, VideoBox },
+  components: { Menu, ArticleBox },
   data() {
     return {
       NumBook: "",
