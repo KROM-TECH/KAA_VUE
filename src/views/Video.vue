@@ -9,7 +9,8 @@
               <span class="tex-primary">Videos</span>
             </h1>
             <p class="lead text-gray-700">
-              We currently have {{ NumBook }} in the Archive but you can view only 15.
+              We currently have {{ NumBook }} in the Archive but you can view only
+              {{ availableView }}.
               <br />
               <a>Learn More</a>
             </p>
@@ -38,43 +39,19 @@
             :disabled="selected == 'Search by'"
           ></b-form-input>
 
-          <b-button
+          <button
             class="primary my-3 mt-3"
             :disabled="selected == 'Search by' || searchInput == ''"
             @click="searchButton"
-            >Search</b-button
           >
+            Search
+          </button>
         </b-row>
 
         <div style="overflow-x: auto;">
-          <b-table-simple class="table table-striped">
-            <b-thead class="thead-inverse">
-              <b-tr>
-                <b-th colspan="1">Dw</b-th>
-                <b-th colspan="1">Book Name</b-th>
-                <b-th colspan="1">Book Author</b-th>
-                <b-th colspan="1">University</b-th>
-                <b-th colspan="1">Faculty</b-th>
-                <b-th colspan="1">Department</b-th>
-                <b-th colspan="1">Level</b-th>
-                <b-th colspan="1">Semester</b-th>
-                <b-th colspan="1">Uploader</b-th>
-              </b-tr>
-              <b-tr :hidden="hidden">
-                <b-td><b-spinner type="grow" label="Loading..."></b-spinner></b-td>
-                <b-td><b-spinner type="grow" label="Loading..."></b-spinner></b-td>
-                <b-td><b-spinner type="grow" label="Loading..."></b-spinner></b-td>
-                <b-td><b-spinner type="grow" label="Loading..."></b-spinner></b-td>
-                <b-td><b-spinner type="grow" label="Loading..."></b-spinner></b-td>
-                <b-td><b-spinner type="grow" label="Loading..."></b-spinner></b-td>
-                <b-td><b-spinner type="grow" label="Loading..."></b-spinner></b-td>
-                <b-td><b-spinner type="grow" label="Loading..."></b-spinner></b-td>
-                <b-td><b-spinner type="grow" label="Loading..."></b-spinner></b-td>
-              </b-tr>
-            </b-thead>
-
-            <b-tbody class="tbodyData"> </b-tbody>
-          </b-table-simple>
+          <div class="d-flex justify-content-center" v-if="!data.length">
+            <b-spinner type="grow load" label="Loading..."></b-spinner>
+          </div>
         </div>
       </b-container>
     </section>
@@ -82,10 +59,10 @@
 </template>
 
 <script>
-// import firebase from "firebase/app";
-// import "firebase/auth";
-// import "firebase/firestore";
-// import "firebase/storage";
+import firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/firestore";
+import "firebase/storage";
 import Menu from "@/components/Menu.vue";
 
 export default {
@@ -96,39 +73,127 @@ export default {
       selected: "Search by",
       placeholder: "",
       searchInput: "",
-      hidden: false,
-      modalShow: false,
+      data: [],
+      loading: true,
     };
+  },
+  computed: {
+    availableView() {
+      return this.NumBook > 15 ? "15" : this.NumBook;
+    },
+  },
+
+  methods: {
+    dropdown(x) {
+      this.selected = x;
+    },
+    loadTableData(querySnapshot) {
+      const storageReference = firebase.storage().ref();
+      querySnapshot.forEach((doc) => {
+        const document = doc.data();
+        storageReference
+          .child("books/" + `${document.book}`)
+          .getDownloadURL()
+          .then((url) => {
+            console.log(document);
+            const content = {
+              url: url,
+              BN: document.bookName,
+              BA: document.bookAuthor,
+              Uni: document.university,
+              Fac: document.faculty,
+              Dep: document.department,
+              Lev: document.level,
+              Sem: document.semester,
+              Upl: document.uploader,
+            };
+            console.log(content);
+            this.data.push(content);
+          }, (this.loading = false))
+          .catch((error) => {
+            console.log(error);
+          });
+      });
+    },
+    initTable() {
+      firebase
+        .firestore()
+        .collection("books")
+        .get()
+        .then((querySnapshot) => {
+          this.NumBook = querySnapshot.size;
+          this.loadTableData(querySnapshot);
+        });
+    },
+    searchButton() {
+      this.loading = true;
+      this.data = [];
+
+      const booksRef = firebase.firestore().collection("books");
+      const searchValue = this.searchInput;
+
+      if (this.selected == "Uploader") {
+        booksRef
+          .orderBy("uploader")
+          .startAt(searchValue.toLowerCase())
+          .endAt(searchValue.toLowerCase() + "\uf8ff")
+          .onSnapshot((querySnapshot) => {
+            this.loadTableData(querySnapshot);
+          });
+      } else if (this.selected == "University") {
+        booksRef
+          .orderBy("university")
+          .startAt(searchValue.toLowerCase())
+          .endAt(searchValue.toLowerCase() + "\uf8ff")
+          .onSnapshot((querySnapshot) => {
+            this.loadTableData(querySnapshot);
+          });
+      } else if (this.selected == "Book Name") {
+        booksRef
+          .orderBy("bookName")
+          .startAt(searchValue.toLowerCase())
+          .endAt(searchValue.toLowerCase() + "\uf8ff")
+          .onSnapshot((querySnapshot) => {
+            this.loadTableData(querySnapshot);
+          });
+      } else if (this.selected == "Book Author") {
+        booksRef
+          .orderBy("bookAuthor")
+          .startAt(searchValue.toLowerCase())
+          .endAt(searchValue.toLowerCase() + "\uf8ff")
+          .onSnapshot((querySnapshot) => {
+            this.loadTableData(querySnapshot);
+          });
+      } else if (this.selected == "Faculty") {
+        booksRef
+          .orderBy("faculty")
+          .startAt(searchValue.toLowerCase())
+          .endAt(searchValue.toLowerCase() + "\uf8ff")
+          .onSnapshot((querySnapshot) => {
+            this.loadTableData(querySnapshot);
+          });
+      } else if (this.selected == "Department") {
+        booksRef
+          .orderBy("department")
+          .startAt(searchValue.toLowerCase())
+          .endAt(searchValue.toLowerCase() + "\uf8ff")
+          .onSnapshot((querySnapshot) => {
+            this.loadTableData(querySnapshot);
+          });
+      }
+
+      this.loading = false;
+    },
   },
 
   mounted() {},
 };
 </script>
 
-<style>
-.table th,
-.table td {
-  border: none !important;
-  border-color: transparent;
-}
-.row {
-  border: none !important;
-  border-color: transparent;
-}
-table {
-  border: none;
-  border-color: transparent;
-}
-.table {
-  border: none !important;
-  border-color: transparent;
-}
-tr {
-  color: #00276f;
-  border: none !important;
-}
-th {
-  border: none !important;
+<style scoped>
+.img-fluid {
+  height: 20px;
+  width: 20px;
 }
 .form-control {
   width: 60% !important;
@@ -157,9 +222,8 @@ th {
 .soft {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   color: #fff !important;
-  /* background-color: #28a745; */
   border-color: #1a6b2d;
-  background: #488b89;
+  /* background: #488b89; */
   width: 9rem;
   height: 2.4rem;
   border-radius: 0.2rem;
@@ -170,7 +234,6 @@ th {
   background-color: #00276f !important;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   color: #fff !important;
-  border-color: #00276f !important;
   width: 9rem;
   height: 2.4rem;
   border-radius: 0.2rem;
@@ -195,5 +258,10 @@ a {
   color: #00276f !important;
   font-weight: 600;
   font-size: 2.5rem;
+}
+.load {
+  background-color: #00276f !important;
+  height: 3rem !important;
+  width: 3rem !important;
 }
 </style>

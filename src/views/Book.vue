@@ -9,7 +9,8 @@
               <span class="tex-primary">Books</span>
             </h1>
             <p class="lead text-gray-700">
-              We currently have {{ NumBook }} in the Archive but you can view only 15.
+              We currently have {{ NumBook }} in the Archive but you can view only
+              {{ availableView }}.
               <br />
               <a>Learn More</a>
             </p>
@@ -128,6 +129,11 @@ export default {
         { text: "Uploader", value: "Upl", width: 12 },
       ],
     };
+  },
+  computed: {
+    availableView() {
+      return this.NumBook > 15 ? "15" : this.NumBook;
+    },
   },
   filters: {
     truncate: function(text, length = 24, clamp) {
