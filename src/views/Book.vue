@@ -125,7 +125,6 @@ export default {
         { text: "Faculty", value: "Fac", width: 12 },
         { text: "Department", value: "Dep", width: 12 },
         { text: "Level", value: "Lev", width: 12 },
-        { text: "Semester", value: "Sem", width: 12 },
         { text: "Uploader", value: "Upl", width: 12 },
       ],
     };
@@ -171,7 +170,6 @@ export default {
               Fac: document.faculty,
               Dep: document.department,
               Lev: document.level,
-              Sem: document.semester,
               Upl: document.uploader,
             };
             console.log(content);

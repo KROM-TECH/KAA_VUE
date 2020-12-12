@@ -29,8 +29,7 @@
 
         <b-row class="justify-content-center align-items-center">
           <div class="upload justify-content-center align-items-center">
-            <img src="@/assets/upload.svg" alt="img-fluid" />
-            <h1>Upload</h1>
+            <Upload :type="selected" :disable="selected == 'Type'" />
           </div>
         </b-row>
       </b-container>
@@ -44,9 +43,10 @@
 // import "firebase/firestore";
 // import "firebase/storage";
 import Menu from "@/components/Menu.vue";
+import Upload from "@/components/Upload.vue";
 
 export default {
-  components: { Menu },
+  components: { Menu, Upload },
   data() {
     return {
       NumBook: "",
@@ -69,9 +69,6 @@ export default {
 </script>
 
 <style scoped>
-h1 {
-  font-weight: 550 !important;
-}
 .lead {
   color: rgba(0, 0, 0, 0.726) !important;
   font-weight: 540;

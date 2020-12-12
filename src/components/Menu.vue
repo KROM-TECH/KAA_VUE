@@ -21,7 +21,7 @@
             <img src="@/assets/menu/Vector.svg" class="res-img" alt="" />
             <p v-if="expand" class="text">Articles</p>
           </router-link>
-          <router-link class="box" to="/tag" style="margin: 1rem;">
+          <router-link class="box" to="/guide" style="margin: 1rem;">
             <img src="@/assets/menu/help_center.svg" class="res-img" alt="" />
             <p v-if="expand" class="text">Help</p>
           </router-link>
@@ -47,7 +47,7 @@
       <router-link class="box" to="/article">
         <img src="@/assets/menu/Vector.svg" class="res-img" alt="" />
       </router-link>
-      <router-link class="box" to="/tag">
+      <router-link class="box" to="/guide">
         <img src="@/assets/menu/help_center.svg" class="res-img" alt="" />
       </router-link>
       <router-link class="box" to="/upload">
