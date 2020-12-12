@@ -17,19 +17,17 @@
         </b-row>
 
         <b-row class="justify-content-center">
-          <b-dropdown text="Search By" class="soft" variant="outline-success">
-            <template v-slot:button-content>
-              {{ selected }}
-            </template>
-            <b-dropdown-item @click="dropdown('Book')">Book</b-dropdown-item>
-            <b-dropdown-item @click="dropdown('Video')">Video</b-dropdown-item>
-            <b-dropdown-item @click="dropdown('Article')">Article</b-dropdown-item>
-          </b-dropdown>
+          <b-form-select
+            class="dropdown mb-3"
+            v-model="selected"
+            :options="options"
+            required
+          ></b-form-select>
         </b-row>
 
         <b-row class="justify-content-center align-items-center">
           <div class="upload justify-content-center align-items-center">
-            <Upload :type="selected" :disable="selected == 'Type'" />
+            <Upload :type="selected" :disable="selected == ''" />
           </div>
         </b-row>
       </b-container>
@@ -50,11 +48,17 @@ export default {
   data() {
     return {
       NumBook: "",
-      selected: "Type",
+      selected: "",
       placeholder: "",
       searchInput: "",
       data: [],
       loading: true,
+      options: [
+        { value: "", text: "Type", disabled: true },
+        { value: "Book", text: "Book" },
+        { value: "Video", text: "Video" },
+        { value: "Article", text: "Article" },
+      ],
     };
   },
 
@@ -77,16 +81,7 @@ export default {
   word-spacing: 2px;
   line-height: 1.5rem;
 }
-.soft {
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  color: #fff !important;
-  border-color: #1a6b2d;
-  /* background: #488b89; */
-  width: 9rem;
-  height: 2.4rem;
-  border-radius: 0.2rem;
-  font-weight: 600;
-}
+
 .upload {
   color: #00276f !important;
   text-align: center;

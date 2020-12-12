@@ -29,29 +29,6 @@
 
           <b-row class="justify-content-center">
             <div class="col-12 col-md-6">
-              <label for="Book Name">Book Name</label>
-              <b-form-input
-                id="Book Name"
-                class="input mb-3"
-                placeholder="Enter the Book Name"
-                v-model="BookName"
-                required
-              ></b-form-input>
-            </div>
-            <div class="col-12 col-md-6">
-              <label for="Book Author">Book Author</label>
-              <b-form-input
-                id="Book Author"
-                class="input mb-3"
-                v-model="BookAuthor"
-                placeholder="Enter the Book Author"
-                required
-              ></b-form-input>
-            </div>
-          </b-row>
-
-          <b-row class="justify-content-center">
-            <div class="col-12 col-md-6">
               <label for="University">University</label>
               <b-form-select
                 id="University"
@@ -98,22 +75,17 @@
               ></b-form-select>
             </div>
           </b-row>
-          <b-row>
-            <div class="col-12">
-              <div class="custom-upload">
-                <label class="dropdown cust" for="book" data-element="custom-upload-button"
-                  >Upload Files
-                </label>
-                <div id="status"></div>
-                <input
-                  class="custom"
-                  id="book"
-                  type="file"
-                  data-behaviour="custom-upload-input"
-                  value=""
-                  required
-                />
-              </div>
+          <b-row class="justify-content-center">
+            <div class="col-12" style="width:100%;text-align:center">
+              <label for="Link">Article Link</label>
+              <b-form-input
+                id="Link"
+                class="input mb-3"
+                style="width: 272px;"
+                v-model="Link"
+                placeholder="Enter the Article Link"
+                required
+              ></b-form-input>
             </div>
           </b-row>
 
@@ -132,21 +104,19 @@ import faculties from "@/helpers/faculties.js";
 import universities from "@/helpers/universities.js";
 import level from "@/helpers/level.js";
 export default {
-  name: "Upload_Books",
+  name: "uploadVideos",
   props: ["show"],
   data() {
     return {
       universities,
       faculties,
       level,
-      BookName: "",
-      BookAuthor: "",
+      Link: "",
       email: "",
       University: "",
       Faculty: "",
       Department: "",
       Level: "",
-      Semester: "",
       Uploader: "",
     };
   },
@@ -155,14 +125,6 @@ export default {
 </script>
 
 <style scoped>
-.cust {
-  text-align: center !important;
-  border: 1px solid #00276f;
-  width: 270px !important;
-}
-.custom {
-  display: none;
-}
 .close {
   position: relative;
   margin: 0;

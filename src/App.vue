@@ -24,5 +24,18 @@ section {
   }
 }
 
-
+.dropdown {
+  width: 100px !important;
+  color: #00276f !important;
+  background-color: transparent !important;
+  font-size: 1rem !important;
+  line-height: 1.5 !important;
+  border-radius: 0.25rem !important;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
+  width: 10rem !important;
+  height: 2.4rem !important;
+  border-radius: 0.2rem !important;
+  font-weight: 600 !important;
+  border-color: #00276f !important;
+}
 </style>

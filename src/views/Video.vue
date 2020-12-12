@@ -18,15 +18,12 @@
         </b-row>
 
         <b-row class="justify-content-center">
-          <b-dropdown text="Search By" class="soft" variant="outline-success">
-            <template v-slot:button-content>
-              {{ selected }}
-            </template>
-            <b-dropdown-item @click="dropdown('Uploader')">Uploader</b-dropdown-item>
-            <b-dropdown-item @click="dropdown('University')">University</b-dropdown-item>
-            <b-dropdown-item @click="dropdown('Faculty')">Faculty</b-dropdown-item>
-            <b-dropdown-item @click="dropdown('Department')">Department</b-dropdown-item>
-          </b-dropdown>
+          <b-form-select
+            class="dropdown mb-3"
+            v-model="selected"
+            :options="options"
+            required
+          ></b-form-select>
         </b-row>
 
         <b-row class="justify-content-center ">
@@ -34,12 +31,12 @@
             class="input my-3"
             :placeholder="placeholder"
             v-model="searchInput"
-            :disabled="selected == 'Search by'"
+            :disabled="selected == ''"
           ></b-form-input>
 
           <button
             class="primary my-3 mt-3"
-            :disabled="selected == 'Search by' || searchInput == ''"
+            :disabled="selected == '' || searchInput == ''"
             @click="searchButton"
           >
             Search
@@ -73,10 +70,17 @@ export default {
   data() {
     return {
       NumBook: "",
-      selected: "Search by",
+      selected: "",
       placeholder: "",
       searchInput: "",
       data: [],
+      options: [
+        { value: "", text: "Search by", disabled: true },
+        { value: "Uploader", text: "Uploader" },
+        { value: "University", text: "University" },
+        { value: "Faculty", text: "Faculty" },
+        { value: "Department", text: "Department" },
+      ],
       loading: true,
     };
   },

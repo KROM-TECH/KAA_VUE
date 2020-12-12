@@ -15,21 +15,25 @@
       />
     </svg>
     <h1 :class="disable ? 'grey' : 'norm '">Upload {{ disable ? "" : type }}</h1>
-    <upload-books :show="UploadBooks" @close="UploadBooks = false" />
+    <UploadBooks :show="UploadBooks" @close="UploadBooks = false" />
+    <UploadVideos :show="UploadVideos" @close="UploadVideos = false" />
+    <UploadArticles :show="UploadArticles" @close="UploadArticles = false" />
   </div>
 </template>
 
 <script>
 import UploadBooks from "@/components/modals/UploadBooks.vue";
+import UploadVideos from "@/components/modals/UploadVideos.vue";
+import UploadArticles from "@/components/modals/UploadArticles.vue";
 export default {
-  components: { UploadBooks },
+  components: { UploadBooks, UploadVideos, UploadArticles },
   props: ["disable", "type"],
   name: "upload_component",
   data() {
     return {
       UploadBooks: false,
       UploadVideos: false,
-      UploadArticle: false,
+      UploadArticles: false,
     };
   },
   methods: {
@@ -40,7 +44,7 @@ export default {
       } else if (this.type == "Video") {
         this.UploadVideos = true;
       } else {
-        this.UploadArticle = "true";
+        this.UploadArticles = true;
       }
     },
   },

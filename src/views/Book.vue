@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Error v-if="Error" />
     <Menu />
     <section class="pt-4 pt-md-11">
       <b-container>
@@ -18,17 +19,12 @@
         </b-row>
 
         <b-row class="justify-content-center">
-          <b-dropdown text="Search By" class="soft" variant="outline-success">
-            <template v-slot:button-content>
-              {{ selected }}
-            </template>
-            <b-dropdown-item @click="dropdown('Uploader')">Uploader</b-dropdown-item>
-            <b-dropdown-item @click="dropdown('University')">University</b-dropdown-item>
-            <b-dropdown-item @click="dropdown('Book Name')">Book Name</b-dropdown-item>
-            <b-dropdown-item @click="dropdown('Book Author')">Book Author</b-dropdown-item>
-            <b-dropdown-item @click="dropdown('Faculty')">Faculty</b-dropdown-item>
-            <b-dropdown-item @click="dropdown('Department')">Department</b-dropdown-item>
-          </b-dropdown>
+          <b-form-select
+            class="dropdown mb-3"
+            v-model="selected"
+            :options="options"
+            required
+          ></b-form-select>
         </b-row>
 
         <b-row class="justify-content-center ">
@@ -36,12 +32,12 @@
             class="input my-3"
             :placeholder="placeholder"
             v-model="searchInput"
-            :disabled="selected == 'Search by'"
+            :disabled="selected == ''"
           ></b-form-input>
 
           <button
             class="primary my-3 mt-3"
-            :disabled="selected == 'Search by' || searchInput == ''"
+            :disabled="selected == '' || searchInput == ''"
             @click="searchButton"
           >
             Search
@@ -52,6 +48,7 @@
           <div class="d-flex justify-content-center" v-if="!data.length">
             <b-spinner type="grow load" label="Loading..."></b-spinner>
           </div>
+
           <Table
             class="tw-ml-24"
             :loading="loading"
@@ -99,6 +96,7 @@
 </template>
 
 <script>
+import Error from "@/components/Error.vue";
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
@@ -107,14 +105,24 @@ import Menu from "@/components/Menu.vue";
 import Table from "@/components/Table.vue";
 
 export default {
-  components: { Menu, Table },
+  components: { Menu, Table, Error },
   data() {
     return {
+      Error: false,
       NumBook: "",
-      selected: "Search by",
+      selected: "",
       placeholder: "",
       searchInput: "",
       data: [],
+      options: [
+        { value: "", text: "Search by", disabled: true },
+        { value: "Uploader", text: "Uploader" },
+        { value: "University", text: "University" },
+        { value: "Book Name", text: "Book Name" },
+        { value: "Book Author", text: "Book Author" },
+        { value: "Faculty", text: "Faculty" },
+        { value: "Department", text: "Department" },
+      ],
       modalShow: false,
       loading: true,
       headers: [
@@ -176,7 +184,9 @@ export default {
             this.data.push(content);
           }, (this.loading = false))
           .catch((error) => {
+            console.log("1");
             console.log(error);
+            this.Error = true;
           });
       });
     },
@@ -188,6 +198,11 @@ export default {
         .then((querySnapshot) => {
           this.NumBook = querySnapshot.size;
           this.loadTableData(querySnapshot);
+        })
+        .catch((error) => {
+          console.log("2");
+          console.log(error);
+          this.Error = true;
         });
     },
     searchButton() {
