@@ -2,13 +2,15 @@
   <transition name="slide" appear>
     <div class="modal" v-if="show">
       <div class="modal_box">
-        <form style="padding: 5%; text-align:start; " class="form">
+        <form style="padding: 5%; text-align:start; " class="form" @submit.prevent="submit">
           <b-row class="close" @click="$emit('close')">x</b-row>
           <b-row class="justify-content-center">
             <div class="col-12 col-md-6">
               <label for="nickname">NickName</label>
               <b-form-input
                 id="nickname"
+                name="nickname"
+                type="text"
                 class="input mb-3"
                 placeholder="Enter Your Nickname"
                 v-model="Uploader"
@@ -19,6 +21,8 @@
               <label for="email">Email</label>
               <b-form-input
                 id="email"
+                name="email"
+                type="email"
                 class="input mb-1"
                 v-model="email"
                 placeholder="Enter Your Email"
@@ -32,7 +36,9 @@
               <label for="Book Name">Book Name</label>
               <b-form-input
                 id="Book Name"
+                name="Book Name"
                 class="input mb-3"
+                type="text"
                 placeholder="Enter the Book Name"
                 v-model="BookName"
                 required
@@ -42,6 +48,8 @@
               <label for="Book Author">Book Author</label>
               <b-form-input
                 id="Book Author"
+                name="Book Author"
+                type="text"
                 class="input mb-3"
                 v-model="BookAuthor"
                 placeholder="Enter the Book Author"
@@ -55,6 +63,8 @@
               <label for="University">University</label>
               <b-form-select
                 id="University"
+                name="University"
+                type="text"
                 class="select mb-3"
                 placeholder="Enter the University"
                 v-model="University"
@@ -66,7 +76,9 @@
               <label for="Faculty">Faculty</label>
               <b-form-select
                 id="Faculty"
+                name="Faculty"
                 class="input mb-3"
+                type="text"
                 v-model="Faculty"
                 placeholder="Enter the Faculty"
                 :options="faculties"
@@ -80,7 +92,9 @@
               <label for="Department">Department</label>
               <b-form-input
                 id="Department"
+                name="Department"
                 class="input mb-3"
+                type="text"
                 v-model="Department"
                 placeholder="Enter the Department"
                 required
@@ -90,8 +104,10 @@
               <label for="Level">Level</label>
               <b-form-select
                 id="Level"
+                name="Level"
                 class="input mb-3"
                 v-model="Level"
+                type="text"
                 placeholder="Enter the Level"
                 :options="level"
                 required
@@ -100,17 +116,18 @@
           </b-row>
           <b-row>
             <div class="col-12">
-              <div class="custom-upload">
+              <div class="custom-upload row align-items-center">
                 <label class="dropdown cust" for="book" data-element="custom-upload-button"
-                  >Upload Files
+                  >{{ title }}
                 </label>
-                <div id="status"></div>
+                <div class="status">{{ perc }}</div>
                 <input
                   class="custom"
                   id="book"
+                  name="book"
                   type="file"
                   data-behaviour="custom-upload-input"
-                  value=""
+                  @change="update"
                   required
                 />
               </div>
@@ -118,8 +135,8 @@
           </b-row>
 
           <b-row class="justify-content-center ">
-            <b-button class="green mt-2 mx-3">Upload</b-button>
-            <b-button class="red mt-2 mx-3" @click="$emit('close')">close</b-button>
+            <b-button type="submit" class="green mt-2 mx-3">Upload</b-button>
+            <b-button type="button" class="red mt-2 mx-3" @click="$emit('close')">close</b-button>
           </b-row>
         </form>
       </div>
@@ -128,9 +145,18 @@
 </template>
 
 <script>
+import firebase from "firebase/app";
+import { v4 as uuidv4 } from "uuid";
+import "firebase/firestore";
+import "firebase/storage";
 import faculties from "@/helpers/faculties.js";
 import universities from "@/helpers/universities.js";
 import level from "@/helpers/level.js";
+
+const BookRef = firebase
+  .firestore()
+  .collection("books")
+  .doc(uuidv4());
 export default {
   name: "Upload_Books",
   props: ["show"],
@@ -139,6 +165,9 @@ export default {
       universities,
       faculties,
       level,
+
+      perc: "",
+      title: "Upload",
       BookName: "",
       BookAuthor: "",
       email: "",
@@ -146,19 +175,66 @@ export default {
       Faculty: "",
       Department: "",
       Level: "",
-      Semester: "",
       Uploader: "",
     };
   },
-  methods: {},
+  methods: {
+    update(evt) {
+      const input = evt.currentTarget.value.split("\\").pop();
+      console.log(input);
+      this.title = input;
+    },
+    submit() {
+      let data = {
+        uploader: this.Uploader,
+        university: this.University,
+        bookName: this.BookName,
+        bookAuthor: this.BookAuthor,
+        faculty: this.Faculty,
+        department: this.Department,
+        level: this.Level,
+        book: this.title,
+      };
+
+      console.log(data);
+
+      BookRef.set(data)
+        .then(() => {
+          firebase
+            .firestore()
+            .collection("uploaders")
+            .doc(this.email)
+            .set({ email: this.email });
+        })
+        .then(() => {
+          console.log("UPLOAD-FILE called!");
+          var storageReference = firebase.storage().ref();
+          var file = document.getElementById("book").files[0];
+
+          let uploadTask = storageReference.child("books/" + file.name).put(file);
+
+          uploadTask.on("state_changed", (snapshot) => {
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            this.title = Math.floor(progress) + "% uploaded";
+          });
+          this.$emit("close");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
 };
 </script>
 
 <style scoped>
+.status {
+  font-size: 1rem;
+}
 .cust {
   text-align: center !important;
   border: 1px solid #00276f;
-  width: 270px !important;
+  min-width: 170px !important;
 }
 .custom {
   display: none;
@@ -279,5 +355,5 @@ button {
 .slide-enter,
 .slide-leave-to {
   transform: scale(0);
-}</style
->>
+}
+</style>

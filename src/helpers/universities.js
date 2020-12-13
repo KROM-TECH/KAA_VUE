@@ -4,345 +4,345 @@ export default [
     text: "Select Your University"
   },
   {
-    value: "ABSU",
+    value: "Abia State University",
     text: "Abia State University"
   },
 
   {
-    value: "ATBU",
+    value: "Abubakar Tafawa Balewa University",
     text: "Abubakar Tafawa Balewa University"
   },
 
   {
-    value: "AC",
+    value: "Achievers University",
     text: "Achievers University"
   },
 
   {
-    value: "ADSU",
+    value: "Adamawa State University",
     text: "Adamawa State University"
   },
 
   {
-    value: "AAUA",
+    value: "Adekunle Ajasin University",
     text: "Adekunle Ajasin University"
   },
 
   {
-    value: "ABUAD",
+    value: "Afe Babalola University",
     text: "Afe Babalola University"
   },
 
   {
-    value: "ABU",
+    value: "Ahmadu Bello University",
     text: "Ahmadu Bello University"
   },
 
   {
-    value: "ACU",
+    value: "Ajayi Crowther University",
     text: "Ajayi Crowther University"
   },
 
   {
-    value: "AKSU",
+    value: "Akwa Ibom State University",
     text: "Akwa Ibom State University"
   },
 
   {
-    value: "AHU",
+    value: "Al-Hikmah University",
     text: "Al-Hikmah University"
   },
 
   {
-    value: "AAU",
+    value: "Ambrose Alli University",
     text: "Ambrose Alli University"
   },
 
   {
-    value: "AUN",
+    value: "American University of Nigeria",
     text: "American University of Nigeria"
   },
 
   {
-    value: "ANSU",
+    value: "Anambra State University",
     text: "Anambra State University"
   },
 
   {
-    value: "BU",
+    value: "Babcock University",
     text: "Babcock University"
   },
 
   {
-    value: "BTU",
+    value: "Bakassi Technical University",
     text: "Bakassi Technical University"
   },
 
   {
-    value: "BUK",
+    value: "Bayero University",
     text: "Bayero University"
   },
 
   {
-    value: "BUT",
+    value: "Bells University of Technology",
     text: "Bells University of Technology"
   },
 
   {
-    value: "BIU",
+    value: "Benson Idahosa University",
     text: "Benson Idahosa University"
   },
 
   {
-    value: "BSU",
+    value: "Benue State University",
     text: "Benue State University"
   },
 
   {
-    value: "BU",
+    value: "Bowen University",
     text: "Bowen University"
   },
 
   {
-    value: "YSU",
+    value: "Bukar Abba Ibrahim University",
     text: "Bukar Abba Ibrahim University"
   },
 
   {
-    value: "CUl",
+    value: "Caleb University",
     text: "Caleb University"
   },
 
   {
-    value: "CU",
+    value: "Caritas University",
     text: "Caritas University"
   },
 
   {
-    value: "CU",
+    value: "CETEP City University",
     text: "CETEP City University"
   },
 
   {
-    value: "CU",
+    value: "City University",
     text: "City University"
   },
 
   {
-    value: "CUT",
+    value: "City University of Technology",
     text: "City University of Technology"
   },
 
   {
-    value: "CU",
+    value: "Covenant University",
     text: "Covenant University"
   },
 
   {
-    value: "CU",
+    value: "Crawford University, Ogun",
     text: "Crawford University, Ogun"
   },
   {
-    value: "CU",
+    value: "Crawford University, Ekiti",
     text: "Crawford University, Ekiti"
   },
   {
-    value: "CU",
+    value: "Crescent University",
     text: "Crescent University"
   },
 
   {
-    value: "CRUTECH",
+    value: "Cross River University of Technology",
     text: "Cross River University of Technology"
   },
 
   {
-    value: "DELSU",
+    value: "Delta State University",
     text: "Delta State University"
   },
 
   {
-    value: "EBSU",
+    value: "Ebonyi State University",
     text: "Ebonyi State University"
   },
 
   {
-    value: "ECWA Bingham University",
+    value: "BU",
     text: "BU"
   },
 
   {
-    value: "Elizade",
+    value: "Elizade University",
     text: "Elizade University"
   },
 
   {
-    value: "EUA",
+    value: "Evangel University",
     text: "Evangel University"
   },
 
   {
-    value: "FUNAI",
+    value: "Federal University Ndufe Alike",
     text: "Federal University Ndufe Alike"
   },
 
   {
-    value: "FUNAAB",
+    value: "Federal University of Agriculture",
     text: "Federal University of Agriculture"
   },
 
   {
-    value: "FUTA",
+    value: "Federal University of Technology",
     text: "Federal University of Technology"
   },
 
   {
-    value: "FUOYE",
+    value: "Federal University Oye-Ekiti",
     text: "Federal University Oye-Ekiti"
   },
 
   {
-    value: "FUDM",
+    value: "Federal University, Dutsin-Ma",
     text: "Federal University, Dutsin-Ma"
   },
 
   {
-    value: "FUO",
+    value: "Fountain University, Osogbo",
     text: "Fountain University, Osogbo"
   },
 
   {
-    value: "GOU",
+    value: "Godfrey Okoye University",
     text: "Godfrey Okoye University"
   },
 
   {
-    value: "GU",
+    value: "Gregory University",
     text: "Gregory University"
   },
 
   {
-    value: "IUO",
+    value: "Igbinedion University",
     text: "Igbinedion University"
   },
 
   {
-    value: "IOI",
+    value: "International Open Institute",
     text: "International Open Institute"
   },
 
   {
-    value: "JABU",
+    value: "Joseph Ayo Babalola University",
     text: "Joseph Ayo Babalola University"
   },
 
   {
-    value: "KU",
+    value: "Koladaisi University",
     text: "Koladaisi University"
   },
 
   {
-    value: "LASU",
+    value: "Lagos State University",
     text: "Lagos State University"
   },
 
   {
-    value: "LU",
+    value: "Landmark University",
     text: "Landmark University"
   },
 
   {
-    value: "MCIU",
+    value: "Michael and Cecilia Ibru University",
     text: "Michael and Cecilia Ibru University"
   },
 
   {
-    value: "NSUK",
+    value: "Nasarawa State University",
     text: "Nasarawa State University"
   },
 
   {
-    value: "NOUN",
+    value: "National Open University of Nigeria",
     text: "National Open University of Nigeria"
   },
 
   {
-    value: "NTNU",
+    value: "Nigerian Turkish Nile University",
     text: "Nigerian Turkish Nile University"
   },
 
   {
-    value: "OAU",
+    value: "Obafemi Awolowo University",
     text: "Obafemi Awolowo University"
   },
 
   {
-    value: "OUI",
+    value: "Oduduwa University",
     text: "Oduduwa University"
   },
 
   {
-    value: "PLASU",
+    value: "Plateau State University",
     text: "Plateau State University"
   },
 
   {
-    value: "RU",
+    value: "Redeemer's University",
     text: "Redeemer's University"
   },
 
   {
-    value: "SUN",
+    value: "Skyline University Nigeria",
     text: "Skyline University Nigeria"
   },
 
   {
-    value: "TSU",
+    value: "Taraba State University",
     text: "Taraba State University"
   },
 
   {
-    value: "UMYA",
+    value: "Umaru Musa Yar'adua University",
     text: "Umaru Musa Yar'adua University"
   },
 
   {
-    value: "UNIBEN",
+    value: "University of Benin",
     text: "University of Benin"
   },
 
   {
-    value: "UNICAL",
+    value: "University of Calabar",
     text: "University of Calabar"
   },
 
   {
-    value: "UI",
+    value: "University of Ibadan",
     text: "University of Ibadan"
   },
 
   {
-    value: "UJ",
+    value: "University of Jos",
     text: "University of Jos"
   },
 
   {
-    value: "UNILAG",
+    value: "University of Lagos",
     text: "University of Lagos"
   },
 
   {
-    value: "UNN",
+    value: "University of Nigeria",
     text: "University of Nigeria"
   },
 
   {
-    value: "UNIPORT",
+    value: "University of Port Harcourt",
     text: "University of Port Harcourt"
   },
 
   {
-    value: "VUNA",
+    value: "Veritas University (Catholic University of Nigeria)",
     text: "Veritas University (Catholic University of Nigeria)"
   }
 ];

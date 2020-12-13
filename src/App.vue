@@ -3,13 +3,14 @@
 </template>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital@1&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap");
 * {
   transition: 0.3s !important;
   padding: 0;
   margin: 0;
-  font-family: "Roboto", sans-serif;
+  /* font-family: "Roboto", sans-serif; */
+  font-family: "Noto Sans", sans-serif;
 }
 html {
   background: #4d5c7c;

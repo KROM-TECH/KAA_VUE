@@ -2,7 +2,7 @@
   <transition name="slide" appear>
     <div class="modal" v-if="show">
       <div class="modal_box">
-        <form style="padding: 5%; text-align:start; " class="form">
+        <form style="padding: 5%; text-align:start; " class="form" @submit.prevent="submit">
           <b-row class="close" @click="$emit('close')">x</b-row>
           <b-row class="justify-content-center">
             <div class="col-12 col-md-6">
@@ -76,22 +76,32 @@
             </div>
           </b-row>
           <b-row class="justify-content-center">
-            <div class="col-12" style="width:100%;text-align:center">
+            <div class="col-12 col-md-6">
+              <label for="Department">Title</label>
+              <b-form-input
+                id="title"
+                class="input mb-3"
+                v-model="title"
+                placeholder="Enter the Video title"
+                required
+              ></b-form-input>
+            </div>
+            <div class="col-12 col-md-6">
               <label for="Link">Article Link</label>
               <b-form-input
-                id="Link"
+                id="art Link"
+                type="url"
                 class="input mb-3"
-                style="width: 272px;"
                 v-model="Link"
-                placeholder="Enter the Article Link"
+                placeholder="Enter the Video Link"
                 required
               ></b-form-input>
             </div>
           </b-row>
 
           <b-row class="justify-content-center ">
-            <b-button class="green mt-2 mx-3">Upload</b-button>
-            <b-button class="red mt-2 mx-3" @click="$emit('close')">close</b-button>
+            <b-button type="submit" class="green mt-2 mx-3">Upload</b-button>
+            <b-button type="button" class="red mt-2 mx-3" @click="$emit('close')">close</b-button>
           </b-row>
         </form>
       </div>
@@ -100,11 +110,21 @@
 </template>
 
 <script>
+import firebase from "firebase/app";
+import { v4 as uuidv4 } from "uuid";
+import "firebase/firestore";
+import "firebase/storage";
+
 import faculties from "@/helpers/faculties.js";
 import universities from "@/helpers/universities.js";
 import level from "@/helpers/level.js";
+
+const ArticleRef = firebase
+  .firestore()
+  .collection("articles")
+  .doc(uuidv4());
 export default {
-  name: "uploadVideos",
+  name: "uploadArticles",
   props: ["show"],
   data() {
     return {
@@ -112,6 +132,7 @@ export default {
       faculties,
       level,
       Link: "",
+      title: "",
       email: "",
       University: "",
       Faculty: "",
@@ -120,7 +141,32 @@ export default {
       Uploader: "",
     };
   },
-  methods: {},
+  methods: {
+    submit() {
+      let data = {
+        uploader: this.Uploader,
+        university: this.University,
+        faculty: this.Faculty,
+        department: this.Department,
+        level: this.Level,
+        link: this.Link,
+        title: this.title,
+      };
+
+      ArticleRef.set(data)
+        .then(() => {
+          firebase
+            .firestore()
+            .collection("uploaders")
+            .doc(this.email)
+            .set({ email: this.email });
+          this.$emit("close");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
 };
 </script>
 

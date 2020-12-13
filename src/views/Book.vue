@@ -184,7 +184,6 @@ export default {
             this.data.push(content);
           }, (this.loading = false))
           .catch((error) => {
-            console.log("1");
             console.log(error);
             this.Error = true;
           });
@@ -200,7 +199,6 @@ export default {
           this.loadTableData(querySnapshot);
         })
         .catch((error) => {
-          console.log("2");
           console.log(error);
           this.Error = true;
         });
