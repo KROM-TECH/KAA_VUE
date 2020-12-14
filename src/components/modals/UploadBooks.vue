@@ -153,10 +153,8 @@ import faculties from "@/helpers/faculties.js";
 import universities from "@/helpers/universities.js";
 import level from "@/helpers/level.js";
 
-const BookRef = firebase
-  .firestore()
-  .collection("books")
-  .doc(uuidv4());
+const BookRef = firebase.firestore().collection("books");
+
 export default {
   name: "Upload_Books",
   props: ["show"],
@@ -196,9 +194,9 @@ export default {
         book: this.title,
       };
 
-      console.log(data);
-
-      BookRef.set(data)
+      let uid = uuidv4();
+      BookRef.doc(uid)
+        .set(data)
         .then(() => {
           firebase
             .firestore()

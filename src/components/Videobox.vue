@@ -3,55 +3,67 @@
     <div class="box d-flex justify-content-center align-items-center">
       <img src="@/assets/video.svg" alt="" />
     </div>
-    <b-button v-b-toggle="data" class="mb-2 primary ">Details</b-button>
+    <b-button @click="showModal = !showModal" class="mb-2 primary ">Details</b-button>
 
-    <b-collapse :id="data">
-      <div class=" card p-3 d-flex justify-content-center align-items-center">
-        <div>
-          <span>Title</span>
-          <p class="text">A video on fluid mechanics and the surrounding magic blah blah blah</p>
-        </div>
-        <div>
-          <span>University</span>
-          <p class="text">University of Lagos</p>
-        </div>
-        <div>
-          <span>Faculty</span>
-          <p class="text">Engineering</p>
-        </div>
-        <div>
-          <span>Department</span>
-          <p class="text">Computer Engineering</p>
-        </div>
-        <div>
-          <span>Level</span>
-          <p class="text">Year 2</p>
-        </div>
-        <div>
-          <span>Semester</span>
-          <p class="text">First</p>
-        </div>
-        <div>
-          <span>Uploader</span>
-          <p class="text">Young John Tommy</p>
-        </div>
+    <transition name="slide" appear>
+      <div class="modall" v-if="showModal">
+        <div class=" card p-5 mx-2 d-flex justify-content-center align-items-center">
+          <div class="close" @click="showModal = false">X</div>
+          <div>
+            <span>Title</span>
+            <p class="text">{{ data.title }}</p>
+          </div>
+          <div>
+            <span>University</span>
+            <p class="text">{{ data.university }}</p>
+          </div>
+          <div>
+            <span>Faculty</span>
+            <p class="text">{{ data.faculty }}</p>
+          </div>
+          <div>
+            <span>Department</span>
+            <p class="text">{{ data.department }}</p>
+          </div>
+          <div>
+            <span>Level</span>
+            <p class="text">{{ data.level }}</p>
+          </div>
+          <div>
+            <span>Uploader</span>
+            <p class="text">{{ data.uploader }}</p>
+          </div>
 
-        <b-button class="green mt-2">Play</b-button>
+          <div class="d-flex">
+            <a :href="data.link" target="_blank">
+              <b-button class="green mt-2 mx-2">Watch</b-button></a
+            >
+            <b-button class="red mt-2  mx-2" @click="showModal = !showModal">Close</b-button>
+          </div>
+        </div>
       </div>
-    </b-collapse>
+    </transition>
   </div>
 </template>
 
 <script>
 export default {
   name: "VideoBox",
-  props: ["data"],
+  props: ["data", "index"],
+  data() {
+    return {
+      showModal: false,
+    };
+  },
 };
 </script>
 
 <style scoped>
+a {
+  color: inherit;
+}
 .card {
-  max-width: 300px;
+  max-width: 550px;
 }
 .text {
   color: #08204d !important;
@@ -66,7 +78,7 @@ div {
 }
 span {
   display: block;
-  font-weight: 550;
+  font-weight: 700;
   color: #00276f;
 }
 .box {
@@ -99,5 +111,60 @@ span {
 }
 .green {
   background-color: #006f4a !important;
+}
+.red {
+  background-color: #f52617 !important;
+  color: white !important;
+}
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 0.5s;
+}
+
+.slide-enter,
+.slide-leave-to {
+  transform: scale(0);
+}
+
+span {
+  display: block;
+  font-weight: 700;
+  color: #00276f;
+}
+.text {
+  color: #08204d !important;
+  font-weight: 540;
+  font-size: 1rem;
+  word-spacing: 3px;
+  line-height: 1.3rem;
+}
+div {
+  text-align: center;
+  margin: 3px 0px;
+}
+.modall {
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+  z-index: 99;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  background-color: rgb(0, 0, 0, 0.25);
+  border: 1px solid #6c63ff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.close {
+  position: absolute;
+  top: 3px;
+  right: 10px;
+  font-weight: 900;
+  font-size: 1.5rem;
+  color: #000 !important;
+  cursor: pointer;
 }
 </style>

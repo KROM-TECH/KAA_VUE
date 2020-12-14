@@ -98,6 +98,12 @@
               ></b-form-input>
             </div>
           </b-row>
+          <b-row class="justify-content-start mb-3">
+            <div class="col-12">
+              <label for="tag">Tags</label>
+              <TagInput @added="tag($event)" />
+            </div>
+          </b-row>
 
           <b-row class="justify-content-center ">
             <b-button type="submit" class="green mt-2 mx-3">Upload</b-button>
@@ -115,25 +121,25 @@ import { v4 as uuidv4 } from "uuid";
 import "firebase/firestore";
 import "firebase/storage";
 
+import TagInput from "@/components/TagInput.vue";
 import faculties from "@/helpers/faculties.js";
 import universities from "@/helpers/universities.js";
 import level from "@/helpers/level.js";
 
-const ArticleRef = firebase
-  .firestore()
-  .collection("articles")
-  .doc(uuidv4());
+const ArticleRef = firebase.firestore().collection("articles");
 export default {
   name: "uploadArticles",
+  components: { TagInput },
   props: ["show"],
   data() {
-    return {
+    return { 
       universities,
       faculties,
       level,
       Link: "",
       title: "",
       email: "",
+      tags: [],
       University: "",
       Faculty: "",
       Department: "",
@@ -142,6 +148,21 @@ export default {
     };
   },
   methods: {
+    tag(e) {
+      console.log(e);
+      let tagArray = Array.from(e);
+      this.tags = tagArray;
+    },
+    reset() {
+      this.Uploader = "";
+      this.University = "";
+      this.Faculty = "";
+      this.Department = "";
+      this.Level = "";
+      this.Link = "";
+      this.title = "";
+      this.tags = "";
+    },
     submit() {
       let data = {
         uploader: this.Uploader,
@@ -151,15 +172,18 @@ export default {
         level: this.Level,
         link: this.Link,
         title: this.title,
+        tags: this.tags,
       };
-
-      ArticleRef.set(data)
+      let uid = uuidv4();
+      ArticleRef.doc(uid)
+        .set(data)
         .then(() => {
           firebase
             .firestore()
             .collection("uploaders")
             .doc(this.email)
             .set({ email: this.email });
+          this.reset();
           this.$emit("close");
         })
         .catch((error) => {

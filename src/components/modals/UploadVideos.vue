@@ -119,10 +119,7 @@ import faculties from "@/helpers/faculties.js";
 import universities from "@/helpers/universities.js";
 import level from "@/helpers/level.js";
 
-const VideoRef = firebase
-  .firestore()
-  .collection("videos")
-  .doc(uuidv4());
+const VideoRef = firebase.firestore().collection("videos");
 export default {
   name: "uploadVideos",
   props: ["show"],
@@ -153,9 +150,9 @@ export default {
         link: this.Link,
         title: this.title,
       };
-
-
-      VideoRef.set(data)
+      let uid = uuidv4();
+      VideoRef.doc(uid)
+        .set(data)
         .then(() => {
           firebase
             .firestore()

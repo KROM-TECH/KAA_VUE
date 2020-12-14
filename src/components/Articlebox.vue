@@ -1,12 +1,10 @@
 <template>
   <div class="d-flex column">
     <div class="box d-flex column align-item-center  p-3">
-      <p class="header">Solving the intrigate problems of the world while asleep</p>
+      <p class="header">{{ data.title }}</p>
 
       <div class="d-flex flex-wrap justify-content-center">
-        <div class="badge">Science</div>
-        <div class="badge">Political</div>
-        <div class="badge">Astrophysics</div>
+        <div v-for="(item, index) in data.tags" :key="index" class="badge">{{ item }}</div>
       </div>
 
       <b-button class="purple mt-2" @click="showModal = !showModal">Details</b-button>
@@ -18,36 +16,34 @@
           <div class="close" @click="showModal = false">X</div>
           <div>
             <span>Title</span>
-            <p class="text">A video on fluid mechanics and the surrounding magic blah blah blah</p>
+            <p class="text">{{ data.title }}</p>
           </div>
           <div>
             <span>University</span>
-            <p class="text">University of Lagos</p>
+            <p class="text">{{ data.university }}</p>
           </div>
           <div>
             <span>Faculty</span>
-            <p class="text">Engineering</p>
+            <p class="text">{{ data.faculty }}</p>
           </div>
           <div>
             <span>Department</span>
-            <p class="text">Computer Engineering</p>
+            <p class="text">{{ data.department }}</p>
           </div>
           <div>
             <span>Level</span>
-            <p class="text">Year 2</p>
-          </div>
-          <div>
-            <span>Semester</span>
-            <p class="text">First</p>
+            <p class="text">{{ data.level }}</p>
           </div>
           <div>
             <span>Uploader</span>
-            <p class="text">Young John Tommy</p>
+            <p class="text">{{ data.uploader }}</p>
           </div>
 
           <div class="d-flex">
-            <b-button class="green mt-2 mx-2">read</b-button>
-            <b-button class="purple mt-2  mx-2" @click="showModal = !showModal">Close</b-button>
+            <a :href="data.link" target="_blank">
+              <b-button class="green mt-2 mx-2">Read</b-button></a
+            >
+            <b-button class="red mt-2  mx-2" @click="showModal = !showModal">Close</b-button>
           </div>
         </div>
       </div>
@@ -64,10 +60,26 @@ export default {
       showModal: false,
     };
   },
+
+  mounted() {
+    console.log(this.data);
+  },
 };
 </script>
 
 <style scoped>
+a {
+  color: inherit;
+}
+.red {
+  background-color: #f52617 !important;
+  color: white !important;
+  width: 9rem;
+}
+.green {
+  background-color: #006f4a !important;
+  width: 9rem;
+}
 .close {
   position: absolute;
   top: 3px;
@@ -109,9 +121,7 @@ export default {
   font-weight: 200;
   letter-spacing: 1.4px;
 }
-.green {
-  background-color: #006f4a !important;
-}
+
 .header {
   color: rgba(255, 255, 255, 0.877) !important;
   text-align: center;
@@ -136,7 +146,7 @@ export default {
 }
 span {
   display: block;
-  font-weight: 550;
+  font-weight: 700;
   color: #00276f;
 }
 .text {

@@ -25,14 +25,37 @@
             required
           ></b-form-select>
         </b-row>
-
         <b-row class="justify-content-center ">
           <b-form-input
+            v-if="selected == '' || selected == 'Uploader' || selected == 'Department'"
             class="input my-3"
             :placeholder="placeholder"
             v-model="searchInput"
+            type="search"
             :disabled="selected == ''"
           ></b-form-input>
+
+          <b-form-select
+            v-if="selected == 'University'"
+            class="input my-3"
+            v-model="searchInput"
+            :options="universities"
+            required
+          ></b-form-select>
+          <b-form-select
+            v-if="selected == 'Faculty'"
+            class="input my-3"
+            v-model="searchInput"
+            :options="faculties"
+            required
+          ></b-form-select>
+          <b-form-select
+            v-if="selected == 'Level'"
+            class="input my-3"
+            v-model="searchInput"
+            :options="level"
+            required
+          ></b-form-select>
 
           <button
             class="primary my-3 mt-3"
@@ -44,12 +67,18 @@
         </b-row>
 
         <div style="overflow-x: auto;">
-          <div class="d-flex justify-content-center" v-if="false">
+          <NotFound v-if="empty && !data.length" />
+          <div class="d-flex justify-content-center" v-if="!data.length && !empty">
             <b-spinner type="grow load" label="Loading..."></b-spinner>
           </div>
 
           <div class="d-flex flex-wrap justify-content-center" v-else>
-            <VideoBox v-for="n in 10" :key="n" :data="n.toString()" />
+            <VideoBox
+              v-for="(item, index) in data"
+              :key="item.title"
+              :index="index.toString()"
+              :data="data[index]"
+            />
           </div>
         </div>
       </b-container>
@@ -64,11 +93,21 @@ import "firebase/firestore";
 import "firebase/storage";
 import Menu from "@/components/Menu.vue";
 import VideoBox from "@/components/Videobox.vue";
+import NotFound from "@/components/404.vue";
+
+import faculties from "@/helpers/faculties.js";
+import universities from "@/helpers/universities.js";
+import level from "@/helpers/level.js";
 
 export default {
-  components: { Menu, VideoBox },
+  components: { Menu, VideoBox, NotFound },
   data() {
     return {
+      universities,
+      faculties,
+      level,
+
+      empty: false,
       NumBook: "",
       selected: "",
       placeholder: "",
@@ -80,6 +119,7 @@ export default {
         { value: "University", text: "University" },
         { value: "Faculty", text: "Faculty" },
         { value: "Department", text: "Department" },
+        { value: "Level", text: "Level" },
       ],
       loading: true,
     };
@@ -91,101 +131,118 @@ export default {
   },
 
   methods: {
-    dropdown(x) {
-      this.selected = x;
-    },
-    loadTableData(querySnapshot) {
-      const storageReference = firebase.storage().ref();
+    loadData(querySnapshot) {
       querySnapshot.forEach((doc) => {
         const document = doc.data();
-        storageReference
-          .child("books/" + `${document.book}`)
-          .getDownloadURL()
-          .then((url) => {
-            console.log(document);
-            const content = {
-              url: url,
-              BN: document.bookName,
-              BA: document.bookAuthor,
-              Uni: document.university,
-              Fac: document.faculty,
-              Dep: document.department,
-              Lev: document.level,
-              Sem: document.semester,
-              Upl: document.uploader,
-            };
-            console.log(content);
-            this.data.push(content);
-          }, (this.loading = false))
-          .catch((error) => {
-            console.log(error);
-          });
+        this.data.push(document);
       });
+      this.loading = false;
+      console.log(this.data);
     },
-    initTable() {
+    init() {
       firebase
         .firestore()
-        .collection("books")
+        .collection("videos")
         .get()
         .then((querySnapshot) => {
           this.NumBook = querySnapshot.size;
-          this.loadTableData(querySnapshot);
+          this.loadData(querySnapshot);
         });
     },
     searchButton() {
-      this.loading = true;
       this.data = [];
+      this.empty = false;
 
-      const booksRef = firebase.firestore().collection("books");
+      const booksRef = firebase.firestore().collection("videos");
       const searchValue = this.searchInput;
 
       if (this.selected == "Uploader") {
         booksRef
           .orderBy("uploader")
-          .startAt(searchValue.toLowerCase())
-          .endAt(searchValue.toLowerCase() + "\uf8ff")
+          .startAt(searchValue)
+          .endAt(searchValue + "\uf8ff")
           .onSnapshot((querySnapshot) => {
-            this.loadTableData(querySnapshot);
+            if (!querySnapshot.empty) {
+              this.loadData(querySnapshot);
+            } else {
+              this.empty = true;
+            }
           });
       } else if (this.selected == "University") {
         booksRef
           .orderBy("university")
-          .startAt(searchValue.toLowerCase())
-          .endAt(searchValue.toLowerCase() + "\uf8ff")
+          .startAt(searchValue)
+          .endAt(searchValue + "\uf8ff")
           .onSnapshot((querySnapshot) => {
-            this.loadTableData(querySnapshot);
+            if (!querySnapshot.empty) {
+              this.loadData(querySnapshot);
+            } else {
+              this.empty = true;
+            }
           });
       } else if (this.selected == "Book Name") {
         booksRef
           .orderBy("bookName")
-          .startAt(searchValue.toLowerCase())
-          .endAt(searchValue.toLowerCase() + "\uf8ff")
+          .startAt(searchValue)
+          .endAt(searchValue + "\uf8ff")
           .onSnapshot((querySnapshot) => {
-            this.loadTableData(querySnapshot);
+            if (!querySnapshot.empty) {
+              this.loadData(querySnapshot);
+            } else {
+              this.empty = true;
+            }
           });
       } else if (this.selected == "Book Author") {
         booksRef
           .orderBy("bookAuthor")
-          .startAt(searchValue.toLowerCase())
-          .endAt(searchValue.toLowerCase() + "\uf8ff")
+          .startAt(searchValue)
+          .endAt(searchValue + "\uf8ff")
           .onSnapshot((querySnapshot) => {
-            this.loadTableData(querySnapshot);
+            if (!querySnapshot.empty) {
+              this.loadData(querySnapshot);
+            } else {
+              this.empty = true;
+            }
           });
       } else if (this.selected == "Faculty") {
         booksRef
           .orderBy("faculty")
-          .startAt(searchValue.toLowerCase())
-          .endAt(searchValue.toLowerCase() + "\uf8ff")
+          .startAt(searchValue)
+          .endAt(searchValue + "\uf8ff")
           .onSnapshot((querySnapshot) => {
-            this.loadTableData(querySnapshot);
+            if (!querySnapshot.empty) {
+              this.loadData(querySnapshot);
+            } else {
+              this.empty = true;
+            }
           });
       } else if (this.selected == "Department") {
         booksRef
           .orderBy("department")
-          .startAt(searchValue.toLowerCase())
-          .endAt(searchValue.toLowerCase() + "\uf8ff")
+          .startAt(searchValue)
+          .endAt(searchValue + "\uf8ff")
           .onSnapshot((querySnapshot) => {
-            this.loadTableData(querySnapshot);
+            if (!querySnapshot.empty) {
+              this.loadData(querySnapshot);
+            } else {
+              this.empty = true;
+            }
+          });
+      } else if (this.selected == "Level") {
+        booksRef
+          .orderBy("level")
+          .startAt(searchValue)
+          .endAt(searchValue + "\uf8ff")
+          .onSnapshot((querySnapshot) => {
+            if (!querySnapshot.empty) {
+              if (!querySnapshot.empty) {
+                this.loadData(querySnapshot);
+              } else {
+                this.empty = true;
+              }
+            } else {
+              this.empty = true;
+            }
           });
       }
 
@@ -193,11 +250,21 @@ export default {
     },
   },
 
-  mounted() {},
+  created() {
+    this.init();
+  },
 };
 </script>
 
 <style scoped>
+.input {
+  width: 60% !important;
+  background: #ffffff7a;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  margin: 0px 9px;
+  margin-right: 3rem;
+  font-weight: 550;
+}
 .img-fluid {
   height: 20px;
   width: 20px;

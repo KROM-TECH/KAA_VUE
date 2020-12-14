@@ -3,16 +3,16 @@ export default [
     value: "",
     text: "Select Your Faculty"
   },
-  { value: "art", text: "Arts" },
-  { value: "bms", text: "Basic Medical Sciences" },
-  { value: "business", text: "Business Administration" },
-  { value: "clinical", text: "Clinical Sciences" },
-  { value: "dental", text: "Dental Sciences" },
-  { value: "education", text: "Education" },
-  { value: "engineering", text: "Engineering" },
-  { value: "environmental", text: "Environmental Science" },
-  { value: "law", text: "Law" },
-  { value: "pharmacy", text: "Pharmacy" },
-  { value: "science", text: "Science" },
-  { value: "social", text: "Social Sciences" }
+  { value: "Arts", text: "Arts" },
+  { value: "Basic Medical Sciences", text: "Basic Medical Sciences" },
+  { value: "Business Administration", text: "Business Administration" },
+  { value: "Clinical Sciences", text: "Clinical Sciences" },
+  { value: "Dental Sciences" , text: "Dental Sciences" },
+  { value: "Education", text: "Education" },
+  { value: "Engineering", text: "Engineering" },
+  { value: "Environmental Science", text: "Environmental Science" },
+  { value: "Law", text: "Law" },
+  { value:  "Pharmacy", text: "Pharmacy" },
+  { value: "Science", text: "Science" },
+  { value: "Social Sciences", text: "Social Sciences" }
 ];
