@@ -6,52 +6,52 @@
 
         <div class="links">
           <router-link class="box" to="/" style="margin: 1rem;">
-            <img src="@/assets/menu/Group.svg" class="res-img" alt="" />
+            <img src="@/assets/menu/home.svg" class="res-img" alt="" />
             <p v-if="expand" class="text">Home</p>
           </router-link>
           <router-link class="box" to="/book" style="margin: 1rem;">
-            <img src="@/assets/menu/chrome_reader_mode.svg" class="res-img" alt="" />
+            <img src="@/assets/menu/book.svg" class="res-img" alt="" />
             <p v-if="expand" class="text">Books</p>
           </router-link>
           <router-link class="box" to="/video" style="margin: 1rem;">
-            <img src="@/assets/menu/Subtract.svg" class="res-img" alt="" />
+            <img src="@/assets/menu/videocam.svg" class="res-img" alt="" />
             <p v-if="expand" class="text">Videos</p>
           </router-link>
           <router-link class="box" to="/article" style="margin: 1rem;">
-            <img src="@/assets/menu/Vector.svg" class="res-img" alt="" />
+            <img src="@/assets/menu/bookmark.svg" class="res-img" alt="" />
             <p v-if="expand" class="text">Articles</p>
           </router-link>
           <router-link class="box" to="/guide" style="margin: 1rem;">
-            <img src="@/assets/menu/help_center.svg" class="res-img" alt="" />
+            <img src="@/assets/menu/help-circle.svg" class="res-img" alt="" />
             <p v-if="expand" class="text">Help</p>
           </router-link>
         </div>
 
         <router-link class="box last" to="/upload" style="margin: 1rem;">
-          <img src="@/assets/menu/backup.svg" class="res-img" alt="" />
+          <img src="@/assets/menu/cloud-upload.svg" class="res-img" alt="" />
           <p v-if="expand" class="text">Upload</p>
         </router-link>
       </div>
     </transition>
     <div class="nav">
       <router-link to="/" class="box">
-        <img src="@/assets/menu/Group.svg" class="res-img" alt="" />
+        <img src="@/assets/menu/home.svg" class="res-img" alt="" />
       </router-link>
 
       <router-link class="box" to="/book">
-        <img src="@/assets/menu/chrome_reader_mode.svg" class="res-img" alt="" />
+        <img src="@/assets/menu/book.svg" class="res-img" alt="" />
       </router-link>
       <router-link class="box" to="/video">
-        <img src="@/assets/menu/Subtract.svg" class="res-img" alt="" />
+        <img src="@/assets/menu/videocam.svg" class="res-img" alt="" />
       </router-link>
       <router-link class="box" to="/article">
-        <img src="@/assets/menu/Vector.svg" class="res-img" alt="" />
+        <img src="@/assets/menu/bookmark.svg" class="res-img" alt="" />
       </router-link>
       <router-link class="box" to="/guide">
-        <img src="@/assets/menu/help_center.svg" class="res-img" alt="" />
+        <img src="@/assets/menu/help-circle.svg" class="res-img" alt="" />
       </router-link>
       <router-link class="box" to="/upload">
-        <img src="@/assets/menu/backup.svg" class="res-img" alt="" />
+        <img src="@/assets/menu/cloud-upload.svg" class="res-img" alt="" />
       </router-link>
     </div>
   </div>

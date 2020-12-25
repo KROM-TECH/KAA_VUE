@@ -17,15 +17,16 @@ Vue.config.productionTip = false;
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDGPuiAwA6-BkL-r7qGsWNEpxucW-3TXjM",
-  authDomain: "kromtech-archive.firebaseapp.com",
-  databaseURL: "https://kromtech-archive.firebaseio.com",
-  projectId: "kromtech-archive",
-  storageBucket: "kromtech-archive.appspot.com",
-  messagingSenderId: "147947718015",
-  appId: "1:147947718015:web:c1afcf6e27d8a3a8e2c64a",
-  measurementId: "G-7C2TXMJXZR"
+  apiKey: process.env.VUE_APP_API_KEY,
+  authDomain: process.env.VUE_APP_AUTH_DOMAIN,
+  databaseURL: process.env.VUE_APP_DATABASE_URL,
+  projectId: process.env.VUE_APP_PROJECT_ID,
+  storageBucket: process.env.VUE_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.VUE_APP_MESSAGE_ID,
+  appId: process.env.VUE_APP_APP_ID,
+  measurementId: process.env.VUE_APP_MEASURE_ID
 };
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
