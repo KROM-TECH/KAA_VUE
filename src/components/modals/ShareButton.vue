@@ -15,11 +15,11 @@
           shareDescription=" test GitHub is where people build software."
         />
         <TelegramButton
-          shareUrl="https://github.com/"
+          shareUrl="https://github.com"
           shareDescription=" test GitHub is where people build software."
         />
         <LinkedInButton
-          shareUrl="https://github.com/"
+          shareUrl="https://github.com"
           shareDescription=" test GitHub is where people build software."
         />
       </b-card>
