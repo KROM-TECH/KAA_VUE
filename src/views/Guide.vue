@@ -15,7 +15,25 @@
         </b-row>
 
         <b-row class="justify-content-center align-items-center">
-          <li>We have verythrdjb fudbfyvfx fybfhd ubbubv</li>
+          <b-card class="card"
+            ><p>
+              <span class="header"> Avoid Duplicates </span><br />Please ensure to check the already
+              existing files before uploading new files
+            </p></b-card
+          >
+          <b-card class="card"
+            ><p>
+              <span class="header"> Share request </span><br />At the time of writting this, the
+              share request feature hasn't been implemented yet but you can still use the home share
+              button to create awareness
+            </p></b-card
+          >
+          <b-card class="card"
+            ><p>
+              <span class="header"> Be very Descriptive </span><br />When making a request ensure to
+              give enough details, in order to simplify the search and upload of your request
+            </p></b-card
+          >
         </b-row>
       </b-container>
     </section>
@@ -49,8 +67,18 @@ export default {
 </script>
 
 <style scoped>
+.header {
+  font-size: 1.3rem;
+  font-weight: 800;
+}
 h1 {
   font-weight: 550 !important;
+}
+.card {
+  text-align: center;
+  max-width: 90vw;
+  margin-bottom: 1rem;
+  width: 600px;
 }
 .lead {
   color: rgba(0, 0, 0, 0.726) !important;

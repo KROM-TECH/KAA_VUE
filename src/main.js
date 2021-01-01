@@ -9,7 +9,9 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/analytics';
+import VueSocialSharing from 'vue-social-sharing'
 
+Vue.use(VueSocialSharing);
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 

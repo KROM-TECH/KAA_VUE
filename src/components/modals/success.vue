@@ -3,7 +3,7 @@
     <div class="bg" v-if="showModal" @click="$emit('close')">
       <b-card class="card">
         <img src="@/assets/mark.svg" class="img" alt="" />
-        <p>Request Submit <br />We would get back to you soon</p>
+        <p>Request Submitted <br />We would get back to you soon</p>
       </b-card>
     </div>
   </transition>

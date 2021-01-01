@@ -1,6 +1,7 @@
 <template>
   <div>
     <Menu />
+    <ShareButton :showModal="showModal" @close="showModal = false" />
     <section class="pt-4 pt-md-11">
       <b-container fluid>
         <b-row align-v="center">
@@ -30,7 +31,7 @@
             </p>
             <b-container class="my-3">
               <b-row class="justify-content-center mt-2">
-                <b-button class="soft  btn">Share</b-button>
+                <b-button class="soft btn" @click="showModal = true">Share</b-button>
                 <b-button class="primary   btn" to="/upload">Upload</b-button>
                 <b-button class="secondary btn" to="/request">Request</b-button>
               </b-row>
@@ -55,8 +56,14 @@
 
 <script>
 import Menu from "@/components/Menu";
+import ShareButton from "@/components/modals/ShareButton.vue";
 export default {
-  components: { Menu },
+  components: { Menu, ShareButton },
+  data() {
+    return {
+      showModal: false,
+    };
+  },
 };
 </script>
 
