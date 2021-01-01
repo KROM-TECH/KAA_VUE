@@ -8,7 +8,14 @@
             <h1>
               <span class="tex-primary">Guide</span>
             </h1>
+            <p class="lead text-gray-700">
+              below are a list of simple rule you should follow when using the site
+            </p>
           </b-col>
+        </b-row>
+
+        <b-row class="justify-content-center align-items-center">
+          <li>We have verythrdjb fudbfyvfx fybfhd ubbubv</li>
         </b-row>
       </b-container>
     </section>

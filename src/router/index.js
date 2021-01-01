@@ -6,6 +6,7 @@ const Video= () => import("@/views/Video.vue");
 const Article= () => import("@/views/Article.vue");
 const Upload= () => import("@/views/Upload.vue");
 const Guide= () => import("@/views/Guide.vue");
+const Request= () => import("@/views/Request.vue");
 
 
 Vue.use(VueRouter);
@@ -40,6 +41,11 @@ const routes = [
     path: "/guide",
     name: "Guide",
     component: Guide
+  },
+  {
+    path: "/request",
+    name: "Request",
+    component: Request
   },
  
 ];

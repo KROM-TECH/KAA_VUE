@@ -31,8 +31,8 @@
             <b-container class="my-3">
               <b-row class="justify-content-center mt-2">
                 <b-button class="soft  btn">Share</b-button>
-                <b-button class="primary   btn">Upload</b-button>
-                <b-button class="secondary btn">Request</b-button>
+                <b-button class="primary   btn" to="/upload">Upload</b-button>
+                <b-button class="secondary btn" to="/request">Request</b-button>
               </b-row>
 
               <div class="text-muted mt-3">
