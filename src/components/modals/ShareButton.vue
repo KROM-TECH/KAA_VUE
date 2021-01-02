@@ -3,24 +3,24 @@
     <div class="bg" v-if="showModal" @click="$emit('close')">
       <b-card class="card">
         <twitter-button
-          shareUrl="https://github.com/"
-          shareDescription=" test GitHub is where people build software."
+          url="https://kaa.kromtech.io/"
+          description=" Get your academic materials with ease on Kromtech Academic Archieves."
         />
         <FacebookButton
-          shareUrl="https://github.com/"
-          shareDescription=" test GitHub is where people build software."
+          shareUrl="https://kaa.kromtech.io/"
+          shareDescription=" Get your academic materials with ease on Kromtech Academic Archieves."
         />
         <WhatsappButton
-          shareUrl="https://github.com/"
-          shareDescription=" test GitHub is where people build software."
+          shareUrl="https://kaa.kromtech.io/"
+          shareDescription=" Get your academic materials with ease on Kromtech Academic Archieves."
         />
         <TelegramButton
-          shareUrl="https://github.com"
-          shareDescription=" test GitHub is where people build software."
+          shareUrl="https://kaa.kromtech.io"
+          shareDescription=" Get your academic materials with ease on Kromtech Academic Archieves."
         />
         <LinkedInButton
-          shareUrl="https://github.com"
-          shareDescription=" test GitHub is where people build software."
+          shareUrl="https://kaa.kromtech.io"
+          shareDescription=" Get your academic materials with ease on Kromtech Academic Archieves."
         />
       </b-card>
     </div>
