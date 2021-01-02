@@ -9,9 +9,13 @@
               <span class="tex-primary">Upload</span>
             </h1>
             <p class="lead text-gray-700">
-              Upload books, videos and articles that would be benefical to other students
+              Upload books, videos and articles that would be benefical to other
+              students
               <br />
-              <span>If this is your first time uploading please read the <a>Guides</a></span>
+              <span
+                >If this is your first time uploading please read the
+                <a>Guides</a></span
+              >
             </p>
           </b-col>
         </b-row>
@@ -57,18 +61,18 @@ export default {
         { value: "", text: "Type", disabled: true },
         { value: "Book", text: "Book" },
         { value: "Video", text: "Video" },
-        { value: "Article", text: "Article" },
-      ],
+        { value: "Article", text: "Article" }
+      ]
     };
   },
 
   methods: {
     dropdown(x) {
       this.selected = x;
-    },
+    }
   },
 
-  mounted() {},
+  mounted() {}
 };
 </script>
 

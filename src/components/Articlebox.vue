@@ -4,15 +4,21 @@
       <p class="header">{{ data.title }}</p>
 
       <div class="d-flex flex-wrap justify-content-center">
-        <div v-for="(item, index) in data.tags" :key="index" class="badge">{{ item }}</div>
+        <div v-for="(item, index) in data.tags" :key="index" class="badge">
+          {{ item }}
+        </div>
       </div>
 
-      <b-button class="purple mt-2" @click="showModal = !showModal">Details</b-button>
+      <b-button class="purple mt-2" @click="showModal = !showModal"
+        >Details</b-button
+      >
     </div>
 
     <transition name="slide" appear>
       <div class="modall" v-if="showModal">
-        <div class=" card p-5 mx-2 d-flex justify-content-center align-items-center">
+        <div
+          class=" card p-5 mx-2 d-flex justify-content-center align-items-center"
+        >
           <div class="close" @click="showModal = false">X</div>
           <div>
             <span>Title</span>
@@ -43,7 +49,9 @@
             <a :href="data.link" target="_blank">
               <b-button class="green mt-2 mx-2">Read</b-button></a
             >
-            <b-button class="red mt-2  mx-2" @click="showModal = !showModal">Close</b-button>
+            <b-button class="red mt-2  mx-2" @click="showModal = !showModal"
+              >Close</b-button
+            >
           </div>
         </div>
       </div>
@@ -57,13 +65,13 @@ export default {
   props: ["data"],
   data() {
     return {
-      showModal: false,
+      showModal: false
     };
   },
 
   mounted() {
     console.log(this.data);
-  },
+  }
 };
 </script>
 

@@ -60,20 +60,20 @@ export default {
     "checkbox",
     "pageSync",
     "itemPerPage",
-    "page",
+    "page"
   ],
   data() {
     return {
       itemLength: 0,
       checked: [],
       dot: false,
-      pages: 0,
+      pages: 0
     };
   },
   watch: {
     tableData() {
       this.setPages();
-    },
+    }
   },
   computed: {
     displayTable() {
@@ -87,7 +87,7 @@ export default {
     getItemsWithColWidth() {
       let length = 0;
 
-      this.headers.forEach((item) => {
+      this.headers.forEach(item => {
         if (!item.width) {
           length++;
         }
@@ -101,7 +101,9 @@ export default {
       get: function() {
         this.isPresent();
         this.$emit("rowSelected", this.checked);
-        return this.tableData ? this.checked.length == this.tableData.length : false;
+        return this.tableData
+          ? this.checked.length == this.tableData.length
+          : false;
       },
       set: function(value) {
         var checked = [];
@@ -111,8 +113,8 @@ export default {
           });
         }
         this.checked = checked;
-      },
-    },
+      }
+    }
   },
   methods: {
     setPages() {
@@ -128,8 +130,8 @@ export default {
     },
     isPresent() {
       let result;
-      this.tableData.forEach((element) => {
-        result = this.checked.find((item) => item.id == element.id);
+      this.tableData.forEach(element => {
+        result = this.checked.find(item => item.id == element.id);
         if (result) {
           this.dot = true;
           return this.$emit("activeUser", this.dot);
@@ -151,7 +153,7 @@ export default {
     populateTable(data) {
       let element = {};
 
-      this.headers.forEach((item) => {
+      this.headers.forEach(item => {
         for (const key in data) {
           if (key === item.value) {
             element[key] = data[key];
@@ -160,8 +162,8 @@ export default {
         }
       });
       return element;
-    },
-  },
+    }
+  }
 };
 </script>
 

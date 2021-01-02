@@ -2,7 +2,11 @@
   <transition name="slide" appear>
     <div class="modal" v-if="show">
       <div class="modal_box">
-        <form style="padding: 5%; text-align:start; " class="form" @submit.prevent="submit">
+        <form
+          style="padding: 5%; text-align:start; "
+          class="form"
+          @submit.prevent="submit"
+        >
           <b-row class="close" @click="$emit('close')">x</b-row>
           <b-row class="justify-content-center">
             <div class="col-12 col-md-6">
@@ -102,7 +106,9 @@
 
           <b-row class="justify-content-center ">
             <b-button type="submit" class="green mt-2 mx-3">Upload</b-button>
-            <b-button class="red mt-2 mx-3" @click="$emit('close')">close</b-button>
+            <b-button class="red mt-2 mx-3" @click="$emit('close')"
+              >close</b-button
+            >
           </b-row>
         </form>
       </div>
@@ -136,7 +142,7 @@ export default {
       Department: "",
       Level: "",
       Uploader: "",
-      title: "",
+      title: ""
     };
   },
   methods: {
@@ -148,7 +154,7 @@ export default {
         department: this.Department,
         level: this.Level,
         link: this.Link,
-        title: this.title,
+        title: this.title
       };
       let uid = uuidv4();
       VideoRef.doc(uid)
@@ -161,11 +167,11 @@ export default {
             .set({ email: this.email });
           this.$emit("close");
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
         });
-    },
-  },
+    }
+  }
 };
 </script>
 

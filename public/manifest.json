@@ -1,0 +1,38 @@
+{
+    "short_name": "KAA",
+    "name": "Kromtech Academic Archieves",
+    "description": "Get your academic materials with ease on Kromtech Academic Archieves",
+    "icons": [
+  
+      {
+        "src": "/img/72px.png", 
+        "sizes": "72x72",
+        "type": "image/png"
+      },
+      {
+        "src": "/img/96px.png",
+        "sizes": "96x96",
+        "type": "image/png"
+      },
+      {
+        "src": "/img/144px.png",
+        "sizes": "144x144",
+        "type": "image/png"
+      },
+      {
+        "src": "/img/192px.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "/img/512px.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ],
+    "start_url": "/",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "scope": "/",
+    "theme_color": "#00276f"
+  }

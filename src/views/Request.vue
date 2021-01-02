@@ -10,7 +10,8 @@
               <span class="tex-primary">Request</span>
             </h1>
             <p class="lead text-gray-700">
-              Fill out the form to request a book and we would try to get it for you
+              Fill out the form to request a book and we would try to get it for
+              you
             </p>
           </b-col>
         </b-row>
@@ -132,7 +133,9 @@
             </b-row>
 
             <b-row class="justify-content-center align-item-center mb-3">
-              <b-button v-if="!loading" type="submit" class="green mt-2 mx-3">Sumbit</b-button>
+              <b-button v-if="!loading" type="submit" class="green mt-2 mx-3"
+                >Sumbit</b-button
+              >
               <b-spinner v-else label="Spinning"></b-spinner>
             </b-row>
           </form>
@@ -169,8 +172,8 @@ export default {
         { value: "", text: "Type", disabled: true },
         { value: "Book", text: "Book" },
         { value: "Video", text: "Video" },
-        { value: "Article", text: "Article" },
-      ],
+        { value: "Article", text: "Article" }
+      ]
     };
   },
 
@@ -195,7 +198,11 @@ export default {
         "https://script.google.com/macros/s/AKfycbxZjdjhySBOAj_5Jxt9DtpViKjjqUM9GvoGVB9QYIQ8QunlrhKZ6or6/exec";
       const form = document.forms["submit-to-google-sheet"];
       console.log(form);
-      fetch(scriptURL, { method: "POST", mode: "no-cors", body: new FormData(form) })
+      fetch(scriptURL, {
+        method: "POST",
+        mode: "no-cors",
+        body: new FormData(form)
+      })
         .then(() => {
           let text = document.getElementsByTagName("input");
           text.value = "";
@@ -203,15 +210,15 @@ export default {
           this.showModal = true;
           this.reset();
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
           alert("Something went wrong! please try again");
           this.loading = false;
         });
-    },
+    }
   },
 
-  mounted() {},
+  mounted() {}
 };
 </script>
 

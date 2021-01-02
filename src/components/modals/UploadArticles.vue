@@ -2,7 +2,11 @@
   <transition name="slide" appear>
     <div class="modal" v-if="show">
       <div class="modal_box">
-        <form style="padding: 5%; text-align:start; " class="form" @submit.prevent="submit">
+        <form
+          style="padding: 5%; text-align:start; "
+          class="form"
+          @submit.prevent="submit"
+        >
           <b-row class="close" @click="$emit('close')">x</b-row>
           <b-row class="justify-content-center">
             <div class="col-12 col-md-6">
@@ -107,7 +111,12 @@
 
           <b-row class="justify-content-center ">
             <b-button type="submit" class="green mt-2 mx-3">Upload</b-button>
-            <b-button type="button" class="red mt-2 mx-3" @click="$emit('close')">close</b-button>
+            <b-button
+              type="button"
+              class="red mt-2 mx-3"
+              @click="$emit('close')"
+              >close</b-button
+            >
           </b-row>
         </form>
       </div>
@@ -132,7 +141,7 @@ export default {
   components: { TagInput },
   props: ["show"],
   data() {
-    return { 
+    return {
       universities,
       faculties,
       level,
@@ -144,7 +153,7 @@ export default {
       Faculty: "",
       Department: "",
       Level: "",
-      Uploader: "",
+      Uploader: ""
     };
   },
   methods: {
@@ -172,7 +181,7 @@ export default {
         level: this.Level,
         link: this.Link,
         title: this.title,
-        tags: this.tags,
+        tags: this.tags
       };
       let uid = uuidv4();
       ArticleRef.doc(uid)
@@ -186,11 +195,11 @@ export default {
           this.reset();
           this.$emit("close");
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
         });
-    },
-  },
+    }
+  }
 };
 </script>
 

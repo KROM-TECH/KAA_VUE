@@ -9,8 +9,8 @@
               <span class="tex-primary">Videos</span>
             </h1>
             <p class="lead text-gray-700">
-              We currently have {{ NumBook }} in the Archive but you can view only
-              {{ availableView }}.
+              We currently have {{ NumBook }} in the Archive but you can view
+              only {{ availableView }}.
               <br />
               <a>Learn More</a>
             </p>
@@ -27,7 +27,11 @@
         </b-row>
         <b-row class="justify-content-center ">
           <b-form-input
-            v-if="selected == '' || selected == 'Uploader' || selected == 'Department'"
+            v-if="
+              selected == '' ||
+                selected == 'Uploader' ||
+                selected == 'Department'
+            "
             class="input my-3"
             :placeholder="placeholder"
             v-model="searchInput"
@@ -68,7 +72,10 @@
 
         <div style="overflow-x: auto;">
           <NotFound v-if="empty && !data.length" />
-          <div class="d-flex justify-content-center" v-if="!data.length && !empty">
+          <div
+            class="d-flex justify-content-center"
+            v-if="!data.length && !empty"
+          >
             <b-spinner type="grow load" label="Loading..."></b-spinner>
           </div>
 
@@ -119,20 +126,20 @@ export default {
         { value: "University", text: "University" },
         { value: "Faculty", text: "Faculty" },
         { value: "Department", text: "Department" },
-        { value: "Level", text: "Level" },
+        { value: "Level", text: "Level" }
       ],
-      loading: true,
+      loading: true
     };
   },
   computed: {
     availableView() {
       return this.NumBook > 15 ? "15" : this.NumBook;
-    },
+    }
   },
 
   methods: {
     loadData(querySnapshot) {
-      querySnapshot.forEach((doc) => {
+      querySnapshot.forEach(doc => {
         const document = doc.data();
         this.data.push(document);
       });
@@ -144,7 +151,7 @@ export default {
         .firestore()
         .collection("videos")
         .get()
-        .then((querySnapshot) => {
+        .then(querySnapshot => {
           this.NumBook = querySnapshot.size;
           this.loadData(querySnapshot);
         });
@@ -161,7 +168,7 @@ export default {
           .orderBy("uploader")
           .startAt(searchValue)
           .endAt(searchValue + "\uf8ff")
-          .onSnapshot((querySnapshot) => {
+          .onSnapshot(querySnapshot => {
             if (!querySnapshot.empty) {
               this.loadData(querySnapshot);
             } else {
@@ -173,7 +180,7 @@ export default {
           .orderBy("university")
           .startAt(searchValue)
           .endAt(searchValue + "\uf8ff")
-          .onSnapshot((querySnapshot) => {
+          .onSnapshot(querySnapshot => {
             if (!querySnapshot.empty) {
               this.loadData(querySnapshot);
             } else {
@@ -185,7 +192,7 @@ export default {
           .orderBy("bookName")
           .startAt(searchValue)
           .endAt(searchValue + "\uf8ff")
-          .onSnapshot((querySnapshot) => {
+          .onSnapshot(querySnapshot => {
             if (!querySnapshot.empty) {
               this.loadData(querySnapshot);
             } else {
@@ -197,7 +204,7 @@ export default {
           .orderBy("bookAuthor")
           .startAt(searchValue)
           .endAt(searchValue + "\uf8ff")
-          .onSnapshot((querySnapshot) => {
+          .onSnapshot(querySnapshot => {
             if (!querySnapshot.empty) {
               this.loadData(querySnapshot);
             } else {
@@ -209,7 +216,7 @@ export default {
           .orderBy("faculty")
           .startAt(searchValue)
           .endAt(searchValue + "\uf8ff")
-          .onSnapshot((querySnapshot) => {
+          .onSnapshot(querySnapshot => {
             if (!querySnapshot.empty) {
               this.loadData(querySnapshot);
             } else {
@@ -221,7 +228,7 @@ export default {
           .orderBy("department")
           .startAt(searchValue)
           .endAt(searchValue + "\uf8ff")
-          .onSnapshot((querySnapshot) => {
+          .onSnapshot(querySnapshot => {
             if (!querySnapshot.empty) {
               this.loadData(querySnapshot);
             } else {
@@ -233,7 +240,7 @@ export default {
           .orderBy("level")
           .startAt(searchValue)
           .endAt(searchValue + "\uf8ff")
-          .onSnapshot((querySnapshot) => {
+          .onSnapshot(querySnapshot => {
             if (!querySnapshot.empty) {
               if (!querySnapshot.empty) {
                 this.loadData(querySnapshot);
@@ -247,12 +254,12 @@ export default {
       }
 
       this.loading = false;
-    },
+    }
   },
 
   created() {
     this.init();
-  },
+  }
 };
 </script>
 

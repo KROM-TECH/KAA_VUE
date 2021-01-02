@@ -40,9 +40,9 @@ export default {
     FacebookButton,
     WhatsappButton,
     TelegramButton,
-    LinkedInButton,
+    LinkedInButton
   },
-  props: ["showModal"],
+  props: ["showModal"]
 };
 </script>
 

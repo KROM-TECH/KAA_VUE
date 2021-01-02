@@ -1,13 +1,12 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "@/views/Home.vue";
-const Book= () => import("@/views/Book.vue");
-const Video= () => import("@/views/Video.vue");
-const Article= () => import("@/views/Article.vue");
-const Upload= () => import("@/views/Upload.vue");
-const Guide= () => import("@/views/Guide.vue");
-const Request= () => import("@/views/Request.vue");
-
+const Book = () => import("@/views/Book.vue");
+const Video = () => import("@/views/Video.vue");
+const Article = () => import("@/views/Article.vue");
+const Upload = () => import("@/views/Upload.vue");
+const Guide = () => import("@/views/Guide.vue");
+const Request = () => import("@/views/Request.vue");
 
 Vue.use(VueRouter);
 
@@ -46,8 +45,7 @@ const routes = [
     path: "/request",
     name: "Request",
     component: Request
-  },
- 
+  }
 ];
 
 const router = new VueRouter({

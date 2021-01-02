@@ -9,7 +9,8 @@
               <span class="tex-primary">Guide</span>
             </h1>
             <p class="lead text-gray-700">
-              below are a list of simple rule you should follow when using the site
+              below are a list of simple rule you should follow when using the
+              site
             </p>
           </b-col>
         </b-row>
@@ -17,21 +18,23 @@
         <b-row class="justify-content-center align-items-center">
           <b-card class="card"
             ><p>
-              <span class="header"> Avoid Duplicates </span><br />Please ensure to check the already
-              existing files before uploading new files
+              <span class="header"> Avoid Duplicates </span><br />Please ensure
+              to check the already existing files before uploading new files
             </p></b-card
           >
           <b-card class="card"
             ><p>
-              <span class="header"> Share request </span><br />At the time of writting this, the
-              share request feature hasn't been implemented yet but you can still use the home share
-              button to create awareness
+              <span class="header"> Share request </span><br />At the time of
+              writting this, the share request feature hasn't been implemented
+              yet but you can still use the home share button to create
+              awareness
             </p></b-card
           >
           <b-card class="card"
             ><p>
-              <span class="header"> Be very Descriptive </span><br />When making a request ensure to
-              give enough details, in order to simplify the search and upload of your request
+              <span class="header"> Be very Descriptive </span><br />When making
+              a request ensure to give enough details, in order to simplify the
+              search and upload of your request
             </p></b-card
           >
         </b-row>
@@ -52,17 +55,17 @@ export default {
       placeholder: "",
       searchInput: "",
       data: [],
-      loading: true,
+      loading: true
     };
   },
 
   methods: {
     dropdown(x) {
       this.selected = x;
-    },
+    }
   },
 
-  mounted() {},
+  mounted() {}
 };
 </script>
 

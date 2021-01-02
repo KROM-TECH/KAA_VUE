@@ -3,11 +3,15 @@
     <div class="box d-flex justify-content-center align-items-center">
       <img src="@/assets/video.svg" alt="" />
     </div>
-    <b-button @click="showModal = !showModal" class="mb-2 primary ">Details</b-button>
+    <b-button @click="showModal = !showModal" class="mb-2 primary "
+      >Details</b-button
+    >
 
     <transition name="slide" appear>
       <div class="modall" v-if="showModal">
-        <div class=" card p-5 mx-2 d-flex justify-content-center align-items-center">
+        <div
+          class=" card p-5 mx-2 d-flex justify-content-center align-items-center"
+        >
           <div class="close" @click="showModal = false">X</div>
           <div>
             <span>Title</span>
@@ -38,7 +42,9 @@
             <a :href="data.link" target="_blank">
               <b-button class="green mt-2 mx-2">Watch</b-button></a
             >
-            <b-button class="red mt-2  mx-2" @click="showModal = !showModal">Close</b-button>
+            <b-button class="red mt-2  mx-2" @click="showModal = !showModal"
+              >Close</b-button
+            >
           </div>
         </div>
       </div>
@@ -52,9 +58,9 @@ export default {
   props: ["data", "index"],
   data() {
     return {
-      showModal: false,
+      showModal: false
     };
-  },
+  }
 };
 </script>
 

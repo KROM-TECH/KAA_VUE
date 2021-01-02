@@ -2,20 +2,43 @@
   <transition name="slide" appear>
     <div class="modal">
       <div class="modal_box">
-        <form action="" name="submit-to-google-sheet" style="padding: 10%;" class="fadeRight">
+        <form
+          action=""
+          name="submit-to-google-sheet"
+          style="padding: 10%;"
+          class="fadeRight"
+        >
           <div>
             <label for="name">Name</label>
-            <input id="name" name="Name" type="text" placeholder="Enter Your Full Name" required />
+            <input
+              id="name"
+              name="Name"
+              type="text"
+              placeholder="Enter Your Full Name"
+              required
+            />
           </div>
 
           <div>
             <label for="email">Email</label>
-            <input id="email" name="Email" type="email" placeholder="Enter Your Email" required />
+            <input
+              id="email"
+              name="Email"
+              type="email"
+              placeholder="Enter Your Email"
+              required
+            />
           </div>
 
           <div>
             <label for="phone">Phone Num</label>
-            <input id="phone" name="Phone" type="text" placeholder="WhatsApp Prefered" required />
+            <input
+              id="phone"
+              name="Phone"
+              type="text"
+              placeholder="WhatsApp Prefered"
+              required
+            />
           </div>
 
           <div style=" margin-bottom: 4px;">
@@ -55,7 +78,11 @@
             </select>
           </div> -->
 
-          <button class="custom-btn" style="border:2px solid; margin-top:1rem;" @click="submit">
+          <button
+            class="custom-btn"
+            style="border:2px solid; margin-top:1rem;"
+            @click="submit"
+          >
             Sumbit
           </button>
 
@@ -77,7 +104,7 @@ export default {
   name: "Request",
   data() {
     return {
-      submitBtn: "false",
+      submitBtn: "false"
     };
   },
   methods: {
@@ -92,10 +119,10 @@ export default {
           .then(() => {
             this.$emit("close");
           })
-          .catch((error) => alert("Error!", error.message));
+          .catch(error => alert("Error!", error.message));
       });
-    },
-  },
+    }
+  }
 };
 </script>
 

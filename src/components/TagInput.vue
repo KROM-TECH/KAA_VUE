@@ -21,7 +21,7 @@ export default {
   data() {
     return {
       tags: [],
-      disabled: false,
+      disabled: false
     };
   },
   methods: {
@@ -48,8 +48,8 @@ export default {
         this.removeTag(this.tags.length - 1);
         this.$emit("added", this.tags);
       }
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>

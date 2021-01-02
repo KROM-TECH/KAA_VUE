@@ -12,7 +12,7 @@
 <script>
 export default {
   name: "success",
-  props: ["showModal"],
+  props: ["showModal"]
 };
 </script>
 

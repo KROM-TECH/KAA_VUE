@@ -14,7 +14,9 @@
         :fill="disable ? '#484747f7' : '#00276f'"
       />
     </svg>
-    <h1 :class="disable ? 'grey' : 'norm '">Upload {{ disable ? "" : type }}</h1>
+    <h1 :class="disable ? 'grey' : 'norm '">
+      Upload {{ disable ? "" : type }}
+    </h1>
     <UploadBooks :show="UploadBooks" @close="UploadBooks = false" />
     <UploadVideos :show="UploadVideos" @close="UploadVideos = false" />
     <UploadArticles :show="UploadArticles" @close="UploadArticles = false" />
@@ -33,7 +35,7 @@ export default {
     return {
       UploadBooks: false,
       UploadVideos: false,
-      UploadArticles: false,
+      UploadArticles: false
     };
   },
   methods: {
@@ -46,8 +48,8 @@ export default {
       } else {
         this.UploadArticles = true;
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

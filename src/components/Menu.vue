@@ -62,9 +62,9 @@ export default {
   name: "Menu",
   data() {
     return {
-      expand: false,
+      expand: false
     };
-  },
+  }
 };
 </script>
 

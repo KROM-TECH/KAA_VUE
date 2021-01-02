@@ -2,18 +2,19 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap-vue/dist/bootstrap-vue.css';
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/firestore';
-import 'firebase/analytics';
-import VueSocialSharing from 'vue-social-sharing'
+import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
+import firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/firestore";
+import "firebase/analytics";
+import VueSocialSharing from "vue-social-sharing";
+import "./registerServiceWorker";
 
 Vue.use(VueSocialSharing);
-Vue.use(BootstrapVue)
-Vue.use(IconsPlugin)
+Vue.use(BootstrapVue);
+Vue.use(IconsPlugin);
 
 Vue.config.productionTip = false;
 
@@ -33,14 +34,14 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
-let app
+let app;
 
 firebase.auth().onAuthStateChanged(() => {
   if (!app) {
     app = new Vue({
       router,
       store,
-      render: (h) => h(App)
-    }).$mount('body');
+      render: h => h(App)
+    }).$mount("body");
   }
 });
