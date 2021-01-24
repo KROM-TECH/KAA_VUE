@@ -28,19 +28,32 @@ exports.BookScrape = functions.https.onRequest((request, response) => {
       });
 });
 
-exports.GetDownloadLink = functions.https.onRequest((request, response) => {
-    console.log(request.query.link);
-    quest(`https://b-ok.africa${request.query.link}`, (error, _response, html) => {
-        if (!error && response.statusCode == 200) {
-            const $ = cheerio.load(html);
+function run (link) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const browser = await puppeteer.launch();
+            const page = await browser.newPage();
+            await page.goto(`https://b-ok.africa${link}`);
+            let urls = await page.evaluate(() => {
+                let results = [];
+                let text = document.querySelector('#bookDescriptionBox').innerText;
 
-            const seclink = $('a.btn.btn-primary.dlButton.addDownloadedBook')
-            seclink.click()
-            const link = $('a.btn.btn-primary.dlButton.addDownloadedBook').attr('href')
-            response.send(link) 
-            console.log(link);
-            // response.redirect(`https://b-ok.africa/${link}`)
+                results.push({description:text})
+            
+                return results;
+            })
+            browser.close();
+            return resolve(urls);
+        } catch (e) {
+            return reject(e);
         }
     })
+}
+
+exports.GetDownloadLink = functions.https.onRequest((request, response) => {
+    console.log(request.query.link);
+    run(request.query.link).then((data)=>{
+        response.send(data) 
+    }).catch(console.error);
 })
  
