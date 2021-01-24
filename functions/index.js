@@ -11,25 +11,33 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
         
         if (!error && response.statusCode == 200) {
           const $ = cheerio.load(html);
+          const bookArray = [];
           
-                   const title = $('h3 > a')
-                   console.log(title);
+                   const title = $('h3 > a').text()
+                //    console.log(title);
                 //    response.send()
-        //   $('.post-preview').each((i, el) => {
-        //     const title = $(el)
-        //       .find('.post-title')
-        //       .text()
-        //       .replace(/\s\s+/g, '');
-        //     const link = $(el)
-        //       .find('a')
-        //       .attr('href');
-        //     const date = $(el)
-        //       .find('.post-date')
-        //       .text()
-        //       .replace(/,/, '');
+          $('h3 > a').each((i, el) => {
+              
+            const title = $(el).text()
+            const link = $()
+              bookArray.push({name:title})
+
+
+
+            //   .replace(/\s\s+/g, '');
+            // const link = $(el)
+            //   .find('a')
+            //   .attr('href');
+            // const date = $(el)
+            //   .find('.post-date')
+            //   .text()
+            //   .replace(/,/, '');
       
-        //       response.send(title)
-        //   });
+              
+          });
+
+
+          response.send(bookArray)
       
           console.log('Scraping Done...');
         }
