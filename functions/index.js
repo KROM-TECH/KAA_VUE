@@ -28,17 +28,42 @@ exports.BookScrape = functions.https.onRequest((request, response) => {
       });
 });
 
-function run (link) {
+function getdetails (link) {
     return new Promise(async (resolve, reject) => {
         try {
             const browser = await puppeteer.launch();
             const page = await browser.newPage();
-            await page.goto(`https://b-ok.africa${link}`);
+            await page.goto(`https://b-ok.africa${link}`, {waitUntil: 'networkidle2'});
+            await page.waitForSelector('.details-book-cover > img',{visible: true})
             let urls = await page.evaluate(() => {
                 let results = [];
                 let text = document.querySelector('#bookDescriptionBox').innerText;
+                let img = document.querySelector('.details-book-cover > img').getAttribute('src')
 
-                results.push({description:text})
+                results.push({description:text, image:img})
+            
+                return results;
+            })
+            browser.close();
+            return resolve(urls);
+        } catch (e) {
+            return reject(e);
+        }
+    })
+}
+function downloadBook (link) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const browser = await puppeteer.launch();
+            const page = await browser.newPage();
+            await page.goto(`https://b-ok.africa${link}`, {waitUntil: 'networkidle2'});
+            await page.waitForSelector('.details-book-cover > img',{visible: true})
+            let urls = await page.evaluate(() => {
+                let results = [];
+                let text = document.querySelector('#bookDescriptionBox').innerText;
+                let img = document.querySelector('.details-book-cover > img').getAttribute('src')
+
+                results.push({description:text, image:img})
             
                 return results;
             })
@@ -52,7 +77,14 @@ function run (link) {
 
 exports.GetDownloadLink = functions.https.onRequest((request, response) => {
     console.log(request.query.link);
-    run(request.query.link).then((data)=>{
+    getdetails(request.query.link).then((data)=>{
+        response.send(data) 
+    }).catch(console.error);
+})
+
+exports.DownloadBook = functions.https.onRequest((request, response) => {
+    console.log(request.query.link);
+    downloadBook(request.query.link).then((data)=>{
         response.send(data) 
     }).catch(console.error);
 })
