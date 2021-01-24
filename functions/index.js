@@ -35,36 +35,14 @@ function getdetails (link) {
             const page = await browser.newPage();
             await page.goto(`https://b-ok.africa${link}`, {waitUntil: 'networkidle2'});
             await page.waitForSelector('.details-book-cover > img',{visible: true})
+
             let urls = await page.evaluate(() => {
                 let results = [];
                 let text = document.querySelector('#bookDescriptionBox').innerText;
                 let img = document.querySelector('.details-book-cover > img').getAttribute('src')
+                let size = document.querySelector('a.btn.btn-primary.dlButton.addDownloadedBook').innerText;
 
-                results.push({description:text, image:img})
-            
-                return results;
-            })
-            browser.close();
-            return resolve(urls);
-        } catch (e) {
-            return reject(e);
-        }
-    })
-}
-function downloadBook (link) {
-    return new Promise(async (resolve, reject) => {
-        try {
-            const browser = await puppeteer.launch();
-            const page = await browser.newPage();
-            console.log(`https://b-ok.africa${link}`);
-            await page.goto(`https://b-ok.africa${link}`, {waitUntil: 'networkidle2'});
-            await page.waitForSelector('a.btn.btn-primary.dlButton.addDownloadedBook',{visible: true})
-            let urls = await page.evaluate(() => {
-                let results = [];
-                // await page.click('a.btn.btn-primary.dlButton.addDownloadedBook');
-                let text = document.querySelector('a.dlButton.addDownloadedBook');
-
-                results.push({description:text})
+                results.push({description:text, image:img, size:size})
             
                 return results;
             })
@@ -84,9 +62,16 @@ exports.GetDownloadLink = functions.https.onRequest((request, response) => {
 })
 
 exports.DownloadBook = functions.https.onRequest((request, response) => {
-    console.log(request.query.link);
-    downloadBook(request.query.link).then((data)=>{
-        response.send(data) 
-    }).catch(console.error);
+    console.log(`https://b-ok.africa${request.query.link}`);
+    quest(`https://b-ok.africa${request.query.link}`, (error, _response, html) => {
+        if (!error && response.statusCode == 200) {
+          const $ = cheerio.load(html);
+          const link = $('a.btn.btn-primary.dlButton.addDownloadedBook').attr('href')
+            console.log(`https://b-ok.africa${link}`);
+          response.redirect(`https://b-ok.africa${link}`) 
+      
+          console.log('Scraping Done...');
+        }
+      });
 })
  
