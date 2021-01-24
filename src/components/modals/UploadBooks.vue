@@ -2,11 +2,7 @@
   <transition name="slide" appear>
     <div class="modal" v-if="show">
       <div class="modal_box">
-        <form
-          style="padding: 5%; text-align:start; "
-          class="form"
-          @submit.prevent="submit"
-        >
+        <form style="padding: 5%; text-align:start; " class="form" @submit.prevent="submit">
           <b-row class="close" @click="$emit('close')">x</b-row>
           <b-row class="justify-content-center">
             <div class="col-12 col-md-6">
@@ -121,10 +117,7 @@
           <b-row>
             <div class="col-12">
               <div class="custom-upload row align-items-center">
-                <label
-                  class="dropdown cust"
-                  for="book"
-                  data-element="custom-upload-button"
+                <label class="dropdown cust" for="book" data-element="custom-upload-button"
                   >{{ title }}
                 </label>
                 <div class="status">{{ perc }}</div>
@@ -143,12 +136,7 @@
 
           <b-row class="justify-content-center ">
             <b-button type="submit" class="green mt-2 mx-3">Upload</b-button>
-            <b-button
-              type="button"
-              class="red mt-2 mx-3"
-              @click="$emit('close')"
-              >close</b-button
-            >
+            <b-button type="button" class="red mt-2 mx-3" @click="$emit('close')">close</b-button>
           </b-row>
         </form>
       </div>
@@ -185,7 +173,7 @@ export default {
       Faculty: "",
       Department: "",
       Level: "",
-      Uploader: ""
+      Uploader: "",
     };
   },
   methods: {
@@ -203,7 +191,7 @@ export default {
         faculty: this.Faculty,
         department: this.Department,
         level: this.Level,
-        book: this.title
+        book: this.title,
       };
 
       let uid = uuidv4();
@@ -221,22 +209,19 @@ export default {
           var storageReference = firebase.storage().ref();
           var file = document.getElementById("book").files[0];
 
-          let uploadTask = storageReference
-            .child("books/" + file.name)
-            .put(file);
+          let uploadTask = storageReference.child("books/" + file.name).put(file);
 
-          uploadTask.on("state_changed", snapshot => {
-            const progress =
-              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          uploadTask.on("state_changed", (snapshot) => {
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
             this.title = Math.floor(progress) + "% uploaded";
           });
           this.$emit("close");
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
         });
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -365,7 +350,7 @@ button {
   transition: transform 0.5s;
 }
 
-.slide-enter,
+.slide-enter-from,
 .slide-leave-to {
   transform: scale(0);
 }

@@ -1,0 +1,43 @@
+[debug] [2021-01-24T07:29:17.089Z] ----------------------------------------------------------------------
+[debug] [2021-01-24T07:29:17.092Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\ANTONY\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js emulators:start --only functions
+[debug] [2021-01-24T07:29:17.092Z] CLI Version:   8.14.1
+[debug] [2021-01-24T07:29:17.092Z] Platform:      win32
+[debug] [2021-01-24T07:29:17.092Z] Node Version:  v14.15.0
+[debug] [2021-01-24T07:29:17.094Z] Time:          Sun Jan 24 2021 08:29:17 GMT+0100 (West Africa Standard Time)
+[debug] [2021-01-24T07:29:17.094Z] ----------------------------------------------------------------------
+[debug] [2021-01-24T07:29:17.094Z] 
+[debug] [2021-01-24T07:29:17.105Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-01-24T07:29:17.106Z] > authorizing via signed-in user
+[info] i  emulators: Starting emulators: functions {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: functions"}}
+[debug] [2021-01-24T07:29:18.152Z] [hub] writing locator at C:\Users\ANTONY\AppData\Local\Temp\hub-kromtech-archive.json
+[warn] !  functions: The following emulators are not running, calls to these services from the Functions emulator will affect production: auth, firestore, database, hosting, pubsub {"metadata":{"emulator":{"name":"functions"},"message":"The following emulators are not running, calls to these services from the Functions emulator will affect production: \u001b[1mauth, firestore, database, hosting, pubsub\u001b[22m"}}
+[info] i  emulators: Shutting down emulators. {"metadata":{"emulator":{"name":"hub"},"message":"Shutting down emulators."}}
+[info] i  functions: Stopping Functions Emulator {"metadata":{"emulator":{"name":"functions"},"message":"Stopping Functions Emulator"}}
+[info] i  hub: Stopping emulator hub {"metadata":{"emulator":{"name":"hub"},"message":"Stopping emulator hub"}}
+[debug] [2021-01-24T07:29:19.892Z] Error: Cannot find module 'C:\Users\ANTONY\Desktop\KAA_VUE\functions\list\package.json'
+Require stack:
+- C:\Users\ANTONY\AppData\Roaming\npm\node_modules\firebase-tools\lib\emulator\functionsEmulator.js
+- C:\Users\ANTONY\AppData\Roaming\npm\node_modules\firebase-tools\lib\emulator\controller.js
+- C:\Users\ANTONY\AppData\Roaming\npm\node_modules\firebase-tools\lib\emulator\commandUtils.js
+- C:\Users\ANTONY\AppData\Roaming\npm\node_modules\firebase-tools\lib\commands\database-get.js
+- C:\Users\ANTONY\AppData\Roaming\npm\node_modules\firebase-tools\lib\commands\index.js
+- C:\Users\ANTONY\AppData\Roaming\npm\node_modules\firebase-tools\lib\index.js
+- C:\Users\ANTONY\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js
+    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:880:15)
+    at Function.Module._load (internal/modules/cjs/loader.js:725:27)
+    at Module.require (internal/modules/cjs/loader.js:952:19)
+    at require (internal/modules/cjs/helpers.js:88:18)
+    at FunctionsEmulator.askInstallNodeVersion (C:\Users\ANTONY\AppData\Roaming\npm\node_modules\firebase-tools\lib\emulator\functionsEmulator.js:435:21)
+    at FunctionsEmulator.<anonymous> (C:\Users\ANTONY\AppData\Roaming\npm\node_modules\firebase-tools\lib\emulator\functionsEmulator.js:168:36)
+    at Generator.next (<anonymous>)
+    at C:\Users\ANTONY\AppData\Roaming\npm\node_modules\firebase-tools\lib\emulator\functionsEmulator.js:8:71
+    at new Promise (<anonymous>)
+    at __awaiter (C:\Users\ANTONY\AppData\Roaming\npm\node_modules\firebase-tools\lib\emulator\functionsEmulator.js:4:12)
+    at FunctionsEmulator.start (C:\Users\ANTONY\AppData\Roaming\npm\node_modules\firebase-tools\lib\emulator\functionsEmulator.js:167:16)
+    at Function.<anonymous> (C:\Users\ANTONY\AppData\Roaming\npm\node_modules\firebase-tools\lib\emulator\registry.js:26:28)
+    at Generator.next (<anonymous>)
+    at C:\Users\ANTONY\AppData\Roaming\npm\node_modules\firebase-tools\lib\emulator\registry.js:8:71
+    at new Promise (<anonymous>)
+    at __awaiter (C:\Users\ANTONY\AppData\Roaming\npm\node_modules\firebase-tools\lib\emulator\registry.js:4:12)
+[error] 
+[error] Error: An unexpected error has occurred.
