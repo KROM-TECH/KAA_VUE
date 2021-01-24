@@ -3,11 +3,12 @@ const quest = require('request');
 const cheerio = require('cheerio');
 
 // Create and Deploy Your First Cloud Functions
+// firebase emulators:start --only functions
 // https://firebase.google.com/docs/functions/write-firebase-functions
 
-exports.helloWorld = functions.https.onRequest((request, response) => {
-    
-    quest('https://b-ok.africa/s/Vue', (error, _response, html) => {
+exports.BookScrape = functions.https.onRequest((request, response) => {
+    console.log(request.query.name);
+    quest(`https://b-ok.africa/s/${request.query.name}`, (error, _response, html) => {
         
         if (!error && response.statusCode == 200) {
           const $ = cheerio.load(html);
@@ -19,19 +20,11 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
           $('h3 > a').each((i, el) => {
               
             const title = $(el).text()
-            const link = $()
-              bookArray.push({name:title})
-
-
-
-            //   .replace(/\s\s+/g, '');
-            // const link = $(el)
-            //   .find('a')
-            //   .attr('href');
-            // const date = $(el)
-            //   .find('.post-date')
-            //   .text()
-            //   .replace(/,/, '');
+            const link = $(el).attr('href');
+                    bookArray.push({name:title, link:link})
+          
+            
+            
       
               
           });
