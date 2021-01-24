@@ -56,14 +56,15 @@ function downloadBook (link) {
         try {
             const browser = await puppeteer.launch();
             const page = await browser.newPage();
+            console.log(`https://b-ok.africa${link}`);
             await page.goto(`https://b-ok.africa${link}`, {waitUntil: 'networkidle2'});
-            await page.waitForSelector('.details-book-cover > img',{visible: true})
+            await page.waitForSelector('a.btn.btn-primary.dlButton.addDownloadedBook',{visible: true})
             let urls = await page.evaluate(() => {
                 let results = [];
-                let text = document.querySelector('#bookDescriptionBox').innerText;
-                let img = document.querySelector('.details-book-cover > img').getAttribute('src')
+                // await page.click('a.btn.btn-primary.dlButton.addDownloadedBook');
+                let text = document.querySelector('a.dlButton.addDownloadedBook');
 
-                results.push({description:text, image:img})
+                results.push({description:text})
             
                 return results;
             })
