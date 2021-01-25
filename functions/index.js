@@ -30,15 +30,12 @@ function getdetails (link) {
             const page = await browser.newPage();
             await page.goto(`https://b-ok.africa${link}`, {waitUntil: 'networkidle2'});
             await page.waitForSelector('.details-book-cover > img',{visible: true})
-
             let urls = await page.evaluate(() => {
                 let results = [];
                 let text = document.querySelector('#bookDescriptionBox').innerText;
                 let img = document.querySelector('.details-book-cover > img').getAttribute('src')
                 let size = document.querySelector('a.btn.btn-primary.dlButton.addDownloadedBook').innerText;
-
                 results.push({description:text, image:img, size:size})
-            
                 return results;
             })
             browser.close();
@@ -48,6 +45,7 @@ function getdetails (link) {
         }
     })
 }
+
 function DownloadBook (link) {
     return new Promise(async (resolve, reject) => {
         try {
@@ -57,10 +55,8 @@ function DownloadBook (link) {
             await page.waitForSelector('.details-book-cover > img',{visible: true})
             console.log('Clicking on "Download PDF" button');
             await page.on('response', response => {
-                // console.log(response.url());
                 if (response.url().indexOf('dl') > -1)
                   console.log("response code: ", response.status(), response.url());
-                  // do something here
               });
             await page.click('a.btn.btn-primary.dlButton.addDownloadedBook')
             await page.waitForNavigation({waitUntil: 'networkidle2'})
@@ -70,12 +66,8 @@ function DownloadBook (link) {
                 if(document.querySelector('#bookDescriptionBox')){
                     let text = document.querySelector('#bookDescriptionBox').innerText;
                 }
-                
                 let img = document.querySelector('.details-book-cover > img').getAttribute('src')
                 let url = document.querySelector('a.btn.btn-primary.dlButton.addDownloadedBook').getAttribute('href');
-
-                // results.push({description:text, image:img, size:size})
-            
                 return url;
             })
         
