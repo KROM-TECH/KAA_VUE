@@ -12,7 +12,7 @@ exports.BookScrape = functions.https.onRequest((request, response) => {
         if (!error && _response.statusCode == 200) {
           const $ = cheerio.load(html);
           const bookArray = [];
-          $('h3 > a').each(el => {
+          $('h3 > a').each((i,el) => {
             const title = $(el).text()
             const link = $(el).attr('href');
          bookArray.push({name:title, link:link})
@@ -49,30 +49,25 @@ function getdetails (link) {
 function DownloadBook (link) {
     return new Promise(async (resolve, reject) => {
         try {
-            const browser = await puppeteer.launch({headless:false});
+            const browser = await puppeteer.launch({headless:true});
             const page = await browser.newPage();
             await page.goto(`https://b-ok.africa${link}`, {waitUntil: 'networkidle2'});
-            await page.waitForSelector('.details-book-cover > img',{visible: true})
             console.log('Clicking on "Download PDF" button');
             await page.on('response', response => {
-                if (response.url().indexOf('dl') > -1)
-                  console.log("response code: ", response.status(), response.url());
+                console.log(response.url());
+                if (response.url().indexOf('dtoken') > -1){
+                    console.log("response code: ", response.status(), response.url());
+                    urls = response.url()
+                    return resolve(urls);
+                }
+                  
               });
+             
             await page.click('a.btn.btn-primary.dlButton.addDownloadedBook')
             await page.waitForNavigation({waitUntil: 'networkidle2'})
-            console.log(page.url());
-            let urls = await page.evaluate(() => {
-                let results = [];
-                if(document.querySelector('#bookDescriptionBox')){
-                    let text = document.querySelector('#bookDescriptionBox').innerText;
-                }
-                let img = document.querySelector('.details-book-cover > img').getAttribute('src')
-                let url = document.querySelector('a.btn.btn-primary.dlButton.addDownloadedBook').getAttribute('href');
-                return url;
-            })
-        
             browser.close();
-            return resolve(urls);
+            
+            
         } catch (e) {
             return reject(e);
         }
@@ -90,7 +85,7 @@ exports.DownloadBook = functions.https.onRequest((request, response) => {
     console.log(request.query.link);
     DownloadBook(request.query.link).then((data)=>{
         console.log(data);
-        response.send(data) 
+        response.redirect(data) 
     }).catch(console.error);
 })
  
