@@ -44,6 +44,8 @@
         </div>
       </b-container>
     </section>
+
+    <BookSearchModal :showModal="showModal" @close="showModal = !showModal" />
   </div>
 </template>
 
@@ -51,11 +53,13 @@
 import Error from "@/components/Error.vue";
 import Menu from "@/components/Menu.vue";
 import NotFound from "@/components/404.vue";
+import BookSearchModal from "@/components/modals/BookSearchModal.vue";
 
 export default {
-  components: { Menu, Error, NotFound },
+  components: { Menu, Error, NotFound, BookSearchModal },
   data() {
     return {
+      showModal: true,
       loading: false,
       Error: false,
       placeholder: "",
