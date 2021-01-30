@@ -7,10 +7,12 @@ const Article = () => import("@/views/Article.vue");
 const Upload = () => import("@/views/Upload.vue");
 const Guide = () => import("@/views/Guide.vue");
 const Request = () => import("@/views/Request.vue");
+import searchRoutes from './search.js'
 
 Vue.use(VueRouter);
 
 const routes = [
+  ...searchRoutes,
   {
     path: "/",
     name: "Home",
