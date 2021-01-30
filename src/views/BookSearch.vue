@@ -27,7 +27,7 @@
             type="search"
           ></b-form-input>
 
-          <button class="primary my-3 mt-3" :disabled="searchInput == ''" @click="searchButton">
+          <button class="primary my-3 mt-3" :disabled="searchInput == ''" @click="search">
             Search
           </button>
         </b-row>
@@ -38,11 +38,8 @@
             <b-spinner type="grow load" label="Loading..."></b-spinner>
           </div>
 
-          <h6 class="list">
-            Fundamentals of Electric Circuits
-          </h6>
-          <h6 class="list">
-            Numerical Techniques in Electromagnetics with MATLAB, Third Edition
+          <h6 class="list" v-for="(n, index) in data" :key="index">
+            {{ n.name }}
           </h6>
         </div>
       </b-container>
@@ -76,7 +73,7 @@ export default {
 
   methods: {
     search() {
-      fetch("https://book-web-scraper-api.herokuapp.com/search/?name=sadiku")
+      fetch(`https://book-web-scraper-api.herokuapp.com/search/?name=${this.searchInput}`)
         .then((response) => response.json())
         .then((data) => (this.data = data))
         .catch(console.log());
