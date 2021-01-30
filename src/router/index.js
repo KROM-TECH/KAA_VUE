@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "@/views/Home.vue";
-const Book = () => import("@/views/Book.vue");
+const Book = () => import("@/views/book/Book.vue");
 const Video = () => import("@/views/Video.vue");
 const Article = () => import("@/views/Article.vue");
 const Upload = () => import("@/views/Upload.vue");

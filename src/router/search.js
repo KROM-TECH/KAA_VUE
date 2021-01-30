@@ -1,4 +1,4 @@
-const BookSearch = () => import("@/views/BookSearch.vue");
+const BookSearch = () => import("@/views/book/BookSearch.vue");
 
 export default [
     {
