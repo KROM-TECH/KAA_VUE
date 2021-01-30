@@ -10,7 +10,7 @@
           <img :src="data.image" alt="" />
 
           <p class="desc">
-            {{ data.description }}
+            {{ data.description | truncate }}
           </p>
           <div class="d-flex flex-wrap justify-content-center">
             <b-button class="green mt-2 mx-2" @click="download()">{{ data.size }}</b-button>
@@ -34,7 +34,7 @@ export default {
     };
   },
   filters: {
-    truncate: function(text, length = 24, clamp) {
+    truncate: function(text, length = 500, clamp) {
       clamp = clamp || "...";
       var node = document.createElement("div");
       node.innerHTML = text;
