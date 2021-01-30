@@ -39,4 +39,8 @@ section {
   font-weight: 600 !important;
   border-color: #00276f !important;
 }
+button {
+  outline: none !important;
+  border: none !important;
+}
 </style>

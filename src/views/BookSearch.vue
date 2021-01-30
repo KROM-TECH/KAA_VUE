@@ -11,8 +11,8 @@
             </h1>
             <p class="lead text-gray-700">
               Use this Option if you have a particular book you are looking for.
-
-              {{ searchResult }}
+              <br />
+              <span class="result" v-if="data.length" v-html="searchResult"></span>
               <br />
               <a>Learn More</a>
             </p>
@@ -33,12 +33,12 @@
         </b-row>
 
         <div style="overflow-x: auto;">
-          <NotFound v-if="empty && !data.length" />
-          <div class="d-flex justify-content-center" v-if="!data.length && !empty">
+          <NotFound v-if="Error" />
+          <div class="d-flex justify-content-center" v-if="loading">
             <b-spinner type="grow load" label="Loading..."></b-spinner>
           </div>
 
-          <h6 class="list" v-for="(n, index) in data" :key="index">
+          <h6 class="list" v-for="(n, index) in data" :key="index" v-else>
             {{ n.name }}
           </h6>
         </div>
@@ -56,37 +56,58 @@ export default {
   components: { Menu, Error, NotFound },
   data() {
     return {
-      empty: false,
+      loading: false,
       Error: false,
       placeholder: "",
       searchInput: "",
       data: [],
       modalShow: false,
-      loading: true,
     };
   },
   computed: {
     searchResult() {
-      return this.NumBook > 15 ? "15" : this.NumBook;
+      return `your search <span class='edit'> ${this.searchInput}</span> return <span class='edit'>${this.data.length}</span> result`;
     },
   },
 
   methods: {
     search() {
-      fetch(`https://book-web-scraper-api.herokuapp.com/search/?name=${this.searchInput}`)
+      this.Error = false;
+      this.loading = true;
+
+      fetch(
+        encodeURI(`https://book-web-scraper-api.herokuapp.com/search/?name=${this.searchInput}`),
+      )
         .then((response) => response.json())
-        .then((data) => (this.data = data))
-        .catch(console.log());
+        .then((data) => {
+          console.log(data);
+          this.data = data;
+          this.loading = false;
+        })
+        .catch((err) => {
+          console.log(err);
+          this.Error = true;
+        });
     },
   },
 
-  created() {
-    this.search();
-  },
+  // created() {
+  //   this.search();
+  // },
 };
 </script>
 
 <style scoped>
+.result {
+  font-weight: 700;
+  font-size: normal;
+  text-transform: capitalize;
+  color: #00276f;
+}
+.edit {
+  color: #051127;
+  text-decoration-line: underline;
+}
 .list {
   border-radius: 5px;
   background: #5976ac;
