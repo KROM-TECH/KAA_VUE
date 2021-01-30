@@ -10,60 +10,23 @@
               <span class="tex-primary">Book Search</span>
             </h1>
             <p class="lead text-gray-700">
-              We currently have {{ NumBook }} in the Archive but you can view only
-              {{ availableView }}.
+              Use this Option if you have a particular book you are looking for.
+
+              {{ searchResult }}
               <br />
               <a>Learn More</a>
             </p>
           </b-col>
         </b-row>
 
-        <b-row class="justify-content-center">
-          <b-form-select
-            class="dropdown mb-3"
-            v-model="selected"
-            :options="options"
-            required
-          ></b-form-select>
-        </b-row>
-
         <b-row class="justify-content-center ">
           <b-form-input
-            v-if="
-              selected == '' ||
-                selected == 'Uploader' ||
-                selected == 'Book Name' ||
-                selected == 'Book Author' ||
-                selected == 'Department'
-            "
             class="input my-3"
             :placeholder="placeholder"
             v-model="searchInput"
             type="search"
             :disabled="selected == ''"
           ></b-form-input>
-
-          <b-form-select
-            v-if="selected == 'University'"
-            class="input my-3"
-            v-model="searchInput"
-            :options="universities"
-            required
-          ></b-form-select>
-          <b-form-select
-            v-if="selected == 'Faculty'"
-            class="input my-3"
-            v-model="searchInput"
-            :options="faculties"
-            required
-          ></b-form-select>
-          <b-form-select
-            v-if="selected == 'Level'"
-            class="input my-3"
-            v-model="searchInput"
-            :options="level"
-            required
-          ></b-form-select>
 
           <button
             class="primary my-3 mt-3"
@@ -80,46 +43,12 @@
             <b-spinner type="grow load" label="Loading..."></b-spinner>
           </div>
 
-          <Table
-            class="tw-ml-24"
-            :loading="loading"
-            :headers="headers"
-            :tableData="data"
-            :newDesign="true"
-            v-else
-          >
-            <template v-slot:item="{ item }">
-              <div v-if="item.url">
-                <a :href="item.data.url" :download="item.data.BN" target="_blank"
-                  ><img src="@/assets/dw.svg" alt="" class="img-fluid" />
-                </a>
-              </div>
-              <div v-else-if="item.BN">
-                {{ item.data.BN | truncate }}
-              </div>
-              <div v-else-if="item.BA">
-                {{ item.data.BA | truncate }}
-              </div>
-              <div v-else-if="item.Uni">
-                {{ item.data.Uni | truncate }}
-              </div>
-              <div v-else-if="item.Fac">
-                {{ item.data.Fac | truncate }}
-              </div>
-              <div v-else-if="item.Dep" style="margin-left:10px">
-                {{ item.data.Dep | truncate }}
-              </div>
-              <div v-else-if="item.Lev" style="margin-left:10px">
-                {{ item.data.Lev | truncate }}
-              </div>
-              <div v-else-if="item.Sem" style="margin-left:12px">
-                {{ item.data.Sem | truncate }}
-              </div>
-              <div v-else-if="item.Upl" style="margin-left:12px">
-                {{ item.data.Upl | truncate }}
-              </div>
-            </template>
-          </Table>
+          <h6 class="list">
+            Fundamentals of Electric Circuits
+          </h6>
+          <h6 class="list">
+            Numerical Techniques in Electromagnetics with MATLAB, Third Edition
+          </h6>
         </div>
       </b-container>
     </section>
@@ -133,7 +62,6 @@ import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
 import Menu from "@/components/Menu.vue";
-import Table from "@/components/Table.vue";
 import NotFound from "@/components/404.vue";
 
 import faculties from "@/helpers/faculties.js";
@@ -141,7 +69,7 @@ import universities from "@/helpers/universities.js";
 import level from "@/helpers/level.js";
 
 export default {
-  components: { Menu, Table, Error, NotFound },
+  components: { Menu, Error, NotFound },
   data() {
     return {
       universities,
@@ -150,8 +78,7 @@ export default {
 
       empty: false,
       Error: false,
-      NumBook: "",
-      selected: "",
+      searchResult: "",
       placeholder: "",
       searchInput: "",
       data: [],
@@ -344,6 +271,15 @@ export default {
 </script>
 
 <style scoped>
+.list {
+  border-radius: 5px;
+  background: #5976ac;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border: 1px solid #00276f;
+  cursor: pointer;
+}
 .img-fluid {
   height: 20px;
   width: 20px;
