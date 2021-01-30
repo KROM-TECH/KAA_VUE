@@ -2,33 +2,18 @@
   <div class="d-flex column">
     <transition name="slide" appear>
       <div class="modall" v-if="modal">
-        <div class="d-flex justify-content-center" v-if="!data.length">
+        <div class="d-flex justify-content-center" v-if="!data.image">
           <b-spinner type="grow load" label="Loading..."></b-spinner>
         </div>
         <div class=" card p-5 mx-2 d-flex justify-content-center align-items-center" v-else>
           <div class="close" @click="$emit('close')">X</div>
-          <img
-            src="https://covers.zlibcdn2.com/covers299/books/87/ee/7c/87ee7c737855d38cdfc20b6da94e69d4.jpg"
-            alt=""
-          />
+          <img :src="data.image" alt="" />
 
           <p class="desc">
-            This new translation offers a faithful yet accessible English-language rendering of the
-            twelfth-century Gesta Francorum et aliorum Hierosolomitanorum, the earliest known Latin
-            account of the First Crusade. Although an anonymous work, it has become the exemplar for
-            all later histories and retellings of the First Crusade. As such, it is filled with
-            vivid descriptions of the hardships suffered by the crusaders, with deeds of personal
-            heroism, with courtly intrigues, with betrayal and cowardice, and with a relentless
-            faith that would see the attainment of the desired goal: the capture of Jerusalem by the
-            crusaders in 1095. There is a great deal of mystery surrounding this anonymous account,
-            especially in regard to its authorship; place, date, and purpose of composition;
-            narrative methodology; and point of view. It is also a sweeping tale that swiftly moves
-            from the first preaching of the crusade by Pope Urban II, to the ragtag and ultimately
-            doomed effort of the popular People's Crusade, and then the more disciplined and
-            concerted campaign by the French and
+            {{ data.description }}
           </p>
-          <div class="d-flex">
-            <b-button class="green mt-2 mx-2">Download (pdf, 1.91 MB)</b-button>
+          <div class="d-flex flex-wrap justify-content-center">
+            <b-button class="green mt-2 mx-2" @click="download()">{{ data.size }}</b-button>
 
             <b-button class="red mt-2  mx-2" @click="$emit('close')">Close</b-button>
           </div>
@@ -91,6 +76,11 @@ export default {
 </script>
 
 <style scoped>
+img {
+  height: 100%;
+  width: auto;
+  max-height: 120px;
+}
 .desc {
   font-size: 0.8rem;
   line-height: 1.2rem;
@@ -148,6 +138,7 @@ span {
 .green {
   background-color: #006f4a !important;
   width: fit-content;
+  font-size: small;
 }
 .red {
   background-color: #f52617 !important;
