@@ -38,14 +38,20 @@
             <b-spinner type="grow load" label="Loading..."></b-spinner>
           </div>
 
-          <h6 class="list" v-for="(n, index) in data" :key="index" v-else>
+          <h6
+            class="list"
+            v-for="(n, index) in data"
+            :key="index"
+            v-else
+            @click="openDetails(n.link)"
+          >
             {{ n.name }}
           </h6>
         </div>
       </b-container>
     </section>
 
-    <BookSearchModal :showModal="showModal" @close="showModal = !showModal" />
+    <BookSearchModal :showModal="showModal" @close="showModal = !showModal" :link="link" />
   </div>
 </template>
 
@@ -59,9 +65,10 @@ export default {
   components: { Menu, Error, NotFound, BookSearchModal },
   data() {
     return {
-      showModal: true,
+      showModal: false,
       loading: false,
       Error: false,
+      link: "",
       placeholder: "",
       searchInput: "",
       data: [],
@@ -75,6 +82,10 @@ export default {
   },
 
   methods: {
+    openDetails(link) {
+      this.link = link;
+      this.showModal = true;
+    },
     search() {
       this.Error = false;
       this.loading = true;

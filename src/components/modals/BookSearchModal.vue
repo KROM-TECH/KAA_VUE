@@ -1,9 +1,12 @@
 <template>
   <div class="d-flex column">
     <transition name="slide" appear>
-      <div class="modall" v-if="showModal">
-        <div class=" card p-5 mx-2 d-flex justify-content-center align-items-center">
-          <div class="close" @click="showModal = false">X</div>
+      <div class="modall" v-if="modal">
+        <div class="d-flex justify-content-center" v-if="!data.length">
+          <b-spinner type="grow load" label="Loading..."></b-spinner>
+        </div>
+        <div class=" card p-5 mx-2 d-flex justify-content-center align-items-center" v-else>
+          <div class="close" @click="$emit('close')">X</div>
           <img
             src="https://covers.zlibcdn2.com/covers299/books/87/ee/7c/87ee7c737855d38cdfc20b6da94e69d4.jpg"
             alt=""
@@ -38,8 +41,13 @@
 <script>
 export default {
   name: "VideoBox",
-  props: ["data", "showModal", "link"],
-
+  props: ["showModal", "link"],
+  data() {
+    return {
+      data: [],
+      Error: false,
+    };
+  },
   filters: {
     truncate: function(text, length = 24, clamp) {
       clamp = clamp || "...";
@@ -49,9 +57,36 @@ export default {
       return content.length > length ? content.slice(0, length) + clamp : content;
     },
   },
-  methods:{
-      
-  }
+  computed: {
+    modal() {
+      return this.showModal;
+    },
+  },
+  watch: {
+    modal() {
+      this.getDetails();
+    },
+  },
+  methods: {
+    getDetails() {
+      this.data = [];
+      console.log(`https://book-web-scraper-api.herokuapp.com/details/?link=${this.link}`);
+      fetch(encodeURI(`https://book-web-scraper-api.herokuapp.com/details/?link=${this.link}`))
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          this.data = data;
+          this.loading = false;
+        })
+        .catch((err) => {
+          console.log(err);
+          this.Error = true;
+        });
+    },
+    download() {
+      fetch(encodeURI(`https://book-web-scraper-api.herokuapp.com/download/?link=${this.link}`));
+    },
+  },
 };
 </script>
 
