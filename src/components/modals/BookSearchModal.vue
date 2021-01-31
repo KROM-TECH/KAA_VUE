@@ -56,7 +56,11 @@ export default {
     getDetails() {
       this.data = [];
       console.log(`https://book-web-scraper-api.herokuapp.com/details/?link=${this.link}`);
-      fetch(encodeURI(`https://book-web-scraper-api.herokuapp.com/details/?link=${this.link}`))
+      fetch(
+        encodeURI(`https://book-web-scraper-api.herokuapp.com/details/?link=${this.link}`, {
+          mode: "no-cors",
+        }),
+      )
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
@@ -70,11 +74,13 @@ export default {
     },
     download() {
       console.log("Downloading");
+      console.log(`https://book-web-scraper-api.herokuapp.com/download/?link=${this.link}`);
       fetch(encodeURI(`https://book-web-scraper-api.herokuapp.com/download/?link=${this.link}`))
-        .then((response) => response.json())
+        .then((response) => {
+          response.json();
+        })
         .then((data) => {
           console.log(data);
-          this.data = data;
           this.loading = false;
         })
         .catch((err) => {
