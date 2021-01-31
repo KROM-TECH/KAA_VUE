@@ -3,16 +3,19 @@
     <div class="body">
       <img src="@/assets/error.svg" class="res-img grow" alt="" />
       <p class="text">
-        Oops, Looks like something went wrong <br />Check your network and wifi
-        connection and try again
+        Oops, Looks like something went wrong <br />Check your network and wifi connection and try
+        again
       </p>
-      <button
-        class="btn Obtn btn-large"
-        style="border:2px solid; margin-top:1rem;"
-        @click="reload"
-      >
+      <button class="btn Obtn btn-large" style="border:2px solid; margin-top:1rem;" @click="reload">
         Reload
       </button>
+      <!-- <button
+        class="btn Obtn btn-large"
+        style="border:2px solid; margin-top:1rem;"
+        @click="$emit('close')"
+      >
+        Close
+      </button> -->
     </div>
   </transition>
 </template>
@@ -22,8 +25,8 @@ export default {
   methods: {
     reload() {
       location.reload();
-    }
-  }
+    },
+  },
 };
 </script>
 

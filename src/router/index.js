@@ -24,6 +24,11 @@ const routes = [
     component: Book
   },
   {
+    path: "/bookindex",
+    name: "bookindex",
+    component: Book
+  },
+  {
     path: "/video",
     name: "Video",
     component: Video

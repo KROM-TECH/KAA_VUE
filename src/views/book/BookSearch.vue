@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Error v-if="Error" />
+    <Error v-if="Error" @close="Error = Error" />
     <Menu />
     <section class="pt-4 pt-md-11">
       <b-container>
@@ -12,7 +12,7 @@
             <p class="lead text-gray-700">
               Use this Option if you have a particular book you are looking for.
               <br />
-              <span class="result" v-if="data.length" v-html="searchResult"></span>
+              <!-- <span class="result" v-if="data.length" v-html="searchResult"></span> -->
               <br />
               <a>Learn More</a>
             </p>
@@ -27,7 +27,12 @@
             type="search"
           ></b-form-input>
 
-          <button class="primary my-3 mt-3" :disabled="searchInput == ''" @click="search">
+          <button
+            class="primary my-3 mt-3"
+            :disabled="searchInput == ''"
+            @click="search"
+            @keypress.enter="search"
+          >
             Search
           </button>
         </b-row>
