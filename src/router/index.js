@@ -1,18 +1,20 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "@/views/Home.vue";
-const Book = () => import("@/views/book/Book.vue");
+const Book = () => import("@/views/book");
 const Video = () => import("@/views/video/Video.vue");
 const Article = () => import("@/views/article/Article.vue");
 const Upload = () => import("@/views/Upload.vue");
 const Guide = () => import("@/views/Guide.vue");
 const Request = () => import("@/views/Request.vue");
 import searchRoutes from './search.js'
+import indexRoutes from './main.js'
 
 Vue.use(VueRouter);
 
 const routes = [
   ...searchRoutes,
+  ...indexRoutes,
   {
     path: "/",
     name: "Home",
@@ -23,11 +25,7 @@ const routes = [
     name: "Book",
     component: Book
   },
-  {
-    path: "/bookindex",
-    name: "bookindex",
-    component: Book
-  },
+
   {
     path: "/video",
     name: "Video",
