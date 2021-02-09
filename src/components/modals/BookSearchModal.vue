@@ -88,6 +88,7 @@ export default {
         ),
       )
         .then((response) => {
+          console.log(response);
           response.json();
         })
         .then((data) => {

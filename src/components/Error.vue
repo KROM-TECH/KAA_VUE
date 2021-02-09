@@ -9,13 +9,13 @@
       <button class="btn Obtn btn-large" style="border:2px solid; margin-top:1rem;" @click="reload">
         Reload
       </button>
-      <!-- <button
+      <button
         class="btn Obtn btn-large"
         style="border:2px solid; margin-top:1rem;"
         @click="$emit('close')"
       >
         Close
-      </button> -->
+      </button>
     </div>
   </transition>
 </template>
