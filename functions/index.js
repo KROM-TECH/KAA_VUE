@@ -71,7 +71,12 @@ function getdetails (link) {
 function DownloadBook (link) {
     return new Promise(async (resolve, reject) => {
         try {
-            const browser = await puppeteer.launch({headless:true});
+            const browser = await puppeteer.launch({
+                args: [
+                  '--no-sandbox',
+                  '--disable-setuid-sandbox',
+                ],
+              });
             const page = await browser.newPage();
             await page.goto(`https://b-ok.africa${link}`, {waitUntil: 'networkidle2'});
             console.log('Clicking on "Download PDF" button');
@@ -109,7 +114,7 @@ exports.DownloadBook = functions.runWith(runtimeOpts).https.onRequest((request, 
     DownloadBook(request.query.link).then((data)=>{
         console.log(data);
         response.set('Access-Control-Allow-Origin', '*');
-        response.redirect(data) 
+        response.send(data) 
     }).catch(console.error);
 })
  
