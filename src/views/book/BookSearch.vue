@@ -96,7 +96,9 @@ export default {
       this.loading = true;
 
       fetch(
-        encodeURI(`https://book-web-scraper-api.herokuapp.com/search/?name=${this.searchInput}`),
+        encodeURI(
+          `https://us-central1-kromtech-archive.cloudfunctions.net/BookScrape/?name=${this.searchInput}`,
+        ),
       )
         .then((response) => response.json())
         .then((data) => {

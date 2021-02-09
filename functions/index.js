@@ -2,23 +2,29 @@ const functions = require('firebase-functions');
 const quest = require('request');
 const cheerio = require('cheerio');
 const puppeteer = require('puppeteer');
+const cors = require('cors')({origin: true});
 
 // firebase emulators:start --only functions
 
 exports.BookScrape = functions.https.onRequest((request, response) => {
     console.log(request.query.name);
-    quest(`https://b-ok.africa/s/${request.query.name}`, (error, _response, html) => {
-        if (!error && _response.statusCode == 200) {
-          const $ = cheerio.load(html);
-          const bookArray = [];
-          $('h3 > a').each((i,el) => {
-            const title = $(el).text()
-            const link = $(el).attr('href');
-         bookArray.push({name:title, link:link})
-          });
-          response.send(bookArray) 
-        }
-      });
+    
+        quest(`https://b-ok.africa/s/${request.query.name}`, (error, _response, html) => {
+            if (!error && _response.statusCode == 200) {
+              const $ = cheerio.load(html);
+              const bookArray = [];
+              $('h3 > a').each((i,el) => {
+                const title = $(el).text()
+                const link = $(el).attr('href');
+             bookArray.push({name:title, link:link})
+              });
+              response.set('Access-Control-Allow-Origin', '*');
+              response.send(bookArray) 
+            }
+          })
+
+ 
+    
 });
 
 
