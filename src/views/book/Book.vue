@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Error v-if="Error" />
+    <Error v-if="Error" @close="Error = !Error" />
     <Menu />
     <section class="pt-4 pt-md-11">
       <b-container>
@@ -10,8 +10,8 @@
               <span class="tex-primary">Books</span>
             </h1>
             <p class="lead text-gray-700">
-              We currently have {{ NumBook }} in the Archive but you can view
-              only {{ availableView }}.
+              We currently have {{ NumBook }} in the Archive but you can view only
+              {{ availableView }}.
               <br />
               <a>Learn More</a>
             </p>
@@ -76,10 +76,7 @@
 
         <div style="overflow-x: auto;">
           <NotFound v-if="empty && !data.length" />
-          <div
-            class="d-flex justify-content-center"
-            v-if="!data.length && !empty"
-          >
+          <div class="d-flex justify-content-center" v-if="!data.length && !empty">
             <b-spinner type="grow load" label="Loading..."></b-spinner>
           </div>
 
@@ -93,10 +90,7 @@
           >
             <template v-slot:item="{ item }">
               <div v-if="item.url">
-                <a
-                  :href="item.data.url"
-                  :download="item.data.BN"
-                  target="_blank"
+                <a :href="item.data.url" :download="item.data.BN" target="_blank"
                   ><img src="@/assets/dw.svg" alt="" class="img-fluid" />
                 </a>
               </div>
@@ -169,7 +163,7 @@ export default {
         { value: "Book Author", text: "Book Author" },
         { value: "Faculty", text: "Faculty" },
         { value: "Department", text: "Department" },
-        { value: "Level", text: "Level" }
+        { value: "Level", text: "Level" },
       ],
       modalShow: false,
       loading: true,
@@ -181,14 +175,14 @@ export default {
         { text: "Faculty", value: "Fac", width: 12 },
         { text: "Department", value: "Dep", width: 12 },
         { text: "Level", value: "Lev", width: 12 },
-        { text: "Uploader", value: "Upl", width: 12 }
-      ]
+        { text: "Uploader", value: "Upl", width: 12 },
+      ],
     };
   },
   computed: {
     availableView() {
       return this.NumBook > 15 ? "15" : this.NumBook;
-    }
+    },
   },
   filters: {
     truncate: function(text, length = 24, clamp) {
@@ -196,10 +190,8 @@ export default {
       var node = document.createElement("div");
       node.innerHTML = text;
       var content = node.textContent;
-      return content.length > length
-        ? content.slice(0, length) + clamp
-        : content;
-    }
+      return content.length > length ? content.slice(0, length) + clamp : content;
+    },
   },
 
   methods: {
@@ -208,12 +200,12 @@ export default {
     },
     loadTableData(querySnapshot) {
       const storageReference = firebase.storage().ref();
-      querySnapshot.forEach(doc => {
+      querySnapshot.forEach((doc) => {
         const document = doc.data();
         storageReference
           .child("books/" + `${document.book}`)
           .getDownloadURL()
-          .then(url => {
+          .then((url) => {
             console.log(document);
             const content = {
               url: url,
@@ -223,14 +215,14 @@ export default {
               Fac: document.faculty,
               Dep: document.department,
               Lev: document.level,
-              Upl: document.uploader
+              Upl: document.uploader,
             };
             console.log(content);
             this.data.push(content);
           }, (this.loading = false))
-          .catch(error => {
+          .catch((error) => {
             console.log(error);
-            this.Error = true;
+            // this.Error = true;
           });
       });
     },
@@ -239,11 +231,11 @@ export default {
         .firestore()
         .collection("books")
         .get()
-        .then(querySnapshot => {
+        .then((querySnapshot) => {
           this.NumBook = querySnapshot.size;
           this.loadTableData(querySnapshot);
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
           this.Error = true;
         });
@@ -260,7 +252,7 @@ export default {
           .orderBy("uploader")
           .startAt(searchValue)
           .endAt(searchValue + "\uf8ff")
-          .onSnapshot(querySnapshot => {
+          .onSnapshot((querySnapshot) => {
             if (!querySnapshot.empty) {
               this.loadTableData(querySnapshot);
             } else {
@@ -272,7 +264,7 @@ export default {
           .orderBy("university")
           .startAt(searchValue)
           .endAt(searchValue + "\uf8ff")
-          .onSnapshot(querySnapshot => {
+          .onSnapshot((querySnapshot) => {
             if (!querySnapshot.empty) {
               this.loadTableData(querySnapshot);
             } else {
@@ -284,7 +276,7 @@ export default {
           .orderBy("bookName")
           .startAt(searchValue)
           .endAt(searchValue + "\uf8ff")
-          .onSnapshot(querySnapshot => {
+          .onSnapshot((querySnapshot) => {
             if (!querySnapshot.empty) {
               this.loadTableData(querySnapshot);
             } else {
@@ -296,7 +288,7 @@ export default {
           .orderBy("bookAuthor")
           .startAt(searchValue)
           .endAt(searchValue + "\uf8ff")
-          .onSnapshot(querySnapshot => {
+          .onSnapshot((querySnapshot) => {
             if (!querySnapshot.empty) {
               this.loadTableData(querySnapshot);
             } else {
@@ -308,7 +300,7 @@ export default {
           .orderBy("faculty")
           .startAt(searchValue)
           .endAt(searchValue + "\uf8ff")
-          .onSnapshot(querySnapshot => {
+          .onSnapshot((querySnapshot) => {
             if (!querySnapshot.empty) {
               this.loadTableData(querySnapshot);
             } else {
@@ -320,7 +312,7 @@ export default {
           .orderBy("department")
           .startAt(searchValue)
           .endAt(searchValue + "\uf8ff")
-          .onSnapshot(querySnapshot => {
+          .onSnapshot((querySnapshot) => {
             if (!querySnapshot.empty) {
               this.loadTableData(querySnapshot);
             } else {
@@ -332,7 +324,7 @@ export default {
           .orderBy("level")
           .startAt(searchValue)
           .endAt(searchValue + "\uf8ff")
-          .onSnapshot(querySnapshot => {
+          .onSnapshot((querySnapshot) => {
             if (!querySnapshot.empty) {
               this.loadTableData(querySnapshot);
             } else {
@@ -342,12 +334,12 @@ export default {
       }
 
       this.loading = false;
-    }
+    },
   },
 
   created() {
     this.initTable();
-  }
+  },
 };
 </script>
 

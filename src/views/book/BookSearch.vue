@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Error v-if="Error" @close="Error = Error" />
+    <Error v-if="Error" @close="Error = !Error" />
     <Menu />
     <section class="pt-4 pt-md-11">
       <b-container>
