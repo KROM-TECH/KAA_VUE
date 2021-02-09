@@ -55,11 +55,16 @@ export default {
   methods: {
     getDetails() {
       this.data = [];
-      console.log(`https://book-web-scraper-api.herokuapp.com/details/?link=${this.link}`);
+      console.log(
+        `https://us-central1-kromtech-archive.cloudfunctions.net/GetDownloadLink/?link=${this.link}`,
+      );
       fetch(
-        encodeURI(`https://book-web-scraper-api.herokuapp.com/details/?link=${this.link}`, {
-          mode: "no-cors",
-        }),
+        encodeURI(
+          `https://us-central1-kromtech-archive.cloudfunctions.net/GetDownloadLink/?link=${this.link}`,
+          {
+            mode: "no-cors",
+          },
+        ),
       )
         .then((response) => response.json())
         .then((data) => {
@@ -74,8 +79,14 @@ export default {
     },
     download() {
       console.log("Downloading");
-      console.log(`https://book-web-scraper-api.herokuapp.com/download/?link=${this.link}`);
-      fetch(encodeURI(`https://book-web-scraper-api.herokuapp.com/download/?link=${this.link}`))
+      console.log(
+        `https://us-central1-kromtech-archive.cloudfunctions.net/DownloadBook/?link=${this.link}`,
+      );
+      fetch(
+        encodeURI(
+          `https://us-central1-kromtech-archive.cloudfunctions.net/DownloadBook/?link=${this.link}`,
+        ),
+      )
         .then((response) => {
           response.json();
         })
