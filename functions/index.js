@@ -2,7 +2,10 @@ const functions = require('firebase-functions');
 const quest = require('request');
 const cheerio = require('cheerio');
 const puppeteer = require('puppeteer');
-const cors = require('cors')({origin: true});
+const runtimeOpts = {
+    timeoutSeconds: 400,
+    memory: '1GB'
+  }
 
 // firebase emulators:start --only functions
 
@@ -79,7 +82,7 @@ function DownloadBook (link) {
     })
 }
 
-exports.GetDownloadLink = functions.https.onRequest((request, response) => {
+exports.GetDownloadLink = functions.runWith(runtimeOpts).https.onRequest((request, response) => {
     console.log(request.query.link);
     getdetails(request.query.link).then((data)=>{
         response.set('Access-Control-Allow-Origin', '*');
@@ -87,7 +90,7 @@ exports.GetDownloadLink = functions.https.onRequest((request, response) => {
     }).catch(console.error);
 })
 
-exports.DownloadBook = functions.https.onRequest((request, response) => {
+exports.DownloadBook = functions.runWith(runtimeOpts).https.onRequest((request, response) => {
     console.log(request.query.link);
     DownloadBook(request.query.link).then((data)=>{
         console.log(data);
