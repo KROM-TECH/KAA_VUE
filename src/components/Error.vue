@@ -6,16 +6,21 @@
         Oops, Looks like something went wrong <br />Check your network and wifi connection and try
         again
       </p>
-      <button class="btn Obtn btn-large" style="border:2px solid; margin-top:1rem;" @click="reload">
+      <div class="d-flex flex-wrap"></div>
+      <b-button
+        class="blue Obtn btn-large"
+        style="border:2px solid; margin-top:1rem;"
+        @click="reload"
+      >
         Reload
-      </button>
-      <button
-        class="btn Obtn btn-large"
+      </b-button>
+      <b-button
+        class="red Obtn btn-large"
         style="border:2px solid; margin-top:1rem;"
         @click="$emit('close')"
       >
         Close
-      </button>
+      </b-button>
     </div>
   </transition>
 </template>
@@ -31,9 +36,17 @@ export default {
 </script>
 
 <style scoped>
+.blue {
+  background-color: #00276f !important;
+  color: white !important;
+}
+.red {
+  background-color: #f52617 !important;
+  color: white !important;
+}
 .text {
   text-align: center;
-  color: #6c63ff;
+  color: #00276f;
   font-weight: 550;
   margin: 15px 4px;
 }
