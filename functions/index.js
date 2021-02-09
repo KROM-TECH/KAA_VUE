@@ -82,6 +82,7 @@ function DownloadBook (link) {
 exports.GetDownloadLink = functions.https.onRequest((request, response) => {
     console.log(request.query.link);
     getdetails(request.query.link).then((data)=>{
+        response.set('Access-Control-Allow-Origin', '*');
         response.send(data) 
     }).catch(console.error);
 })
@@ -90,6 +91,7 @@ exports.DownloadBook = functions.https.onRequest((request, response) => {
     console.log(request.query.link);
     DownloadBook(request.query.link).then((data)=>{
         console.log(data);
+        response.set('Access-Control-Allow-Origin', '*');
         response.redirect(data) 
     }).catch(console.error);
 })
