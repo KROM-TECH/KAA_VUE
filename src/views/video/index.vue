@@ -16,10 +16,10 @@
         </b-row>
 
         <b-row class="justify-content-center align-items-center">
-          <router-link to="/bookindex">
+          <router-link to="/videoindex">
             <b-card class="card"><h4>Indexed Search</h4></b-card>
           </router-link>
-          <router-link to="/booksearch">
+          <router-link to="/videosearch">
             <b-card class="card"><h4>Worldwide Search</h4></b-card>
           </router-link>
         </b-row>
