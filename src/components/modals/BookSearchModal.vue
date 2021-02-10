@@ -2,7 +2,7 @@
   <div class="d-flex column">
     <transition name="slide" appear>
       <div class="modall" v-if="modal">
-        <div class="d-flex justify-content-center" v-if="!data.image">
+        <div class="d-flex justify-content-center" v-if="!data.description">
           <b-spinner type="grow load" label="Loading..."></b-spinner>
         </div>
         <div class=" card p-5 mx-2 d-flex justify-content-center align-items-center" v-else>
@@ -15,7 +15,7 @@
           <div class="d-flex flex-wrap justify-content-center">
             <b-button class="green mt-2 mx-2" @click="download()">{{ data.size }}</b-button>
 
-            <b-button class="red mt-2  mx-2" @click="$emit('close')">Close</b-button>
+            <b-button class="red mt-2  mx-2" @click="close">Close</b-button>
           </div>
         </div>
       </div>
@@ -29,7 +29,7 @@ export default {
   props: ["showModal", "link"],
   data() {
     return {
-      data: [],
+      data: {},
       Error: false,
     };
   },
@@ -53,8 +53,12 @@ export default {
     },
   },
   methods: {
+    close() {
+      this.$emit("close");
+      this.data = null;
+    },
     getDetails() {
-      this.data = [];
+      this.data = {};
       console.log(
         `https://us-central1-kromtech-archive.cloudfunctions.net/GetDownloadLink/?link=${this.link}`,
       );
@@ -74,6 +78,7 @@ export default {
         })
         .catch((err) => {
           console.log(err);
+          this.loading = false;
           this.Error = true;
         });
     },
