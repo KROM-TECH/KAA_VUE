@@ -121,7 +121,8 @@ exports.DownloadBook = functions.runWith(runtimeOpts).https.onRequest((request, 
 
 
 exports.YT = functions.runWith(runtimeOpts).https.onRequest((request, response) => {
-    ytpl.validateID(string)
+    let check = ytpl.validateID(string)
+    console.log(check);
     const options = {
         method: 'POST',
         url: 'https://youtube-video-grabber1.p.rapidapi.com/api/ytGrab_v1',
