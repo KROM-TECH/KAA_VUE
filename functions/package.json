@@ -9,7 +9,7 @@
     "logs": "firebase functions:log"
   },
   "engines": {
-    "node": "12"
+    "node": "14"
   },
   "main": "index.js",
   "dependencies": {
@@ -19,7 +19,8 @@
     "firebase-functions": "^3.11.0",
     "puppeteer": "^5.5.0",
     "request": "^2.88.2",
-    "requests": "^0.3.0"
+    "requests": "^0.3.0",
+    "ytpl": "^2.0.5"
   },
   "devDependencies": {
     "firebase-functions-test": "^0.2.0"

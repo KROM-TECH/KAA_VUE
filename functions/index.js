@@ -2,6 +2,7 @@ const functions = require('firebase-functions');
 const quest = require('request');
 const cheerio = require('cheerio');
 const puppeteer = require('puppeteer');
+const  ytpl = require('ytpl');
 const runtimeOpts = {
     timeoutSeconds: 400,
     memory: '1GB'
@@ -116,5 +117,29 @@ exports.DownloadBook = functions.runWith(runtimeOpts).https.onRequest((request, 
         response.set('Access-Control-Allow-Origin', '*');
         response.send(data) 
     }).catch(console.error);
+})
+
+
+exports.YT = functions.runWith(runtimeOpts).https.onRequest((request, response) => {
+    ytpl.validateID(string)
+    const options = {
+        method: 'POST',
+        url: 'https://youtube-video-grabber1.p.rapidapi.com/api/ytGrab_v1',
+        headers: {
+          'content-type': 'application/x-www-form-urlencoded',
+          'x-rapidapi-key': '6cedc0a274msha4551a746200733p16f995jsn7c8703feb374',
+          'x-rapidapi-host': 'youtube-video-grabber1.p.rapidapi.com',
+          useQueryString: true
+        },
+        form: {url_: 'https://www.youtube.com/watch?v=oAzwClT1GRQ&list=PLOAuB8dR35oft2ZLc1sHseypNMAiG_TeJ&index=1'}
+      };
+      quest(options, function (error, _response, body) {
+        if (error) throw new Error(error);
+        if (!error && _response.statusCode == 200) {
+            response.set('Access-Control-Allow-Origin', '*');
+            response.send(body) 
+        }
+       
+    });
 })
  
