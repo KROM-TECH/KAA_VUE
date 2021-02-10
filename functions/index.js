@@ -121,8 +121,13 @@ exports.DownloadBook = functions.runWith(runtimeOpts).https.onRequest((request, 
 
 
 exports.YT = functions.runWith(runtimeOpts).https.onRequest((request, response) => {
-    let check = ytpl.validateID(string)
-    console.log(check);
+   const link = request.query.link
+    console.log(request.query.link);
+    let check = ytpl.validateID(link)
+    
+    if(check){
+
+    }else{
     const options = {
         method: 'POST',
         url: 'https://youtube-video-grabber1.p.rapidapi.com/api/ytGrab_v1',
@@ -142,5 +147,7 @@ exports.YT = functions.runWith(runtimeOpts).https.onRequest((request, response) 
         }
        
     });
+
+}
 })
  
