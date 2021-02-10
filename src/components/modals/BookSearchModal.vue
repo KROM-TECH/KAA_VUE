@@ -78,7 +78,7 @@ export default {
         });
     },
     download() {
-      console.log("Downloading");
+      this.data.size = "downloading...";
       console.log(
         `https://us-central1-kromtech-archive.cloudfunctions.net/DownloadBook/?link=${this.link}`,
       );
@@ -87,16 +87,16 @@ export default {
           `https://us-central1-kromtech-archive.cloudfunctions.net/DownloadBook/?link=${this.link}`,
         ),
       )
-        .then((response) => {
-          console.log(response);
-          response.json();
-        })
+        .then((response) => response.text())
         .then((data) => {
           console.log(data);
           this.loading = false;
+          window.location.replace(data);
+          this.data.size = "Download Started";
         })
         .catch((err) => {
           console.log(err);
+          this.data.size = "Something went wrong";
           this.Error = true;
         });
     },

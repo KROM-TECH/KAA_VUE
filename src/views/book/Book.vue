@@ -13,7 +13,9 @@
               We currently have {{ NumBook }} in the Archive but you can view only
               {{ availableView }}.
               <br />
-              <a>Learn More</a>
+              <router-link class="box" to="/guide" style="margin: 1rem;">
+                Learn More
+              </router-link>
             </p>
           </b-col>
         </b-row>

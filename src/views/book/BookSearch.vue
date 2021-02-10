@@ -14,7 +14,9 @@
               <br />
               <!-- <span class="result" v-if="data.length" v-html="searchResult"></span> -->
               <br />
-              <a>Learn More</a>
+              <router-link class="box" to="/guide" style="margin: 1rem;">
+                Learn More
+              </router-link>
             </p>
           </b-col>
         </b-row>
