@@ -4,7 +4,7 @@ const cheerio = require('cheerio');
 const puppeteer = require('puppeteer');
 const  ytpl = require('ytpl');
 const runtimeOpts = {
-    timeoutSeconds: 400,
+    timeoutSeconds: 540,
     memory: '1GB'
   }
 
@@ -124,8 +124,26 @@ exports.YT = functions.runWith(runtimeOpts).https.onRequest((request, response) 
    const link = request.query.link
     console.log(request.query.link);
     let check = ytpl.validateID(link)
+    console.log(check);
     
     if(check){
+       ytpl.getPlaylistID(link).then((id)=>{
+        console.log(id);
+        ytpl(id, {limit:Infinity }).then((data)=>{
+            response.set('Access-Control-Allow-Origin', '*');
+            response.send(
+                {
+                    title:data.title,
+                    count:data.estimatedItemCount,
+                    item:data.items
+                })
+                 }).catch((err)=>{
+                     console.log(err);
+                 })
+       })
+  
+
+      
 
     }else{
     const options = {
@@ -137,7 +155,7 @@ exports.YT = functions.runWith(runtimeOpts).https.onRequest((request, response) 
           'x-rapidapi-host': 'youtube-video-grabber1.p.rapidapi.com',
           useQueryString: true
         },
-        form: {url_: 'https://www.youtube.com/watch?v=oAzwClT1GRQ&list=PLOAuB8dR35oft2ZLc1sHseypNMAiG_TeJ&index=1'}
+        form: {url_: link}
       };
       quest(options, function (error, _response, body) {
         if (error) throw new Error(error);
