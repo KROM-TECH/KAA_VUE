@@ -132,9 +132,10 @@ exports.YT = functions.runWith(runtimeOpts).https.onRequest((request, response) 
         ytpl(id, {limit:Infinity }).then((data)=>{
            
         
-            let vidArr = data.items
+            let vidArr = data
        
-            PlaylistInfo(vidArr).then(()=>{
+            PlaylistInfo(vidArr).then((PLArr)=>{
+                console.log(PLArr);
                 response.set('Access-Control-Allow-Origin', '*');
                 response.send(PLArr)
             })
@@ -159,25 +160,26 @@ exports.YT = functions.runWith(runtimeOpts).https.onRequest((request, response) 
 }
 })
 
-function PlaylistInfo(arr){
+async function  PlaylistInfo(arr){
     return new Promise(async (resolve, reject) => {
-        let vidArr = arr
+        let vidArr = arr.items
         let down_vid_Arr = []
+        console.log(arr.estimatedItemCount);
 
-        vidArr.forEach((item)=>{
-            
-            DownloadVideos(item.shortUrl).then((data)=>{
-                console.log(data);
+        vidArr.forEach(async (item)=>{
+           let data = await DownloadVideos(item.shortUrl)
+                // console.log(data);
                 down_vid_Arr.push({index:item.index, ...data})
-            })
+
+                if (arr.)
         })
 
         let list = {
-            title:data.title,
-            count:data.estimatedItemCount,
+            title:arr.title,
+            count:arr.estimatedItemCount,
             items:down_vid_Arr
         }
-
+        resolve(list)
     })
 
 }
