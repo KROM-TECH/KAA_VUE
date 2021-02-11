@@ -200,6 +200,7 @@ function DownloadVideos(link){
 
           quest(options, function (error, _response, body) {
             if (error){
+                console.log(error);
                 reject(error)
                 throw new Error(error);
                 
