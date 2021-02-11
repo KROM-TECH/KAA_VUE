@@ -179,13 +179,14 @@ function DownloadVideos(link){
                 
             } 
             if (!error && _response.statusCode == 200) {
-                // console.log(_response);
-                // let list = {
-                //     name:body.meta_data.video_name,
-                //     thumbnail:body.meta_data.thumbnail
-                // }
-                console.log(body.cdn);
-                return resolve(_response.body);
+                let con = JSON.parse(_response.body)
+                let list = {
+                    name:con.meta_data.video_name,
+                    thumbnail:con.meta_data.thumbnail,
+                    vidOne:[]
+                }
+                // console.log(con.cdn);
+                return resolve(con);
             }
            
         });
