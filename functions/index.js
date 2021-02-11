@@ -168,10 +168,10 @@ async function  PlaylistInfo(arr){
 
         vidArr.forEach(async (item)=>{
            let data = await DownloadVideos(item.shortUrl)
-                // console.log(data);
+                console.log(item.index);
                 down_vid_Arr.push({index:item.index, ...data})
 
-                if (arr.)
+           
         })
 
         let list = {
