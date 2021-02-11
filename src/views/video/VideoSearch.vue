@@ -7,10 +7,10 @@
         <b-row align-h="center" class="font text-center">
           <b-col>
             <h1>
-              <span class="tex-primary">Book Search</span>
+              <span class="tex-primary">Video Search</span>
             </h1>
             <p class="lead text-gray-700">
-              Use this Option if you have a particular book you are looking for.
+              Input the Youtube link below to initialize download
               <br />
               <!-- <span class="result" v-if="data.length" v-html="searchResult"></span> -->
               <br />
@@ -38,38 +38,17 @@
             Search
           </button>
         </b-row>
-
-        <div style="overflow-x: auto;">
-          <NotFound v-if="Error" />
-          <div class="d-flex justify-content-center" v-if="loading">
-            <b-spinner type="grow load" label="Loading..."></b-spinner>
-          </div>
-
-          <h6
-            class="list"
-            v-for="(n, index) in data"
-            :key="index"
-            v-else
-            @click="openDetails(n.link)"
-          >
-            {{ n.name }}
-          </h6>
-        </div>
       </b-container>
     </section>
-
-    <BookSearchModal :showModal="showModal" @close="showModal = !showModal" :link="link" />
   </div>
 </template>
 
 <script>
 import Error from "@/components/Error.vue";
 import Menu from "@/components/Menu.vue";
-import NotFound from "@/components/404.vue";
-import BookSearchModal from "@/components/modals/BookSearchModal.vue";
-
+import ytdl from "ytdl-core";
 export default {
-  components: { Menu, Error, NotFound, BookSearchModal },
+  components: { Menu, Error },
   data() {
     return {
       showModal: false,
@@ -82,11 +61,6 @@ export default {
       modalShow: false,
     };
   },
-  computed: {
-    searchResult() {
-      return `your search <span class='edit'> ${this.searchInput}</span> return <span class='edit'>${this.data.length}</span> result`;
-    },
-  },
 
   methods: {
     openDetails(link) {
@@ -94,24 +68,9 @@ export default {
       this.showModal = true;
     },
     search() {
-      this.Error = false;
-      this.loading = true;
-
-      fetch(
-        encodeURI(
-          `https://us-central1-kromtech-archive.cloudfunctions.net/BookScrape/?name=${this.searchInput}`,
-        ),
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-          this.data = data;
-          this.loading = false;
-        })
-        .catch((err) => {
-          console.log(err);
-          this.Error = true;
-        });
+      console.log(this.searchInput);
+      const ser = ytdl.validateURL(this.searchInput);
+      console.log(typeof ser, ser);
     },
   },
 

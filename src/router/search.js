@@ -1,5 +1,5 @@
 const BookSearch = () => import("@/views/book/BookSearch.vue");
-const VideoSearch = () => import("@/views/book/VideoSearch.vue");
+const VideoSearch = () => import("@/views/video/VideoSearch.vue");
 
 export default [
     {

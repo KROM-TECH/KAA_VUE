@@ -1,5 +1,5 @@
 const BookIndex = () => import("@/views/book/Book.vue");
-const VideoIndex = () => import("@/views/video/video.vue");
+const VideoIndex = () => import("@/views/video/Video.vue");
 
 export default [
  

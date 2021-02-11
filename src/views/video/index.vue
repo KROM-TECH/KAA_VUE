@@ -6,7 +6,7 @@
         <b-row align-h="center" class="font text-center">
           <b-col>
             <h1>
-              <span class="tex-primary">Books</span>
+              <span class="tex-primary">Videos</span>
             </h1>
             <p class="lead text-gray-700">
               Select your Option below <br />Read the guide
