@@ -69,6 +69,8 @@ export default {
     },
     search() {
       let check = ytpl.validateID(this.searchInput);
+      console.log(this.searchInput);
+      console.log(check);
       if (check) {
         ytpl.getPlaylistID(this.searchInput).then((id) => {
           ytpl(id, { limit: Infinity }).then((data) => {
