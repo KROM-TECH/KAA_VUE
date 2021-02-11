@@ -146,26 +146,50 @@ exports.YT = functions.runWith(runtimeOpts).https.onRequest((request, response) 
       
 
     }else{
-    const options = {
-        method: 'POST',
-        url: 'https://youtube-video-grabber1.p.rapidapi.com/api/ytGrab_v1',
-        headers: {
-          'content-type': 'application/x-www-form-urlencoded',
-          'x-rapidapi-key': '6cedc0a274msha4551a746200733p16f995jsn7c8703feb374',
-          'x-rapidapi-host': 'youtube-video-grabber1.p.rapidapi.com',
-          useQueryString: true
-        },
-        form: {url_: link}
-      };
-      quest(options, function (error, _response, body) {
-        if (error) throw new Error(error);
-        if (!error && _response.statusCode == 200) {
+        DownloadVideos(link).then((data)=>{
             response.set('Access-Control-Allow-Origin', '*');
-            response.send(body) 
-        }
-       
-    });
+            response.send(data) 
+        })
+
+
+
+   
 
 }
 })
  
+function DownloadVideos(link){
+    return new Promise(async (resolve, reject) => {
+        const options = {
+            method: 'POST',
+            url: 'https://youtube-video-grabber1.p.rapidapi.com/api/ytGrab_v1',
+            headers: {
+              'content-type': 'application/x-www-form-urlencoded',
+              'x-rapidapi-key': '6cedc0a274msha4551a746200733p16f995jsn7c8703feb374',
+              'x-rapidapi-host': 'youtube-video-grabber1.p.rapidapi.com',
+              useQueryString: true
+            },
+            form: {url_: link}
+          };
+
+          quest(options, function (error, _response, body) {
+            if (error){
+                reject(error)
+                throw new Error(error);
+                
+            } 
+            if (!error && _response.statusCode == 200) {
+                // console.log(_response);
+                // let list = {
+                //     name:body.meta_data.video_name,
+                //     thumbnail:body.meta_data.thumbnail
+                // }
+                console.log(body.cdn);
+                return resolve(_response.body);
+            }
+           
+        });
+
+    })
+  
+}

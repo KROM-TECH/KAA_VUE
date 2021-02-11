@@ -46,7 +46,7 @@
 <script>
 import Error from "@/components/Error.vue";
 import Menu from "@/components/Menu.vue";
-import ytdl from "ytdl-core";
+import ytpl from "ytpl";
 export default {
   components: { Menu, Error },
   data() {
@@ -68,9 +68,12 @@ export default {
       this.showModal = true;
     },
     search() {
-      console.log(this.searchInput);
-      const ser = ytdl.validateURL(this.searchInput);
-      console.log(typeof ser, ser);
+      let check = ytpl.validateID(this.searchInput);
+      if(check){
+
+      }else{
+          
+      }
     },
   },
 
