@@ -131,12 +131,23 @@ exports.YT = functions.runWith(runtimeOpts).https.onRequest((request, response) 
         console.log(id);
         ytpl(id, {limit:Infinity }).then((data)=>{
             response.set('Access-Control-Allow-Origin', '*');
-            response.send(
-                {
-                    title:data.title,
-                    count:data.estimatedItemCount,
-                    item:data.items
+            let list = {
+                title:data.title,
+                count:data.estimatedItemCount,
+            }
+            let vidArr = data.items
+            let down_vid_Arr = []
+
+            vidArr.forEach((item)=>{
+                
+                DownloadVideos(item.shortUrl).then((data)=>{
+                    console.log(data);
                 })
+            })
+
+
+
+            response.send(list)
                  }).catch((err)=>{
                      console.log(err);
                  })
