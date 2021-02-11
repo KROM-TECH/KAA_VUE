@@ -130,30 +130,20 @@ exports.YT = functions.runWith(runtimeOpts).https.onRequest((request, response) 
        ytpl.getPlaylistID(link).then((id)=>{
         console.log(id);
         ytpl(id, {limit:Infinity }).then((data)=>{
-            response.set('Access-Control-Allow-Origin', '*');
-            let list = {
-                title:data.title,
-                count:data.estimatedItemCount,
-            }
+           
+        
             let vidArr = data.items
-            let down_vid_Arr = []
-
-            vidArr.forEach((item)=>{
-                
-                DownloadVideos(item.shortUrl).then((data)=>{
-                    console.log(data);
-                })
+       
+            PlaylistInfo(vidArr).then(()=>{
+                response.set('Access-Control-Allow-Origin', '*');
+                response.send(PLArr)
             })
-
-
-
-            response.send(list)
-                 }).catch((err)=>{
+                .catch((err)=>{
                      console.log(err);
                  })
        })
   
-
+    })
       
 
     }else{
@@ -168,6 +158,29 @@ exports.YT = functions.runWith(runtimeOpts).https.onRequest((request, response) 
 
 }
 })
+
+function PlaylistInfo(arr){
+    return new Promise(async (resolve, reject) => {
+        let vidArr = arr
+        let down_vid_Arr = []
+
+        vidArr.forEach((item)=>{
+            
+            DownloadVideos(item.shortUrl).then((data)=>{
+                console.log(data);
+                down_vid_Arr.push({index:item.index, ...data})
+            })
+        })
+
+        let list = {
+            title:data.title,
+            count:data.estimatedItemCount,
+            items:down_vid_Arr
+        }
+
+    })
+
+}
  
 function DownloadVideos(link){
     return new Promise(async (resolve, reject) => {
