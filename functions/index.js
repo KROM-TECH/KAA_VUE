@@ -185,7 +185,7 @@ function DownloadVideos(link){
                     thumbnail:con.meta_data.thumbnail,
                     vidOne:{url:con.cdn[0].url, label:con.cdn[0].qualityLabel},
                     vidTwo:{url:con.cdn[1].url, label:con.cdn[1].qualityLabel},
-                    vidThree:{url:con.cdn[2].url, label:con.cdn[3].qualityLabel},
+                    // vidThree:{url:con.cdn[2].url, label:con.cdn[3].qualityLabel},
                 }
                 
                 // console.log(con.cdn);
