@@ -69,10 +69,14 @@ export default {
     },
     search() {
       let check = ytpl.validateID(this.searchInput);
-      if(check){
-
-      }else{
-          
+      if (check) {
+        ytpl.getPlaylistID(this.searchInput).then((id) => {
+          ytpl(id, { limit: Infinity }).then((data) => {
+            console.log(data);
+          });
+        });
+      } else {
+        console.log("object");
       }
     },
   },
