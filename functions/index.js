@@ -183,10 +183,13 @@ function DownloadVideos(link){
                 let list = {
                     name:con.meta_data.video_name,
                     thumbnail:con.meta_data.thumbnail,
-                    vidOne:[]
+                    vidOne:{url:con.cdn[0].url, label:con.cdn[0].qualityLabel},
+                    vidTwo:{url:con.cdn[1].url, label:con.cdn[1].qualityLabel},
+                    vidThree:{url:con.cdn[2].url, label:con.cdn[3].qualityLabel},
                 }
+                
                 // console.log(con.cdn);
-                return resolve(con);
+                return resolve(list);
             }
            
         });
