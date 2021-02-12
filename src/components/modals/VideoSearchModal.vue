@@ -13,7 +13,8 @@
             {{ data.name }}
           </p>
           <div class="d-flex flex-wrap justify-content-center">
-            <b-button class="green mt-2 mx-2" @click="download()">{{ data.size }}</b-button>
+            <b-button class="green mt-2 mx-2" @click="download()">{{ data.vidOne.label }}</b-button>
+            <b-button class="green mt-2 mx-2" @click="download()">{{ data.vidTwo.label }}</b-button>
 
             <b-button class="red mt-2  mx-2" @click="close">Close</b-button>
           </div>
@@ -66,6 +67,7 @@ export default {
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
+          console.log(data.vidOne);
           this.data = data;
           this.loading = false;
         })
