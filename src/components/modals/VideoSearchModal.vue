@@ -64,7 +64,7 @@ export default {
         `https://us-central1-kromtech-archive.cloudfunctions.net/GetDownloadLink/?link=${this.link}`,
       );
       fetch(
-        encodeURI(`https://us-central1-kromtech-archive.cloudfunctions.net/YT/?link=${this.link}`, {
+        encodeURI(`https://us-central1-kromtech-archive.cloudfunctions.net/YT/ ?link=${this.link}`, {
           mode: "no-cors",
         }),
       )

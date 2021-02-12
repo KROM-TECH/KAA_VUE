@@ -40,6 +40,7 @@
         </b-row>
       </b-container>
     </section>
+    <VideoSearchModal :showModal="showModal" @close="showModal = !showModal" :link="link" />
   </div>
 </template>
 
@@ -47,8 +48,9 @@
 import Error from "@/components/Error.vue";
 import Menu from "@/components/Menu.vue";
 import ytpl from "ytpl";
+import VideoSearchModal from "@/components/modals/VideoSearchModal.vue";
 export default {
-  components: { Menu, Error },
+  components: { Menu, Error, VideoSearchModal },
   data() {
     return {
       showModal: false,
@@ -63,10 +65,6 @@ export default {
   },
 
   methods: {
-    openDetails(link) {
-      this.link = link;
-      this.showModal = true;
-    },
     search() {
       let check = ytpl.validateID(this.searchInput);
       console.log(this.searchInput);
@@ -79,6 +77,8 @@ export default {
         });
       } else {
         console.log("object");
+        this.link = this.searchInput;
+        this.showModal = true;
       }
     },
   },
