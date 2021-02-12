@@ -64,12 +64,9 @@ export default {
         `https://us-central1-kromtech-archive.cloudfunctions.net/GetDownloadLink/?link=${this.link}`,
       );
       fetch(
-        encodeURI(
-          `https://us-central1-kromtech-archive.cloudfunctions.net/GetDownloadLink/?link=${this.link}`,
-          {
-            mode: "no-cors",
-          },
-        ),
+        encodeURI(`https://us-central1-kromtech-archive.cloudfunctions.net/YT/?link=${this.link}`, {
+          mode: "no-cors",
+        }),
       )
         .then((response) => response.json())
         .then((data) => {
@@ -83,7 +80,6 @@ export default {
           this.Error = true;
         });
     },
-
   },
 };
 </script>
