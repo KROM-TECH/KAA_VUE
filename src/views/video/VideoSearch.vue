@@ -79,6 +79,7 @@ export default {
         console.log("object");
         this.link = this.searchInput;
         this.showModal = true;
+        console.log("done");
       }
     },
   },

@@ -2,15 +2,15 @@
   <div class="d-flex column">
     <transition name="slide" appear>
       <div class="modall" v-if="modal">
-        <div class="d-flex justify-content-center" v-if="!data.description">
+        <div class="d-flex justify-content-center" v-if="!data.name">
           <b-spinner type="grow load" label="Loading..."></b-spinner>
         </div>
         <div class=" card p-5 mx-2 d-flex justify-content-center align-items-center" v-else>
           <div class="close" @click="$emit('close')">X</div>
-          <img :src="data.image" alt="" />
+          <img :src="data.thumbnail" alt="" />
 
           <p class="desc">
-            {{ data.description | truncate }}
+            {{ data.name }}
           </p>
           <div class="d-flex flex-wrap justify-content-center">
             <b-button class="green mt-2 mx-2" @click="download()">{{ data.size }}</b-button>
@@ -33,15 +33,7 @@ export default {
       Error: false,
     };
   },
-  filters: {
-    truncate: function(text, length = 500, clamp) {
-      clamp = clamp || "...";
-      var node = document.createElement("div");
-      node.innerHTML = text;
-      var content = node.textContent;
-      return content.length > length ? content.slice(0, length) + clamp : content;
-    },
-  },
+
   computed: {
     modal() {
       return this.showModal;
@@ -64,9 +56,12 @@ export default {
         `https://us-central1-kromtech-archive.cloudfunctions.net/GetDownloadLink/?link=${this.link}`,
       );
       fetch(
-        encodeURI(`https://us-central1-kromtech-archive.cloudfunctions.net/YT/ ?link=${this.link}`, {
-          mode: "no-cors",
-        }),
+        encodeURI(
+          `https://us-central1-kromtech-archive.cloudfunctions.net/YT/ ?link=${this.link}`,
+          {
+            mode: "no-cors",
+          },
+        ),
       )
         .then((response) => response.json())
         .then((data) => {
