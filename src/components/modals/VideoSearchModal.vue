@@ -13,10 +13,10 @@
             {{ data.name }}
           </p>
           <div class="d-flex flex-wrap justify-content-center">
-            <a :href="data.vidOne.url" download="data.mp4">
+            <a :href="data.vidOne.url" :download="data.name" type="download" target="_blank">
               <b-button class="green mt-2 mx-2">{{ data.vidOne.label }}</b-button></a
             >
-            <a :href="data.vidTwo.url" download="data.mp4">
+            <a :href="data.vidTwo.url" :download="data.name" type="download" target="_blank">
               <b-button class="green mt-2 mx-2">{{ data.vidTwo.label }}</b-button></a
             >
 
