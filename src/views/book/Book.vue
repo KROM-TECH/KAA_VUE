@@ -219,8 +219,8 @@ export default {
               Lev: document.level,
               Upl: document.uploader,
             };
-            console.log(content);
             this.data.push(content);
+            console.log(this.data);
           }, (this.loading = false))
           .catch((error) => {
             console.log(error);
